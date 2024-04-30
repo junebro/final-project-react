@@ -1,0 +1,24 @@
+@import './../css/App.css';
+
+.menu_container {
+    font-family: 'Pretendard-Regular';
+    background-color: lightblue; /* 변경하고 싶은 색상으로 대체 */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex; /* 내부 요소를 가로 방향으로 정렬 */
+    justify-content: center; /* 내부 요소를 가운데 정렬 */
+}
+
+.div_menu ul {
+    list-style-type: none; /* ul 내부의 li 태그에서 점을 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    margin: 0; /* 기본 마진 제거 */
+    display: flex; /* 항목들을 수평으로 배치 */
+    gap: 50px; /* 항목들 사이의 간격 지정 */
+    font-size:25px;
+}
+
+.li_class {
+    cursor: pointer;
+    user-select: none; /* 드래그 방지 */
+}
