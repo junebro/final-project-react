@@ -2,6 +2,7 @@ import './../App.css';
 import React from 'react';
 import Navi from './../common/navigation';
 import Menu from './../common/menu';
+import Footer from './../common/footer';
 
 function App() {
     return (
@@ -9,6 +10,7 @@ function App() {
             <Navi />
             <Menu />
             임시test
+            <Footer />
         </div>
     );    
 }

@@ -1,0 +1,26 @@
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #f1f1f1; /* 배경색 */
+    font-size: 14px; /* 글자 크기 */
+    width: 100%;
+    /* color: #666; 글자색 */
+    color: var(--primary-color);
+}
+
+.footer-links {
+    margin-bottom: 10px; /* 링크와 저작권 텍스트 사이의 간격 */
+}
+
+.footer-links a {
+    margin: 0 10px; /* 링크 사이의 간격 */
+    color: #000; /* 링크 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.footer-copy {
+    text-align: center; /* 중앙 정렬 */
+}

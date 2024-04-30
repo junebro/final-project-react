@@ -4,3 +4,12 @@
     font-weight: 400;
     font-style: normal;
 }
+
+:root {
+    --green-color: #005A4E;  
+    --red-color: #FD6461;
+    --yellow-color: #FFB600; 
+    --ivory-color: #FCF6E4; 
+    --brown-color: #461310; 
+    --gray-color: #FAFAFA;
+}
