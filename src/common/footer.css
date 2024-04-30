@@ -7,8 +7,7 @@
     background-color: #f1f1f1; /* 배경색 */
     font-size: 14px; /* 글자 크기 */
     width: 100%;
-    /* color: #666; 글자색 */
-    color: var(--primary-color);
+    color: #666; /* 글자색 */
 }
 
 .footer-links {
