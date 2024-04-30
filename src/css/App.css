@@ -8,7 +8,7 @@
 /*
     background-color: var(--background-color);
     color: var(--text-color);
-*/
+*/ 
 :root {
     --green-color: #005A4E;  
     --red-color: #FD6461;
