@@ -1,0 +1,84 @@
+section {
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.board{
+	width: 80%;
+	height: 50%;
+	border-radius: 15px;
+	background-color: #FFF4F4;
+}
+
+.board_top{
+	display: flex;
+}
+
+.board_line{
+	border-top: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.board_main{
+	display: flex;
+}
+
+.board_left{
+	display: flex;
+}
+
+.border_top{
+	display: flex;
+}
+
+.view_center {
+	border-right: 1px solid rgba(128, 128, 128, 0.3); 
+}
+
+.board_right{
+	display: flex;
+}
+
+/* 페이징 */
+
+.paging {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    color: #333;
+}
+
+.pagination li.active a {
+    background-color: #fff;
+    color: #005A4E;
+    border-color: #005A4E;
+	font-weight: bold; 
+}
+
+.pagination li.disabled a {
+    pointer-events: none;
+    cursor: default;
+    background-color: #eee;
+    color: #999;
+    border-color: #ddd;
+}

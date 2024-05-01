@@ -1,8 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+<<<<<<< HEAD
 // import App from './main/main';
 import App from './member/terms';
+=======
+import App from './board/board';
+>>>>>>> 54e5602b7f70622b3d52a75a18c7bc4d200c2488
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
