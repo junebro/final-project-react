@@ -18,6 +18,7 @@ section {
 	margin-right: 31px;
 	background-color: transparent;
 	border: none;
+    cursor: pointer;
 	
 	/* 호버 시 이미지 겹치기 */
 	position: relative;
@@ -107,6 +108,7 @@ section {
     display: flex;
     align-items: center;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .btn.btn-primary .plus_icon {
@@ -142,12 +144,14 @@ section {
 .subject{
     font-size: 20px;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .comment{
     color: #005A4E;
     font-weight: bold;
     margin-right: 20px;
+    cursor: pointer;
 }
 
 .new {
@@ -168,8 +172,13 @@ section {
     margin-left: auto;
 }
 
+.description{
+    cursor: pointer;
+}
+
 .thumbnail img{
     margin-right: 15px;
+    cursor: pointer;
 }
 
 .board_info {
@@ -180,6 +189,15 @@ section {
 .board_info div {
     margin-left: 10px;
     margin-bottom: 10px;
+}
+
+.board_member_nickname2{
+    cursor: pointer;
+
+}
+
+.board_member_nickname2:hover{
+    text-decoration: underline; 
 }
 
 /* 페이징 */

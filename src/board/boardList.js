@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './board_list.css';
+import './boardList.css';
 import Pagination from 'react-js-pagination';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
@@ -36,7 +36,7 @@ function App() {
                         {/* 글쓰기 버튼 */}
                         <a>
                             <button type='submit' className='btn btn-primary'>
-                                <img src={require('./../images/boardImage/plus_icon.png')} className='plus_icon' />
+                                <img src={require('./../images/board/plus_icon.png')} className='plus_icon' />
                                 글쓰기
                             </button>
                         </a>
@@ -49,8 +49,8 @@ function App() {
                                     <div className='search-container'>
                                         <input className='search-box' type='text' id='keyword' name='keyword' placeholder='Search'></input>
                                         <button type='submit' className='search-btn'>
-                                            <img src={require('./../images/boardImage/search_icon.png')} className='search-btn-default' />
-                                            <img src={require('./../images/boardImage/search_on_icon.png')} className='search-btn-on' />
+                                            <img src={require('./../images/board/search_icon.png')} className='search-btn-default' />
+                                            <img src={require('./../images/board/search_on_icon.png')} className='search-btn-on' />
                                         </button>
                                     </div>
                                 </div>
@@ -77,9 +77,9 @@ function App() {
                                     <div className='description'>비타민이 부족해서 어쩌구</div>
                                     <br />
                                     <div className='thumbnail'>
-                                        <img src={require('./../images/boardImage/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/boardImage/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/boardImage/board_test03.png')} alt='test03'></img>
+                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ function App() {
                             <div className='view_center'></div>
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="font_pro">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
@@ -111,9 +111,9 @@ function App() {
                                     <div className='description'>비타민이 부족해서 어쩌구</div>
                                     <br />
                                     <div className='thumbnail'>
-                                        <img src={require('./../images/boardImage/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/boardImage/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/boardImage/board_test03.png')} alt='test03'></img>
+                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
                                     </div>
                                 </div>
@@ -121,7 +121,7 @@ function App() {
                             <div className='view_center'></div>
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="font_pro">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
@@ -145,9 +145,9 @@ function App() {
                                     <div className='description'>비타민이 부족해서 어쩌구</div>
                                     <br />
                                     <div className='thumbnail'>
-                                        <img src={require('./../images/boardImage/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/boardImage/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/boardImage/board_test03.png')} alt='test03'></img>
+                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
                                     </div>
                                 </div>
@@ -157,7 +157,7 @@ function App() {
 
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="font_pro">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
