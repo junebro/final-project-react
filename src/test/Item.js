@@ -16,7 +16,7 @@ function ItemDisplay() {
         <div>
             {item ? (
                 <div>
-                    asdfsadfaa
+                    asaaa
                     <h1>{item.name}</h1>
                     <p>{item.description}</p>
                     <p>{item.id}</p>
