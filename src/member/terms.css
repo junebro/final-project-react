@@ -1,0 +1,184 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+	box-sizing : border-box;
+	margin: 0;
+    font-family: 'Pretendard-Regular'; 
+    
+}
+
+body {
+    background-color: white;
+    
+}
+
+/* 회원가입 상자 가운데 정렬 */
+section {
+   width: 100vw;
+   height: 87vh;
+
+   display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.terms-form {
+    width: 100%;
+    height: 100%;
+}
+
+/* 제목 */
+.terms-title {
+    
+    margin-bottom: 20px;
+    color: #005A4E;
+    text-align: center;
+}
+
+hr{
+    margin: 20px 0;
+    height: 1.5px;
+    border: 0;
+    background-color: #005A4E;
+}
+
+
+/* textarea 설정 */
+textarea {
+    color: #6a6a6a;
+    width: 100%;
+    height: 160px;
+    border: 1px solid #DEDDDA;
+    border-radius: 4px;
+    outline: none;
+    padding: 15px;
+    margin: 15px 0;
+    resize: none;
+}
+
+/* 체크박스 스타일 */
+ input[type="checkbox"] {
+   accent-color: #005A4E;
+   width: 14px;
+   height: 14px;
+   border-radius: 3px;
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+  
+  
+  
+/* 버튼 그룹 */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    
+}
+
+
+/* 취소 버튼 */
+#btn-reset {
+    width: 100px;
+    height: 35px;
+    margin-right: 40px;
+
+    text-align: center;
+    line-height: 35px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    border: none;
+    border-radius: 5px;
+
+    color: white;
+    background-color: #858585;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+
+#btn-reset:hover {
+    opacity: 0.7;
+}
+
+/* 완료 버튼 */
+#btn-next {
+    width: 100px;
+    height: 35px;
+
+    text-align: center;
+    line-height: 35px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    border: none;
+    border-radius: 5px;
+
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+
+
+/* ************************************ */
+
+@media (min-width: 640px) {
+
+
+body {
+    background-color: #FAFAFA;
+    
+}
+
+/* 회원가입 상자 가운데 정렬 */
+section {
+   width: 100vw;
+   height: 87vh;
+
+   display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 회원가입 상자 */
+.terms-box {
+    width: 550px;
+    height: 640px;
+    border-radius: 30px;
+    padding: 45px;
+
+    background-color: white;
+    box-shadow: 4px 4px 20px 0 #EFEFEF;
+
+    
+}
+
+/* 제목 */
+.terms-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+    color: #005A4E;
+    text-align: center;
+}
+
+/* textarea 설정 */
+textarea {
+    height: 130px;    
+}
+
+}
