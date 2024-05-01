@@ -1,0 +1,140 @@
+@import './../css/App.css';
+
+/* 기본 스타일 */
+.main_top {
+    display: flex; /* div태그 한줄로 */
+    user-select: none; /* 드래그 방지 */
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 2%;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+
+.font_top {
+    font-family: 'Pretendard-Regular';
+}
+
+.top_1 {
+    font-size: 80px;
+    color: var(--green-color);
+    font-weight: bold; /* 텍스트를 굵게 설정 */
+}
+
+.top_2 {
+    font-size: 50px;
+    font-weight: bold; /* 텍스트를 굵게 설정 */
+}
+
+.top_3 {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.img_main {
+    transition: opacity 0.5s ease; /* 이미지 숨김/보임 효과를 부드럽게 */
+}
+
+.top_button {
+    display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트 크기에 맞춰 너비 조정 */
+    padding: 20px 30px; /* 내부 여백 설정 */
+    background-color: var(--brown-color);  /* 배경색 설정 */
+    color: #fff; /* 텍스트 색상 설정 */
+    font-size: 20px; /* 폰트 크기 설정 */
+    font-weight: bold; /* 폰트 굵기 설정 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+    cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+    border-radius: 5px; /* 모서리를 둥글게 만들기 */
+    transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
+}
+
+.main_mid{
+    padding-top:3%;
+    padding-bottom: 10%;
+    background-color: var(--gray-color);
+}
+
+.main_line {
+    padding-top: 3%;
+}
+
+
+.font_mid{
+    font-family: 'Pretendard-Regular';
+    text-align: center;
+}
+
+.mid_1 {
+    font-family: 'TTLaundryGothicB';
+    font-size: 50px;
+    padding-bottom: 1%;
+    font-weight: bold; /* 텍스트를 굵게 설정 */
+}
+
+.mid_2 {
+    font-family: 'SUITE-Regular';
+    font-size: 30px;
+    padding-bottom: 3%;
+}
+
+
+.mid_area_button {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.mid_area_1 {
+    padding-bottom: 2%;
+    display: flex;
+    justify-content: center;
+}
+
+.mid_area_2 {
+    display: flex;
+    justify-content: center;
+}
+
+
+.mid_button {
+    box-shadow: 2px 2px 5px 0  rgb(75, 75, 75);
+    display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트 크기에 맞춰 너비 조정 */
+    padding: 20px 30px; /* 내부 여백 설정 */
+    background-color: white;
+    color: black; /* 텍스트 색상 설정 */
+    font-size: 20px; /* 폰트 크기 설정 */
+    font-weight: bold; /* 폰트 굵기 설정 */
+    text-align: center; /* 텍스트를 가운데 정렬 */  
+    cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+    border-radius: 5px; /* 모서리를 둥글게 만들기 */
+    transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
+}
+
+/* 모바일 화면에서 이미지 숨기기 */
+@media (max-width: 640px) {
+    .img_main {
+        display: none; /* 화면이 768px 이하일 때 이미지 숨기기 */
+    }
+    .font_1{
+        font-size: 50px;
+    }
+    .font_2{
+        font-size: 30px;
+    }
+    .font_3{
+        font-size: 10px;
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+    .top_button {
+        padding: 10px 15px; /* 내부 여백 설정 */
+        font-size: 10px; /* 폰트 크기 설정 */
+    }
+}
+
+/* 태블릿 및 데스크탑 화면에서 이미지 보이기 */
+@media (min-width: 769px) {
+    .img_main {
+        display: block; /* 화면이 769px 이상일 때 이미지 보이기 */
+    }
+} 

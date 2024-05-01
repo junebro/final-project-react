@@ -1,7 +1,7 @@
 import './footer.css'
 
 function App(){
-    
+
     return(
         <div className="nav_container">
             <footer class="footer-container">
@@ -10,7 +10,7 @@ function App(){
                 <a href="#">도움말</a>
                 <a href="#">Contact</a>
             </div>
-            <p class="footer-copy">Copyright © 2023 deVoca All rights reserved.</p>
+            <p class="footer-copy">Copyright © 2024 ? All rights reserved.</p>
         </footer>
     </div>
     );    
