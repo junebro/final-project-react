@@ -1,0 +1,50 @@
+.center_container {
+  /* 가장 상위 컨테이너 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.button_container {
+  justify-content: space-evenly;
+  display: grid; /* 그리드 컨테이너로 변경 */
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열로 구성 */
+  grid-gap: 10px; /* 그리드 간격 설정 */
+  text-align: center;
+  margin-top: -20%;
+}
+
+.button_container label {
+  cursor: pointer; /* pointer 커서 스타일 적용 */
+  display: flex; /* 라벨을 플렉스 박스로 설정하여 내부 요소를 정렬 */
+  align-items: center; /* 내부 요소를 세로로 중앙 정렬 */
+  height: 8%;
+}
+
+.button_container span.checkbox_span {
+  flex-grow: 1; /* 내부 요소가 늘어나도록 설정 */
+  padding: 35px 60px; /* 라벨의 패딩을 늘립니다. */
+  border: 1px solid #ccc; /* 라벨에 테두리 추가 */
+  transition: background-color 1s ease; /* 배경색 변화에 대한 transition 효과 추가 */
+  border-radius: 10px;
+  width: 200px;
+  height: 100px;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bolder;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+.button_container span.checkbox_span:hover {
+  background-color: #f0f0f0; /* 마우스 호버 시 배경색 변경 */
+}
+
+.button_container input[type="checkbox"] {
+  display: none; /* 체크박스 감추기 */
+}
+
+.button_container input[type="checkbox"]:checked + label span.checkbox_span {
+  background-color: black; /* 체크된 경우 스타일 변경 */
+  color: wheat;
+}
