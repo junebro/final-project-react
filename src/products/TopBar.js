@@ -9,7 +9,7 @@ const TopBar = () => {
   const handleMenuClick = (menu) => {
     // 여기서는 간단히 메뉴를 설정하고, DB 조회 등의 작업을 수행할 수 있습니다.
     setSelectedMenu(menu);
-  };s
+  };
 
   return (
     <div className="top-bar">
