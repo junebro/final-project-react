@@ -16,7 +16,7 @@ function App() {
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
-        <ul class="mypage-ul">
+        <ul className="mypage-ul">
           <li className="active"><a href="#">내 정보 수정</a></li>
           <li><a href="#">영양 진단 결과</a></li>
           <li><a href="#">커뮤니티 활동</a></li>
@@ -27,7 +27,7 @@ function App() {
       </nav>
 
       <div className="contents">
-        <h1>내 정보 수정</h1>
+        <h1 class="title">내 정보 수정</h1>
         <hr className="title-line" />
       </div>
     </section>

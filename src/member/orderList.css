@@ -70,11 +70,7 @@ li {
     color:white;
 }
 
-.active{
-    border-radius: 5px;
-    background-color: #005A4E;
-    color:white;
-}
+
 
 .mypage-ul li a{ 
     
@@ -89,7 +85,109 @@ li {
     padding: 30px;
 }
 
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
+
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
 /* 템플릿 이후 */
+.order-box{
+    width: 100%;
+    border-radius: 10px;
+    padding: 35px 30px 30px;
+    box-shadow: 4px 4px 10px 0 #EFEFEF;
+    margin-bottom: 15px;
+}
+
+.delivery-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.order-date {
+    margin-right: 10px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* 배송 상태 */
+.delivery-status {
+    font-size: 14px;
+    color: red;
+}
+
+.product-box {
+    display: flex;
+    margin-bottom : 15px;
+}
+
+.product-img img{
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+}
+
+.order-info p {
+    margin-bottom: 10px;
+}
+
+.order-info >:first-child {
+    font-size: 18px;
+}
+
+.order-info >:nth-child(2) {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* 주소 */
+.order-info >:last-child {
+    font-size: 14px;
+    color: #4b4b4b;
+    overflow: hidden;
+}
+
+.payment {
+    font-size: 18px;
+    font-weight: 700;
+    
+}
+
+.order-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delivery-btn {
+        width: 50%;
+        height: 45px;
+        border-radius: 10px;
+        border: none;
+    
+        font-size: 16px;
+        color: #005A4E;
+        background-color: white;
+    
+        transition: all ease-in-out 0.15s;
+    
+        cursor: pointer;
+
+        padding: 10px 15px;
+    border: 1px solid #005A4E;
+    
+    }
+    
+.delivery-btn:hover {
+    background-color: #F1FFF2;
+
+}
 
 @media (min-width: 640px) {
 
@@ -117,6 +215,7 @@ li {
         margin-right: 30px;
         background-color: white;
     }    
+
 
     .nav-profile-img{
         display: block;
@@ -163,7 +262,7 @@ li {
 .contents{
     width: 80%;
     padding: 50px;
-    margin-top: 100px;
+    margin-top: 110px;
 
     border-radius: 15px;
     background-color: white;

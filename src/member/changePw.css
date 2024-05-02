@@ -70,11 +70,7 @@ li {
     color:white;
 }
 
-.active{
-    border-radius: 5px;
-    background-color: #005A4E;
-    color:white;
-}
+
 
 .mypage-ul li a{ 
     
@@ -89,7 +85,68 @@ li {
     padding: 30px;
 }
 
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
+
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
+
 /* 템플릿 이후 */
+.changePw-box {
+    width: 100%;
+    margin-top: 50px 
+}
+
+.changePw-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin: 0 auto;
+
+    max-width: 500px;
+}
+
+.changePw-form p {
+    font-weight: 700;
+}
+
+.changePw-form input {
+    height: 50px;
+    border-radius: 10px;
+    margin: 10px 0 20px;
+
+    border: 1px solid #D9D9D9;
+    outline: none;
+
+    text-indent: 15px;
+}
+
+.changePw-btn {
+    width: 100px;
+    height: 45px;
+    padding: 0 20px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: none;
+
+    font-size: 16px;
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+
+.changePw-btn:hover {
+    opacity: 0.7;
+}
 
 @media (min-width: 640px) {
 
@@ -117,6 +174,7 @@ li {
         margin-right: 30px;
         background-color: white;
     }    
+
 
     .nav-profile-img{
         display: block;
@@ -163,7 +221,7 @@ li {
 .contents{
     width: 80%;
     padding: 50px;
-    margin-top: 100px;
+    margin-top: 110px;
 
     border-radius: 15px;
     background-color: white;
