@@ -192,19 +192,19 @@ a {
 
 .kakao {
     background-color: #FEE500;
-    background-image: url(./../images/icon-kakao.svg);
+    background-image: url(./../images/member/icon-kakao.svg);
     background-size: 30px 30px;
 }
 
 .google{
     background-color: #FAF9EF;
-    background-image: url(./../images/icon-google.svg);
+    background-image: url(./../images/member/icon-google.svg);
     background-size: 35px 35px;
 }
 
 .naver {
     background-color: #17B75E;
-    background-image: url(./../images/icon-naver.svg);
+    background-image: url(./../images/member/icon-naver.svg);
 }
 
 /* **************************************** */

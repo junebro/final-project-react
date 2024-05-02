@@ -1,8 +1,8 @@
 import logo from './../images/logo.svg';
 import './../App.css';
 import './terms.css';
-import Navi from './../common/navigation';
-import Footer from './../common/footer';
+import Navi from '../common/navigation';
+import Footer from '../common/footer';
 // import React, { useState } from 'react';
 import { useState, useRef } from 'react';
 
