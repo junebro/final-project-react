@@ -1,11 +1,9 @@
 import './nav.css'
 import logo from './../images/logo.svg'; // 이미지 파일을 import
+import { Link } from 'react-router-dom';
 
 function App(){
 
-    function fn_logo(){
-        alert("로고클릭");
-    }
     function fn_login(){
         alert("로그인");
     }
@@ -18,9 +16,10 @@ function App(){
 
     return(
         <div className="nav_container">
-            <div className='div_logo' onClick={fn_logo}>
+
+            <Link to="/">
                 <img className='img_logo' src={logo} alt="로고"></img>
-            </div>
+            </Link>
            
             <header className='div_text' style={{ display: 'flex', gap: '10px' }}>
                 <ul>

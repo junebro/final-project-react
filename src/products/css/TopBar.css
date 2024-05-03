@@ -1,0 +1,38 @@
+@import './../../css/App.css';
+
+  .top-bar {
+    font-family: 'SUITE-Regular';
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center;
+    padding: 20px 20px;
+    background-color: white;
+    position: sticky;
+    z-index: 1000;
+    top: 0;
+    border-bottom: 1px solid #ccc; /* 맨 아래에 1픽셀 높이의 실선 경계선 추가 */
+  }
+  
+  .top-bar-link {
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    padding: 8px 12px;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.3s ease;
+    cursor: pointer; /* 포인터 커서 설정 */
+    font-size: 20px;
+  }
+  
+  .top-bar-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .top-bar-link {
+    margin-right: 50px; /* 각 링크 사이의 간격 조절 */
+  }
+  
+  .top-bar-link:last-child {
+    margin-right: 0; /* 마지막 링크에는 오른쪽 마진을 적용하지 않음 */
+  }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './boardList.css';
 import Pagination from 'react-js-pagination';
 import Navi from '../common/navigation';
@@ -9,6 +9,33 @@ function App() {
     const ChangeCategory = (evnet) => {
         console.log()
     }
+
+    // 팝업 열기
+    const openPopup = () => {
+        const popup = document.getElementById('memberPopup');
+        popup.style.display = 'block';
+    };
+
+    // 팝업 닫기
+    const closePopup = () => {
+        const popup = document.getElementById('memberPopup');
+        popup.style.display = 'none';
+    };
+
+    // 팝업 외부 클릭 시 팝업 닫기
+    useEffect(() => {
+        function handleClickOutside(event) {
+            const popup = document.getElementById('memberPopup');
+            if (popup && !popup.contains(event.target)) {
+                closePopup();
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     // 페이징
     const [page, setPage] = useState(1);
@@ -56,7 +83,7 @@ function App() {
                                 </div>
                             </div>
                         </form>
-                        {/* 검색어에 대한 응답 출력 */}
+                        {/* 검색어에 대한 응답 출력 */} 
                         {/* <div id='resultContainer' className='resultContainer'></div> */}
                     </div>
 
@@ -87,7 +114,16 @@ function App() {
                             <div className='view_center'></div>
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
+                                        {/* 닉네임 클릭시 리스트 팝업 */}
+                                        <div className='popup' data-role="popup" id="memberPopup">
+                                            <ul data-role="listview" data-inset="true">
+                                                <li><a href="#">게시글 보기</a></li>
+                                                <li><a href="#">1:1 채팅</a></li>
+                                                <li><a href="#">친구 추가</a></li>
+                                                <li><a href="#">신고하기</a></li>
+                                            </ul>
+                                        </div></span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
@@ -121,7 +157,16 @@ function App() {
                             <div className='view_center'></div>
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
+                                        {/* 닉네임 클릭시 리스트 팝업 */}
+                                        <div className='popup' data-role="popup" id="memberPopup">
+                                            <ul data-role="listview" data-inset="true">
+                                                <li><a href="#">게시글 보기</a></li>
+                                                <li><a href="#">1:1 채팅</a></li>
+                                                <li><a href="#">친구 추가</a></li>
+                                                <li><a href="#">신고하기</a></li>
+                                            </ul>
+                                        </div></span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
@@ -157,7 +202,16 @@ function App() {
 
                             <div className='board_right'>
                                 <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2">dd</span></div>
+                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
+                                        {/* 닉네임 클릭시 리스트 팝업 */}
+                                        <div className='popup' data-role="popup" id="memberPopup">
+                                            <ul data-role="listview" data-inset="true">
+                                                <li><a href="#">게시글 보기</a></li>
+                                                <li><a href="#">1:1 채팅</a></li>
+                                                <li><a href="#">친구 추가</a></li>
+                                                <li><a href="#">신고하기</a></li>
+                                            </ul>
+                                        </div></span></div>
                                     <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
                                     <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                 </div>
