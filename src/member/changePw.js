@@ -10,7 +10,7 @@ function App() {
         <div>
             <Navi />
             <Menu />
-            <div class="section-p">
+            <div className="section-p">
             <section>
       <nav className="nav">
         <div className="nav-profile-img"></div>
