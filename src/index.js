@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-// import App from './main/main';
+import App from './main/main';
 // import App from './board/boardList';
 // import App from './board/boardInsert';
-import App from './board/boardDetail';
+// import App from './board/boardDetail';
+// import App from './board/boardUpdate';
 
 import reportWebVitals from './reportWebVitals';
 
