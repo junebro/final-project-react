@@ -190,6 +190,10 @@ section {
     font-weight: bold;
 }
 
+.comments{
+    overflow-y: auto;
+
+}
 /* ----------------------------------------------------- */
 
 .input-comments{
