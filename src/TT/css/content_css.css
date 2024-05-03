@@ -1,0 +1,168 @@
+@import "./../../css/App.css";
+
+/* 메인화면 가득 채우기 */
+.full-screen-container {
+  align-items: center;
+  height: 100vh;
+}
+/* 버튼 css */
+.next_button {
+  text-decoration: none;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  border: none;
+  background-color: var(--green-color);
+  width: 100%;
+  height: 10%;
+  font-size: 30px;
+  font-weight: bolder;
+  color: aliceblue;
+  margin-top: 3%;
+}
+
+/* 입력 안내 문구 */
+.main_alert {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+  color: var(--green-color);
+}
+
+/* 스와이퍼 CSS */
+.age-swiper-container {
+  margin-top: 10%;
+  margin-right: 20%;
+  font-size: 1.5rem;
+  height: 50px;
+  width: 20%;
+  text-align: center;
+}
+
+.gender-swiper-container {
+  margin-top: 10%;
+  margin-left: 20%;
+  font-size: 1.5rem;
+  height: 50px;
+  width: 20%;
+  text-align: center;
+}
+
+/* 스와이퍼 CSS */
+.weight-swiper-container {
+  margin-top: 5%;
+  margin-right: 20%;
+  font-size: 1.5rem;
+  height: 50px;
+  width: 20%;
+  text-align: center;
+}
+
+.height-swiper-container {
+  margin-top: 5%;
+  margin-left: 20%;
+  font-size: 1.5rem;
+  height: 50px;
+  width: 20%;
+  text-align: center;
+}
+
+/* 스와이퍼 박스 css */
+.box-container {
+  margin-top: 5%;
+  margin-left: 30%;
+  height: 30%;
+  width: 40%;
+  border: 1px solid black;
+}
+
+.swiper_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height: 50%;
+}
+
+@media (max-width: 880px) {
+  /* 메인화면 가득 채우기 */
+  .full-screen-container {
+    height: 100vh;
+  }
+
+  /* 버튼 css */
+  .next_button {
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    border: none;
+    background-color: var(--green-color);
+    width: 100%;
+    height: 10%;
+    font-size: 30px;
+    font-weight: bolder;
+    color: aliceblue;
+  }
+
+  /* 입력 안내 문구 */
+  .main_alert {
+    margin-top: 5%;
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    color: var(--green-color);
+  }
+
+  /* 스와이퍼 CSS */
+  .age-swiper-container {
+    margin-top: 10%;
+    margin-right: 20%;
+    font-size: 0.8rem;
+    height: 50px;
+    width: 20%;
+    text-align: center;
+  }
+
+  .gender-swiper-container {
+    margin-top: 10%;
+    margin-left: 20%;
+    font-size: 0.8rem;
+    height: 50px;
+    width: 20%;
+    text-align: center;
+  }
+
+  /* 스와이퍼 CSS */
+  .weight-swiper-container {
+    margin-top: 5%;
+    margin-right: 20%;
+    font-size: 0.8rem;
+    height: 50px;
+    width: 20%;
+    text-align: center;
+  }
+
+  .height-swiper-container {
+    margin-top: 5%;
+    margin-left: 20%;
+    font-size: 0.8rem;
+    height: 50px;
+    width: 20%;
+    text-align: center;
+  }
+
+  /* 스와이퍼 박스 css */
+  .box-container {
+    margin-top: 5%;
+    margin-left: 30%;
+    height: 30%;
+    width: 40%;
+    border: 1px solid black;
+  }
+
+  .swiper_box {
+    display: flex;
+    justify-content: space-evenly;
+    height: 50%;
+  }
+}
