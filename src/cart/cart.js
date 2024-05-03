@@ -21,11 +21,11 @@ function CartItem({ item, onUpdateCart, onRemoveItem }) {
   return (
     <div>    
       <ul className="cart-item">
-        <li><img src={item.image} alt={item.name} style={{ width: '100px', height: '100px' }} /></li>
+        <li><img className='cart-product-image' src={item.image} alt={item.name} /></li>
         <li>  
           <div className='cart-item-name'>
-            <div >{item.name}</div>
-            <div>{item.price.toLocaleString()}원</div>
+            <div className='cart-product-name'>{item.name}</div>
+            <div className='cart-product-price'>{item.price.toLocaleString()}원</div>
           </div>
         </li>
         <li>
@@ -35,8 +35,12 @@ function CartItem({ item, onUpdateCart, onRemoveItem }) {
             <div className='cart-plus-button' onClick={increment}>+</div>
           </div>
         </li>
-        <li><div className='cart-item-price'>{(item.price * item.quantity).toLocaleString()}원</div></li>
-        <li><div className='cart-bu' onClick={removeItem} style={{ float: 'right' }}>X</div></li>
+        <li>
+          <div className='cart-calculate'>
+            <div className='cart-item-price'>{(item.price * item.quantity).toLocaleString()}원</div>
+            <div className='cart-remove' onClick={removeItem} style={{ float: 'right' }}>X</div>
+          </div>
+        </li>
       </ul>
       <div className='line'></div>
     </div>

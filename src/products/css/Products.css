@@ -41,12 +41,14 @@
 .product-price{
   font-family: 'Pretendard-Regular';
   padding-top: 10px;
-  font-size: 28px;
+  padding-left: 20px;
+  font-size: 20px;
   display: flex;
   justify-content: space-between; /* 좌측은 가격, 우측은 카트 아이콘으로 자동으로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
   width: 100%; /* 전체 너비 사용 */
+  font-weight: bold;
 }
 
 .img_cart {
@@ -54,5 +56,6 @@
   right: 10px; /* 아이콘을 이미지 오른쪽으로 옮기기 */
   width: 45px;
   height: 40px;
+  padding-right: 30px;
 }
 

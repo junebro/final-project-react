@@ -1,14 +1,5 @@
 @import './../css/App.css';
 
-.line {
-	border-top: 1px solid rgba(128, 128, 128, 0.3); /* 투명도를 포함한 회색 선 */
-}
-
-.line-bold {
-  border-top: 2px solid rgb(95, 95, 95);
-  margin-bottom: 20px;
-}
-
 .cart-body {
   padding: 0 10vw;
   display: flex;
@@ -41,6 +32,11 @@
   align-items: center;
 }
 
+.cart-product-image {
+  width: 100px;
+  height: 100px;
+}
+
 .cart-container li {
   /* border: 1px solid #ccc; */
   text-align: center;
@@ -50,7 +46,7 @@
   padding: 3px 30px;
 }
 
-.cart-button{
+.cart-button, .cart-calculate {
   display: flex;
   padding-left: 20px;
 }
@@ -111,16 +107,48 @@
 }
 
 @media (max-width: 1000px) {
-  .cart-item{
+  .cart-item {
     display: flex; /* 플렉스 박스 사용 */
     flex-direction: column; /* 요소를 세로로 배열 */
     align-items: center; /* 가로 방향으로 중앙 정렬 */
-    border: 1px solid #ccc; /* 테두리 */
-    margin-top: 10px; /* 위쪽 마진 */
-    padding: 0; /* 패딩 */
     }
-    .cart-table-head{
+
+    .cart-table-head {
       visibility:hidden;
+    }
+
+    .cart-product-image {
+      width: 400px;
+      height: 400px;
+    }
+
+    .cart-product-name {
+      font-size: 20px;
+    }
+
+    .cart-product-price {
+      padding-left:10px;
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    .cart-button {
+      padding-bottom: 20px;
+    }
+
+    .cart-item-price {
+      font-size: 30px;
+      padding-left: 130px;
+    }
+
+    .cart-remove {
+      cursor: pointer;
+      font-size: 30px;
+      padding-left: 80px;
+    }
+
+    .total-button {
+      padding: 20px 150px; /* 내부 여백 설정 */
     }
 }
 

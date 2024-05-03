@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import './menu.css';
+import './css/menu.css';
 
 function Menu() {
     function fn_diagnosis() {
@@ -14,16 +14,19 @@ function Menu() {
     }
 
     return (
-        <div className="menu_container">
-            <nav className='div_menu'>
-                <ul>
-                    <li><a href="#" className='li_class' onClick={fn_diagnosis}>영양 진단</a></li>
-                    <li><Link to="/products" className='li_class'>메뉴 보기</Link></li>
-                    <li><a href="#" className='li_class' onClick={fn_recommendation}>음식 추천</a></li>
-                    <li><a href="#" className='li_class' onClick={fn_community}>커뮤니티</a></li>
-                </ul>
-            </nav>
-        </div>
+        <>
+            <div className="menu_container">
+                <nav className='div_menu'>
+                    <ul>
+                        <li><a href="#" className='link' onClick={fn_diagnosis}>영양진단</a></li>
+                        <li><Link to="/products" className='link'>메뉴보기</Link></li>
+                        <li><a href="#" className='link' onClick={fn_recommendation}>음식추천</a></li>
+                        <li><a href="#" className='link' onClick={fn_community}>커뮤니티</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div className='line'></div>
+        </>
     );
 }
 
