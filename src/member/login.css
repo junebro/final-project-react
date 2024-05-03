@@ -1,0 +1,242 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+	box-sizing : border-box;
+	margin: 0;
+    font-family: 'Pretendard-Regular'; 
+}
+
+
+body {
+    background-color: white;
+    
+}
+
+/* 회원가입 상자 가운데 정렬 */
+section {
+   width: 100vw;
+   height: 87vh;
+
+   display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 로그인 상자 */
+.login-box {
+    width: 100%;
+    height: 600px;
+    border-radius: 30px;
+    padding: 45px;
+
+    background-color: white;
+   
+}
+
+.login-form {
+    width: 100%;
+    height: 100%;
+}
+
+/* 제목 */
+.login-title {
+    
+    margin-bottom: 25px;
+    color: #005A4E;
+    text-align: center;
+}
+
+hr{
+    margin: 20px 0;
+    height: 1.5px;
+    border: 0;
+    background-color: #005A4E;
+}
+
+/* 인풋창 이름 */
+.sub-title {
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.email-message{
+    font-size: 13px;
+    color: #E91B1B;
+}
+
+.pw-message{
+    font-size: 13px;
+    color: #E91B1B;
+}
+
+/* 아이디, 비밀번호 인풋창 */
+.input-login {
+    display: flex;
+
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    margin: 10px 0 20px;
+
+    border: 1px solid #D9D9D9;
+    outline: none;
+
+    text-indent: 15px;
+}
+
+
+
+/* 체크박스 스타일 */
+ input[type="checkbox"] {
+   accent-color: #005A4E;
+   width: 14px;
+   height: 14px;
+   border-radius: 3px;
+   margin-right: 10px;
+   cursor: pointer;
+ }
+
+ /* 아이디 저장 - 비밀번호 찾기 */
+.saveId-searchPw {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #6A6A6A;
+    margin-bottom: 25px;
+}
+
+
+/* 비밀번호를 잊으셨나요? */
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 로그인 버튼 */
+.btn-submit{
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    border: none;
+
+    font-size: 16px;
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+
+#btn-submit:hover {
+    opacity: 0.7;
+}
+
+/*  - or - */
+.or {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    color: var(--gray500);
+    font-size: 13px;
+    margin: 30px 0;
+}
+
+.or::before {
+    content: "";
+    flex-grow: 1;
+    background: #6A6A6A;
+    height: 1.2px;
+    font-size: 0px;
+    line-height: 0px;
+    margin-right: 16px;
+}
+
+.or::after {
+    content: "";
+    flex-grow: 1;
+    background: #6A6A6A;
+    height: 1.2px;
+    font-size: 0px;
+    line-height: 0px;
+    margin-left: 16px;
+}
+
+/* sns로그인 모음들 */
+.sns-login {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sns-login div{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    
+
+    cursor: pointer;
+}
+
+.kakao {
+    background-color: #FEE500;
+    background-image: url(./../images/icon-kakao.svg);
+    background-size: 30px 30px;
+}
+
+.google{
+    background-color: #FAF9EF;
+    background-image: url(./../images/icon-google.svg);
+    background-size: 35px 35px;
+}
+
+.naver {
+    background-color: #17B75E;
+    background-image: url(./../images/icon-naver.svg);
+}
+
+/* **************************************** */
+
+
+@media (min-width: 640px) {
+    body {
+        background-color: #FAFAFA;
+        
+    }
+    
+ 
+    
+    /* 로그인 상자 */
+    .login-box {
+        width: 450px;
+        box-shadow: 4px 4px 20px 0 #EFEFEF;
+    }
+    
+
+    /* sns로그인 모음들 */
+    .sns-login {
+
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    
+    .sns-login div{
+        width: 50px;
+        height: 50px;
+        margin-bottom: 0;
+        border-radius: 100%;
+    }
+
+}
