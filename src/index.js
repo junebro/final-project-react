@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './main/main';
 // import App from './board/boardList';
-import App from './board/boardInsert';
+// import App from './board/boardInsert';
+import App from './board/boardDetail';
 
 import reportWebVitals from './reportWebVitals';
 
