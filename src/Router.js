@@ -4,7 +4,7 @@ import Main from "./main/main";
 import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
-
+import Member from "./member/login";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <Route path="/Products" element={<Products />} />
       <Route path="/Cart" element={<Cart />} />
       <Route path="/Diet" element={<Diet />} />
+      <Route path="/Member" element={<Member />} />
     </Routes>
   );
 }

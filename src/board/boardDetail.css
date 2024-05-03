@@ -1,0 +1,339 @@
+body{
+    background-color: #FAFAFA;
+}
+
+section {
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.write-box{
+    width: 80%;
+    max-width: 1200px;
+    height: auto;
+    max-height: 700px;
+	border-radius: 15px;
+    background-color: #ffffff;
+    padding: 50px;
+    color: #6A6A6A;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.write-title{
+    width: 100%;
+    border:none;
+    font-size: 25px;
+}
+
+
+.board_line{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0.5px solid rgba(128, 128, 128, 0.3);
+}
+
+.view_center {
+	border-right: 1px solid rgba(128, 128, 128, 0.3); 
+}
+
+.main-content{
+    display: flex;
+    padding: 1% 5%;
+}
+
+.box-left{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 5% 5% 0;
+}
+
+/* ----------------------------------------------------- */
+
+.tap-gallery{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+}
+
+.container img {
+    width: 100%; 
+    display: block; /* 이미지 아래의 여분 공간 제거 */
+}
+
+.row{
+    width: 50%;
+    display: flex;
+
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+.column{
+    flex: 1; /* 각 column이 row 내에서 균등하게 공간을 차지하도록 설정 */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.column img {
+    width: 100%;
+    opacity: 0.8; 
+    cursor: pointer; 
+  }
+  
+.column img:hover {
+    opacity: 1;
+  }
+
+/* ----------------------------------------------------- */
+
+
+.box-right{
+    width: 50%;
+    padding: 30px 0 30px 30px;
+}
+
+.content{
+    height: 50%;
+}
+
+.content-writer{
+    display: flex;
+    align-items: center;
+}
+
+.profile-photo{
+    margin: 10px;
+}
+
+.member-name{
+    font-weight: bold;
+}
+
+.right-middle{
+    height: 40%;
+}
+
+.middle-bar{
+    display: flex;
+    align-items: center;
+    justify-content:  space-between;
+    margin: 10px;
+}
+
+.btn-container{
+    display: flex;
+}
+
+.comment-btn, .share-btn, .emoji-btn, .comment-submit-btn{
+    margin-right:10px;
+	background-color: transparent;
+	border: none;
+    cursor: pointer;
+	position: relative;
+}
+
+.like-button{
+    margin-right:10px;
+	background-color: transparent;
+	border: none;
+    cursor: pointer;
+	position: relative;
+}
+
+.like-button:hover{
+    display: block;
+}
+
+
+
+.btn-on{
+	position: absolute;
+	top: 1px;
+	left: 6px;
+	display: none;
+}
+
+.like-btn:hover .btn-on,
+.comment-btn:hover .btn-on,
+.share-btn:hover .btn-on,
+.emoji-btn:hover .btn-on,
+.comment-submit-btn:hover .btn-on {
+    display: block;
+}
+
+.comment{
+    display: flex;
+}
+
+.comment-nickname{
+    font-weight: bold;
+}
+
+.comments{
+    overflow-y: auto;
+
+}
+/* ----------------------------------------------------- */
+
+.input-comments{
+    display: flex;
+    align-items: center;
+    margin-top: 10px; 
+   
+}
+
+.comment-form{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.input-comment{
+    border: none;
+    margin-right: 10px;
+}
+
+.input-comment:focus{
+    outline: none;
+}
+
+
+
+.comment-submit-btn{
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* ----------------------------------------------------- */
+.member-name:hover,
+.comment-nickname:hover {
+    text-decoration: underline; 
+    cursor: pointer;
+}
+
+.popup {
+    display: none; /* 팝업은 기본적으로 숨겨져 있음 */
+    position: fixed;
+    z-index: 9999; /* 다른 요소보다 위에 표시되도록 z-index 설정 */
+    background-color: #ffffff;
+    border: 1px solid #ccc; /* 팝업 테두리 설정 */
+    border-radius: 5px; /* 팝업 모서리 둥글게 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+  }
+
+.popup ul{
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+.popup li{
+    padding: 5px;
+    font-weight: normal;
+}
+
+.popup ul li:hover{
+    color: #005A4E;
+    font-weight: bold;
+}
+
+.popup ul li a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상위 요소의 색상으로 상속 */
+}
+
+.popup ul li a:visited {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none; /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.submit-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:30px;
+}
+
+.submit-btn button{
+    margin:0 10px;
+    border: 1px solid #005A4E;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #005A4E;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    min-width: 150px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.submit-btn button:hover{
+    background-color:#005A4E;
+    color: #ffffff;
+}
+
+/* .out{
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #005A4E;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    columns: #005A4E;
+}
+
+.submit{
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #005A4E;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+    columns: #005A4E;
+} */
+

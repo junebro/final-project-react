@@ -1,0 +1,15 @@
+.top_css {
+  margin-top: 1px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  align-items: center;
+  text-align: center;
+}
+
+.top_ment {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
