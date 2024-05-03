@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./css/Products.css";
 import Modal from './Modal'; // 모달 컴포넌트 임포트  
 import cartClick from './../images/cart_click.png';
+import cart from './../images/cart.png';
 
 // 제품 데이터 생성
 const products = Array.from({ length: 20 }, (v, i) => ({
