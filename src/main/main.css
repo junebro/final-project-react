@@ -51,7 +51,7 @@
     transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
 }
 
-.main_mid{
+.main_mid {
     padding-top:3%;
     padding-bottom: 5%;
     background-color: var(--gray-color);

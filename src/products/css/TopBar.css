@@ -22,7 +22,7 @@
     background-color: rgba(255, 255, 255, 0.1);
     transition: background-color 0.3s ease;
     cursor: pointer; /* 포인터 커서 설정 */
-    font-size: 20px;
+    font-size: 15px;
   }
   
   .top-bar-link:hover {
