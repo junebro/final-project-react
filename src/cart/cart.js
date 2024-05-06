@@ -76,21 +76,21 @@ function Cart() {
       <Menu />
       <div className='cart-body'>
         <div className="cart-container">
-          <h1 style={{textAlign:'center'}}>장바구니</h1>
+          <h1 style={{textAlign:'center', marginBottom:'50px'}}>장바구니</h1>
           <div className='line-bold'></div>
           <div className='cart-table-head'>
             <ul className='cart-container-ul'>
-              <li style={{width:"200px"}}></li>
-              <li style={{width:"900px"}}>제품정보</li>
-              <li style={{width:"100px"}}>수량</li>
-              <li style={{width:"300px"}}>구매금액</li>
-              <li style={{width:"30px"}}></li>
+              <li style={{marginLeft:'250px'}}>제품정보</li>
+              <li style={{marginLeft:"200px"}}>수량</li>
+              <li style={{marginLeft:"80px"}}>구매금액</li>
             </ul>
+            <div className='line-bold'></div>
           </div>
+         
           {items.map(item => (
             <CartItem key={item.id} item={item} onUpdateCart={updateCart} onRemoveItem={removeItem} />
           ))}
-          <div className='line-bold'></div>
+          <div style={{marginTop:'20px'}} className='line-bold'></div>
           <div className='cart-total-area'>
             <div className='total-text'>총 합계금액</div> 
             <div className='total-price'>{totalPrice.toLocaleString()}원</div>

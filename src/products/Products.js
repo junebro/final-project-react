@@ -38,7 +38,9 @@ const Products = () => {
   };
 
   return (
-    <div className="products-container ">
+    <>
+    <h3 className='low-carb-diet'>저당 식단</h3>
+    <div className="products-container">
       {products.map(product => (
         <div key={product.id} className="product">
           <div className="image-container" onClick={() => openModal(product)}>
@@ -66,6 +68,7 @@ const Products = () => {
       ))}
       {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
     </div>
+    </>
   );
 };
 

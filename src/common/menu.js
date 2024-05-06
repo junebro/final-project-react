@@ -6,9 +6,6 @@ function Menu() {
     function fn_diagnosis() {
         alert("영양 진단");
     }
-    function fn_recommendation() {
-        alert("음식 추천");
-    }
     function fn_community() {
         alert("커뮤니티");
     }
@@ -20,7 +17,7 @@ function Menu() {
                     <ul>
                         <li><a href="#" className='link' onClick={fn_diagnosis}>영양진단</a></li>
                         <li><Link to="/products" className='link'>메뉴보기</Link></li>
-                        <li><a href="#" className='link' onClick={fn_recommendation}>음식추천</a></li>
+                        <li><Link to="/diet" className='link'>음식 추천</Link></li>
                         <li><a href="#" className='link' onClick={fn_community}>커뮤니티</a></li>
                     </ul>
                 </nav>
