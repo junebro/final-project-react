@@ -4,7 +4,7 @@ import Main from "./main/main";
 import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
-import Member from "./member/join";
+import Member from "./member/nutrition";
 import Order from "./order/order";
 
 import Board from "./board/boardList";
