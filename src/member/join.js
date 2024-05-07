@@ -4,9 +4,15 @@ import './join.css';
 import React from 'react';
 import Navi from './../common/navigation';
 import Footer from './../common/footer';
+import { useEffect } from 'react';
+// import DaumPostcode from "react-daum-postcode"; // 주소
+// import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 function App() {
+
+    
     return (
+
         <div>
             <Navi />
             <section>
@@ -71,13 +77,15 @@ function App() {
                     <span className="sub-title">주소</span>
 
                     <div className="address-box">
-      <input className="post" placeholder="우편번호" />
-      <button type="button" className="post-btn">
+      <input id="post" className="post" placeholder="우편번호" />
+      <button type="button" id="post-btn" className="post-btn">
+      
         우편번호 찾기
       </button>
-      <input className="road-name" placeholder="도로명주소" />
-      <input className="street-name" placeholder="지번주소" />
-      <input className="address-detail" placeholder="상세주소" />
+      <input id="road-name" className="road-name" placeholder="도로명주소" />
+      <input id="street-name" className="street-name" placeholder="지번주소" />
+      <input id="address-detail" className="address-detail" placeholder="상세주소" />
+      
     </div>
                     <div className="btn-box">
                         <button type="submit" className="signUp-submit">가입완료</button>
