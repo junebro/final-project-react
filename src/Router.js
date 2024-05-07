@@ -4,7 +4,8 @@ import Main from "./main/main";
 import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
-import Member from "./member/login";
+import Member from "./member/join";
+import Order from "./order/order";
 
 import Board from "./board/boardList";
 import BoardList from "./board/boardList";
@@ -30,6 +31,7 @@ function App() {
 
       <Route path="/Diet" element={<Diet />} />
       <Route path="/Member" element={<Member />} />
+      <Route path="/Order" element={<Order />} />
 
     </Routes>
   );
