@@ -7,6 +7,13 @@ import Diet from "./diet/diet";
 import Member from "./member/join";
 import Order from "./order/order";
 
+import Board from "./board/boardList";
+import BoardList from "./board/boardList";
+import BoardInsert from "./board/boardInsert";
+import BoardDetail from "./board/boardDetail";
+
+
+
 function App() {
   return (
     <Routes>
@@ -14,9 +21,18 @@ function App() {
       <Route path="/" element={<Main />} />
       <Route path="/Products" element={<Products />} />
       <Route path="/Cart" element={<Cart />} />
+
+      <Route path="/Member" element={<Member />} /> 
+
+      <Route path="/board" element={<Board />} />
+      <Route path="/boardList" element={<BoardList />} />
+      <Route path="/boardInsert" element={<BoardInsert />} />
+      <Route path="/boardDetail" element={<BoardDetail />} />
+
       <Route path="/Diet" element={<Diet />} />
       <Route path="/Member" element={<Member />} />
       <Route path="/Order" element={<Order />} />
+
     </Routes>
   );
 }

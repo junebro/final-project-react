@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from "react-router-dom";
 
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
@@ -111,10 +112,6 @@ function App() {
     // }, []); // useEffect 한 번만 실행되어야 함을 나타내는 빈 배열
 
 
-    function fn_out() {
-        alert("나가기");
-    }
-
     return (
         <>
             <Navi />
@@ -214,7 +211,7 @@ function App() {
                                         <div className='board-date'>2024-04-28 00:00:00</div>
                                     </div>
                                     <div className='comments'>
-                                        <div className='comment'>
+                                        <div className='comment-detail'>
                                             <span>
                                                 <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
                                             </span>
@@ -270,9 +267,11 @@ function App() {
                     </div>
                 </div>
 
+                <Link to="/boardList" className='link'>
                 <div className='submit-btn'>
-                    <button className='out' onClick={fn_out}>나가기</button>
+                    <button className='out'>나가기</button>
                 </div>
+                </Link>
             </section>
             <Footer />
         </>
