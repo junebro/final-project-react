@@ -24,7 +24,7 @@ function App(){
             <header className='div_text' style={{ display: 'flex', gap: '10px' }}>
                 <ul>
                     <li className='logo_left'><div onClick={fn_login}>로그인</div></li>
-                    <li className='logo_left'> <div onClick={fn_join}>회원 가입</div></li>
+                    <li className='logo_left'> <Link className='link' to="/Member">회원 가입</Link></li>
                     <li className='logo_left'><Link className='link' to="/Cart">장바구니</Link></li>
                     <li className='logo_left'><div onClick={fn_mypage}>마이페이지</div></li>
                 </ul>

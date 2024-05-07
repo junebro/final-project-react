@@ -1,9 +1,4 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
+@import './../css/App.css';
 
 
 /* css 초기화 */
@@ -197,7 +192,7 @@ li {
 
    
 
-    section {
+    .nutrition-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
@@ -205,7 +200,7 @@ li {
         
     }
 
-    .nav {
+    .mypage-nav {
         display: flex;
         flex-direction: column;
         position: sticky;
@@ -263,10 +258,10 @@ li {
     }
     
     /* 컨텐츠 영역 */
-.contents{
+.contents {
     width: 80%;
     padding: 50px;
-    margin-top: 97px;
+    margin-top: 90px;
 
     border-radius: 15px;
     background-color: white;

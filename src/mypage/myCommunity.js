@@ -1,6 +1,7 @@
 import './../App.css';
 import './myCommunity.css';
 import React from 'react';
+import { Link } from "react-router-dom";
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
@@ -17,19 +18,19 @@ function App() {
     
     const menuItems = [
         { name: '내 정보 수정', path: '/join' },
-        { name: '영양 진단 결과', path: '/nutrition' },
-        { name: '커뮤니티 활동', path: '/myCommunity' },
-        { name: '건강 일기', path: '/join' },
+        { name: '영양 진단 결과', path: '/Nutrition' },
+        { name: '커뮤니티 활동', path: '/MyCommunity' },
+        { name: '건강 일기', path: '/HealthDiary' },
         { name: '주문 내역', path: '/orderList' },
         { name: '회원 탈퇴', path: '/join' }
     ];
- 
+    
      return (
          <div>
              <Navi />
              <Menu />
              <div class="section-p">
-             <section>
+             <div className='community-section'>
        <nav className="nav">
          <div className="nav-profile-img"></div>
          <p className="nav-nickName">닉네임</p>
@@ -47,7 +48,7 @@ function App() {
        ))}
      </ul>
        </nav>
-       
+
             <div className="contents">
                 <h1 className='title'>커뮤니티 활동</h1>
                 <hr className="title-line" />
@@ -86,7 +87,7 @@ function App() {
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
         <Footer />
     </div>
