@@ -8,48 +8,26 @@ import Footer from '../common/footer';
 
 
 function App() {
-    // active 상태를 useState 훅을 통해 선언
-    const [activeItem, setActiveItem] = React.useState(null);
- 
-    // 메뉴 클릭 시 실행될 함수
-    const handleItemClick = (index) => {
-      // 클릭된 메뉴 항목의 인덱스로 active 상태 업데이트
-      setActiveItem(index);
-    };
-  
-    
-    const menuItems = [
-        { name: '내 정보 수정', path: '/join' },
-        { name: '영양 진단 결과', path: '/Nutrition' },
-        { name: '커뮤니티 활동', path: '/MyCommunity' },
-        { name: '건강 일기', path: '/join' },
-        { name: '주문 내역', path: '/orderList' },
-        { name: '회원 탈퇴', path: '/join' }
-    ];
- 
+   
      return (
-         <div>
-             <Navi />
-             <Menu />
-             <div class="section-p">
-             <div className='nutrition-section'>
-       <nav className="mypage-nav">
-         <div className="nav-profile-img"></div>
-         <p className="nav-nickName">닉네임</p>
-         <hr className="h1" />
-            <ul className="mypage-ul">
-       {/* 메뉴 항목들을 매핑하여 렌더링 */}
-       {menuItems.map((menuItem, index) => (
-         <li
-           key={index}
-           className={`menu-item ${activeItem === index ? 'active' : ''}`}
-           onClick={() => handleItemClick(index)}
-         >
-           <Link to={menuItem.path}>{menuItem.name}</Link>
-         </li>
-       ))}
-     </ul>
-       </nav>
+        <div>
+        <Navi />
+        <Menu />
+        <div className="section-p">
+        <div className="nutrition-section">
+  <nav className="nav">
+    <div className="nav-profile-img"></div>
+    <p className="nav-nickName">닉네임</p>
+    <hr className="h1" />
+    <ul class="mypage-ul">
+    <li><Link to="/EditProfile">내 정보 수정</Link></li>
+      <li><Link to="/Nutrition" className='active'>영양 진단 결과</Link></li>
+      <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
+      <li><Link to="/HealthDiary"  >건강 일기</Link></li>
+      <li><Link to="/OrderList">주문 내역</Link></li>
+      <li><a href="#">회원 탈퇴</a></li>
+    </ul>
+  </nav>
  
        <div className="contents">
                  <h1 className="title">영양 진단 결과</h1>
