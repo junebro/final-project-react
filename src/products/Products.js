@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import "./css/Products.css";
-import Modal from './Modal'; // 모달 컴포넌트 임포트
-import cart from './../images/cart.png';
+import Modal from './Modal'; // 모달 컴포넌트 임포트  
 import cartClick from './../images/cart_click.png';
+import cart from './../images/cart.png';
 
 // 제품 데이터 생성
 const products = Array.from({ length: 20 }, (v, i) => ({
   id: i + 1,
   name: `올리브 리코타 샐러드&발사믹 글레이즈 드레싱`,
   price: '10,500원',
-  image: require(`./../images/products/product${(i % 3) + 1}.jpg`),
+  image: require(`./../images/products/product${(i % 3) + 1}.jpg`), 
   cartState: 'cart' // 제품별 카트 상태 초기화
 }));
 
@@ -38,7 +38,9 @@ const Products = () => {
   };
 
   return (
-    <div className="cart-container">
+    <>
+    <h3 className='low-carb-diet'>저당 식단</h3>
+    <div className="products-container">
       {products.map(product => (
         <div key={product.id} className="product">
           <div className="image-container" onClick={() => openModal(product)}>
@@ -66,6 +68,7 @@ const Products = () => {
       ))}
       {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
     </div>
+    </>
   );
 };
 

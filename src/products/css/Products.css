@@ -1,16 +1,24 @@
 @import './../../css/App.css';
 
+.low-carb-diet {
+  font-family: 'TTLaundryGothicB';
+  padding: 50px 26% 0; /* 위, 좌우, 아래 패딩을 한 줄로 설정 */
+  font-size: 50px;
+}
+
 .products-container {
   font-family: 'omyu_pretty';
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 50px 25% 30px; /* 위, 좌우, 아래 패딩을 한 줄로 설정 */
+
+  padding: 50px 26% 30px; /* 위, 좌우, 아래 패딩을 한 줄로 설정 */
+  place-items: center;
 }
 
 .product {
   /* border: 1px solid #ccc; */
   text-align: center;
+  width: 90%;
 }
 
 .image-container {
@@ -21,38 +29,46 @@
   width: 100%;
   height: auto;
   transition: transform 0.3s ease-in-out; /* 부드러운 전환 효과 */
+  border-radius: 20px;  /* 모서리의 반경을 10px로 설정 */
 }
 
 .img_product:hover {
   transform: scale(1.1); /* 마우스를 올렸을 때 110%로 이미지 확대 */
 }
 
-.text-container{
-  margin-top: 10px;
+.text-container {
+  margin-top: 10px; 
   padding-bottom: 20%;
 }
 
 .product-name {
-  font-size: 25px;
+  font-family: 'omyu_pretty';
+  color: hsl(0, 0%, 29%);
+  font-size: 20px;
   padding-left: 10px;
   padding-right: 10px;
+  text-align: left;
 }
 
-.product-price{
+.product-price {
   font-family: 'Pretendard-Regular';
   padding-top: 10px;
-  font-size: 28px;
+  padding-left: 10px;
+  font-size: 15px;
   display: flex;
   justify-content: space-between; /* 좌측은 가격, 우측은 카트 아이콘으로 자동으로 정렬 */
   align-items: center; /* 세로 중앙 정렬 */
   text-align: center; /* 텍스트 중앙 정렬 */
   width: 100%; /* 전체 너비 사용 */
+  font-weight: bold;
 }
 
 .img_cart {
   bottom: 10px; /* 아이콘을 이미지 아래로 내리기 */
   right: 10px; /* 아이콘을 이미지 오른쪽으로 옮기기 */
-  width: 45px;
-  height: 40px;
+  width: 35px; /* 이미지 크기 조절 */
+  height: 30px; /* 이미지 크기 조절 */
+  margin-right: 5px;
+  
 }
 

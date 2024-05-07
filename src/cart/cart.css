@@ -1,26 +1,177 @@
+@import './../css/App.css';
+
+.cart-body {
+  padding: 0 10vw;
+  display: flex;
+  justify-content: center;
+}
+
 .cart-container {
-    display: flex;
-    justify-content: space-between;
+  margin-top:50px;
+
+  min-width: 439px;
+  max-width: 800px;
+}
+
+.cart-container ul{
+  display: flex; /* 플렉스 박스 사용 */
+  padding: 10px;
+  font-weight: bold; /* 글자 굵게 */
+  list-style: none; /* 기본 리스트 스타일 제거 */
+}
+
+.cart-container-ul {
+  /* border: 1px solid #ccc; */
+  background-color: var(--gray-color);
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.cart-item {
+  border: 1px solid #ccc; 
+  display: flex; /* 플렉스 박스 사용 */
+  margin-top: 10px; /* 위쪽 마진 설정 */
+  align-items: center;
+}
+
+.cart-product-image {
+  width: 100px;
+  height: 100px;
+}
+
+.cart-container li {
+  /* border: 1px solid #ccc; */
+  text-align: center;
+}
+
+.cart-item-name {
+  padding: 3px 30px;
+}
+
+.cart-button {
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+  margin-left: 20px;
+}
+
+.cart-calculate {
+  justify-content: center; /* 수평 중앙 정렬 */
+  display: flex;
+  width: 200px;
+}
+
+.cart-minus-button {
+  padding: 3px 10px;
+  border: 1px solid #ddd;
+
+}
+
+.cart-plus-button {
+  padding: 3px 10px;
+  border: 1px solid #ddd;
+}
+
+.cart-count-button {
+  padding: 3px 10px;
+  width: 30px;
+}
+
+.cart-item-price {
+  width: 80%;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 40px;
+}
+
+.view_line {
+	border-top: 1px solid rgba(128, 128, 128, 0.3); /* 투명도를 포함한 회색 선 */
+}
+
+.cart-total-area {
+  text-align: center;
+}
+
+.total-text{
+  font-size: 18px;
+}
+
+.total-price {
+  font-weight: bold; /* 폰트 굵기 설정 */
+  font-size: 30px;
+}
+
+.total-button {
+  display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트 크기에 맞춰 너비 조정 */
+  padding: 20px 340px; /* 내부 여백 설정 */
+  background-color: var(--green-color);  /* 배경색 설정 */
+  color: #fff; /* 텍스트 색상 설정 */
+  font-size: 20px; /* 폰트 크기 설정 */
+  font-weight: bold; /* 폰트 굵기 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+  border-radius: 5px; /* 모서리를 둥글게 만들기 */
+  transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+@media (max-width: 1000px) {
+  .cart-item {
+    display: flex; /* 플렉스 박스 사용 */
+    flex-direction: column; /* 요소를 세로로 배열 */
+    align-items: center; /* 가로 방향으로 중앙 정렬 */
+    border: 0 solid #ccc; 
+    }
+
+    .cart-table-head {
+      visibility:hidden;
+    }
+
+    .cart-product-image {
+      width: 400px;
+      height: 400px;
+    }
+
+    .cart-product-name {
+      font-size: 20px;
+    }
+
+    .cart-product-price {
+      padding-left:10px;
+      padding-top: 10px;
+      padding-bottom: 20px;
+    }
+
+    .cart-button {
+      padding-bottom: 20px;
+    }
+
+    .cart-calculate{
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .cart-item-price {
+      font-size: 30px;
+      width: 500px;
+      padding-left: 180px;
+    }
+
+    .cart-remove {
+      cursor: pointer;
+      font-size: 30px;
+      padding-right: 120px;
+    }
+
+    .total-button {
+      padding: 20px 150px; /* 내부 여백 설정 */
+    }
+}
+
+@media (max-width: 1000px) {
+  .cart-body{
+    padding: 0;
   }
-  
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .product-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .cart-summary {
-    border: 1px solid #ccc;
-    padding: 10px;
-    width: 200px;
-  }
+}
+
+

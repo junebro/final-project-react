@@ -5,6 +5,7 @@ import Navi from './../common/navigation';
 import Menu from './../common/menu';
 import Footer from './../common/footer';
 
+import './css/App.css'; // 스타일 시트 임포트
 const App = () => (
   <div>
      <Navi />

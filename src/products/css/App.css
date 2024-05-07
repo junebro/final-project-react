@@ -1,0 +1,15 @@
+/* Navi.css */
+.navi {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;  /* 화면의 맨 앞에 위치하도록 z-index 설정 */
+  }
+  
+  /* TopBar.css */
+  .topBar {
+    position: fixed;
+    top: 50px;  /* Navi의 높이만큼 아래에 위치하도록 설정 */
+    width: 100%;
+    z-index: 99;
+  }

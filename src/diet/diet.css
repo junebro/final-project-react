@@ -1,0 +1,177 @@
+@import './../css/App.css';
+
+.diet-container {
+  overflow-x:hidden;  /* 스크롤 없애기(가로 방향) */
+  width: 460px;
+  margin: 0 auto;    /* 상하 마진 0, 좌우 마진 자동 */
+
+  background-color: white;
+}
+
+
+/* .slider {
+  overflow: hidden;  
+} */
+
+.diet-top-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.diet-diagnose-date {
+  margin-left: 40px;
+  font-size: 14px;
+  color: rgb(91, 176, 255);
+  font-weight: bold;
+  background-color: rgb(215, 229, 255);
+  padding: 10px;
+  border-radius: 15px; /* 원형으로 만들기 */
+}
+
+.diet-user-text {
+  margin-left: 40px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.diet-kcal-text{
+  font-family: 'TTLaundryGothicB';
+  font-weight: bold;
+}
+
+.button {
+  margin-right: 40px;
+  display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트 크기에 맞춰 너비 조정 */
+  padding: 10px 15px; /* 내부 여백 설정 */
+  background-color: var(--brown-color);  /* 배경색 설정 */
+  color: #fff; /* 텍스트 색상 설정 */
+  font-size: 15px; /* 폰트 크기 설정 */
+  font-weight: bold; /* 폰트 굵기 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+  border-radius: 5px; /* 모서리를 둥글게 만들기 */
+  transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
+}
+
+.diet-episode {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.diet-episode-button {
+  font-family: 'TTLaundryGothicB';
+  font-size: 15px;
+  color: hsl(0, 0%, 53%);
+  padding:5px 10px;
+  margin: 5px;
+  cursor: pointer; 
+}
+
+.diet-episode-button.active {
+  border-radius: 15px; /* 원형으로 만들기 */
+  background-color: black;
+  color: white;
+}
+
+.slides-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* 애니메이션 효과 */
+  justify-content: left;
+}
+
+.slide-group {
+  min-width: 100%; /* 각 슬라이드를 슬라이더의 너비만큼 설정 */
+  margin-bottom: 30px;
+}
+
+.diet-first-food {
+  display: flex;
+  margin-bottom: 20px;
+  margin-left:30px;
+  margin-right:30px;
+}
+
+.diet-product-name {
+  font-family: 'TTLaundryGothicB';
+  font-size: 15px;
+  text-align: center;
+}
+
+.diet-product-data {
+  font-family: 'omyu_pretty';
+  font-weight: 500;
+  font-size: 18px;
+
+}
+
+.diet-product-image {
+  width: 180px;
+  height: 180px;
+  margin-right: 13px;
+}
+
+.diet-category {
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-bottom: 20px;
+  cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+}
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4개의 열로 그리드 레이아웃을 설정합니다. */
+  gap: 10px; /* 이미지 사이의 간격을 조절합니다. */
+}
+
+.image-container {
+  position: relative;
+  
+}
+
+/* .image-container img {
+  width: 100%;
+  height: auto; 
+} */
+
+.image-container img {
+  width: 100%; /* 부모 컨테이너에 맞춰 너비 설정 */
+  height: auto; /* 비율 유지 */
+  transition: transform 0.3s ease; /* 확대/축소에 부드러운 전환 효과 적용 */
+  border-radius: 15px; /* 모서리 둥글게 */
+  padding: 20px;
+}
+
+.glow {
+  transform: scale(1.8); /* 클릭 시 10% 확대 */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* 박스 그림자로 시각적 피드백 */
+}
+
+.diet-product-data-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.diet-buy-button {
+
+  margin-right: 30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  background-color: var(--green-color);  /* 배경색 설정 */
+  color: #fff; /* 텍스트 색상 설정 */
+  font-size: 15px; /* 폰트 크기 설정 */
+  font-weight: bold; /* 폰트 굵기 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+  cursor: pointer; /* 커서를 포인터로 변경하여 마우스 호버 시 시각적 효과 추가 */
+  border-radius: 5px; /* 모서리를 둥글게 만들기 */
+}
+
+@media (max-width: 639px) {
+  .diet-product-data-section {
+    display: block ;
+  }
+}
