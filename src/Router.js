@@ -5,9 +5,12 @@ import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
 import Member from "./member/join";
+import ChangePw from "./mypage/changePw";
+import EditProfile from "./mypage/editProfile";
 import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
+import OrderList from "./mypage/orderList";
 import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
@@ -26,6 +29,9 @@ function App() {
       <Route path="/Nutrition" element={<Nutrition />} /> 
       <Route path="/MyCommunity" element={<MyCommunity />} /> 
       <Route path="/HealthDiary" element={<HealthDiary />} /> 
+      <Route path="/OrderList" element={<OrderList />} /> 
+      <Route path="/EditProfile" element={<EditProfile />} /> 
+      <Route path="/ChangePw" element={<ChangePw />} /> 
 
       <Route path="/board" element={<Board />} />
       <Route path="/boardList" element={<BoardList />} />

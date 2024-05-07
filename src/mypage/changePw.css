@@ -152,7 +152,7 @@ li {
 
    
 
-    section {
+    .changePw-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
@@ -221,7 +221,7 @@ li {
 .contents{
     width: 80%;
     padding: 50px;
-    margin-top: 110px;
+    margin-top: 90px;
 
     border-radius: 15px;
     background-color: white;
