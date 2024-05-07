@@ -5,13 +5,18 @@ import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
 import Member from "./member/join";
+
+import Nutrition from "./mypage/nutrition";
+import MyCommunity from "./mypage/myCommunity";
+import HealthDiary from "./mypage/healthDiary";
+
 import Order from "./order/order";
+
 
 import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
 import BoardDetail from "./board/boardDetail";
-
 
 
 function App() {
@@ -23,6 +28,9 @@ function App() {
       <Route path="/Cart" element={<Cart />} />
 
       <Route path="/Member" element={<Member />} /> 
+      <Route path="/Nutrition" element={<Nutrition />} /> 
+      <Route path="/MyCommunity" element={<MyCommunity />} /> 
+      <Route path="/HealthDiary" element={<HealthDiary />} /> 
 
       <Route path="/board" element={<Board />} />
       <Route path="/boardList" element={<BoardList />} />
@@ -30,8 +38,10 @@ function App() {
       <Route path="/boardDetail" element={<BoardDetail />} />
 
       <Route path="/Diet" element={<Diet />} />
+
       <Route path="/Member" element={<Member />} />
       <Route path="/Order" element={<Order />} />
+
 
     </Routes>
   );

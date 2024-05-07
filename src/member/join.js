@@ -4,12 +4,36 @@ import './join.css';
 import React from 'react';
 import Navi from './../common/navigation';
 import Footer from './../common/footer';
+import PopupDom from './popupDom';
+import PopupPostCode from './PopupPostCode';
+import { addressData } from './PopupPostCode';
 
 function App() {
+    
+    let inputAddress = '';
+
+    if (addressData) {
+        inputAddress = addressData;
+    } 
+
+ 	// 팝업창 상태 관리
+     const [isPopupOpen, setIsPopupOpen] = React.useState(false)
+ 
+     // 팝업창 열기
+     const openPostCode = () => {
+         setIsPopupOpen(true)
+     }
+  
+     // 팝업창 닫기
+     const closePostCode = () => {
+         setIsPopupOpen(false)
+     }
+
     return (
+
         <div>
             <Navi />
-            <section>
+            <div className='join-section'>
             <div className="signUp-box">
                 <form className="signUp-form">
                     <h1 className="signUp-title">회원가입</h1>
@@ -71,20 +95,35 @@ function App() {
                     <span className="sub-title">주소</span>
 
                     <div className="address-box">
-      <input className="post" placeholder="우편번호" />
-      <button type="button" className="post-btn">
-        우편번호 찾기
-      </button>
-      <input className="road-name" placeholder="도로명주소" />
-      <input className="street-name" placeholder="지번주소" />
-      <input className="address-detail" placeholder="상세주소" />
+
+        
+
+
+      <input id="post" className="post" placeholder="우편번호" value={inputAddress.zonecode}  />
+      <button type="button" id="post-btn" className="post-btn"
+      onClick={openPostCode}>우편번호 찾기</button>
+      
+
+      {/* // 팝업 생성 기준 div */}
+            <div id='popupDom'>
+                {isPopupOpen && (
+                    <PopupDom>
+                        <PopupPostCode onClose={closePostCode} />
+                    </PopupDom>
+                )}
+            </div>
+
+      <input id="road-name" className="road-name" placeholder="도로명주소" value={inputAddress.address}/>
+      <input id="address-detail" className="address-detail" placeholder="상세주소" />
+      
+     
     </div>
                     <div className="btn-box">
                         <button type="submit" className="signUp-submit">가입완료</button>
                     </div>
                 </form>
             </div>
-        </section>
+        </div>
             <Footer />
         </div>
     );    
