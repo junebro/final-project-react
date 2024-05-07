@@ -4,11 +4,12 @@
   padding: 0 10vw;
   display: flex;
   justify-content: center;
+  background-color: white;
 }
 
 .cart-container {
   margin-top:50px;
-
+  
   min-width: 439px;
   max-width: 800px;
 }
@@ -22,13 +23,11 @@
 
 .cart-container-ul {
   /* border: 1px solid #ccc; */
-  background-color: var(--gray-color);
   text-align: left;
   margin-bottom: 10px;
 }
 
 .cart-item {
-  border: 1px solid #ccc; 
   display: flex; /* 플렉스 박스 사용 */
   margin-top: 10px; /* 위쪽 마진 설정 */
   align-items: center;
