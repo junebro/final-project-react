@@ -4,7 +4,7 @@
   overflow-x:hidden;  /* 스크롤 없애기(가로 방향) */
   width: 460px;
   margin: 0 auto;    /* 상하 마진 0, 좌우 마진 자동 */
-
+  
   background-color: white;
 }
 
