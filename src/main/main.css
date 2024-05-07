@@ -5,12 +5,13 @@
     display: flex; /* div태그 한줄로 */
     user-select: none; /* 드래그 방지 */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding-top: 2%;
-    padding-left: 30%;
-    padding-right: 30%;
 }
 
+.top_div {
+    margin-right: 1%;
+}
 
 .font_top {
     font-family: 'Pretendard-Regular';
@@ -33,6 +34,7 @@
 }
 
 .img_main {
+    margin-left: 1%;
     transition: opacity 0.5s ease; /* 이미지 숨김/보임 효과를 부드럽게 */
 }
 
@@ -49,7 +51,7 @@
     transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
 }
 
-.main_mid{
+.main_mid {
     padding-top:3%;
     padding-bottom: 5%;
     background-color: var(--gray-color);
