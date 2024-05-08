@@ -1,0 +1,53 @@
+
+* {
+	box-sizing : border-box;
+	margin: 0;
+    font-family: 'Pretendard-Regular'; 
+}
+/* 캘린더 최고 부모 */
+.calendar-box {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    width: 500px;
+}
+
+.react-calendar {
+    text-align: center;
+    margin-inline-end: 0;
+}
+.react-calendar__navigation button {
+    background-color: white;
+    border: none;
+    font-size: 20px;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    justify-content: cneter;
+    margin-bottom: 40px;
+}
+
+.react-calendar__month-view__weekdays {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+
+.react-calendar__month-view__days  button{
+    background-color: white;
+    border: none;
+    padding: 0;
+    height: 64.28px;
+    font-size: 14px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.react-calendar__month-view__days  button:hover{
+    background-color: #F1FFF2;
+}
+
+
+abbr

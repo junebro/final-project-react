@@ -4,17 +4,22 @@ import Main from "./main/main";
 import Products from "./products/App";
 import Cart from "./cart/cart";
 import Diet from "./diet/diet";
-import Member from "./member/join";
+import Join from "./member/join";
 import ChangePw from "./mypage/changePw";
 import EditProfile from "./mypage/editProfile";
 import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
+
 import Order from "./order/order";
+
+import OrderList from "./mypage/orderList";
+
 import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
 import BoardDetail from "./board/boardDetail";
+// import Diary from "./mypage/diary";
 
 
 function App() {
@@ -25,6 +30,7 @@ function App() {
       <Route path="/Products" element={<Products />} />
       <Route path="/Cart" element={<Cart />} />
 
+      <Route path="/Join" element={<Join />} /> 
       <Route path="/Nutrition" element={<Nutrition />} /> 
       <Route path="/MyCommunity" element={<MyCommunity />} /> 
       <Route path="/HealthDiary" element={<HealthDiary />} /> 
@@ -39,7 +45,7 @@ function App() {
 
       <Route path="/Diet" element={<Diet />} />
 
-      <Route path="/Order" element={<Order />} />
+      {/* <Route path="/Diary" element={<Diary />} /> */}
 
 
     </Routes>
