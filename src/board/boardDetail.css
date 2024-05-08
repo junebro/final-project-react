@@ -1,37 +1,66 @@
-body{
-    background-color: #FAFAFA;
-}
-
-.sec-bdetail{
-	width: 100vw;
+  .sec-bdetail{
+	/* width: 100vw;
 	height: 100vh;
 
-	display: flex;
-	justify-content: center;
 	align-items: center;
-	flex-direction: column;
-}
-
-.write-box{
-    width: 70%;
-    height: auto;
-	border-radius: 15px;
-    background-color: #ffffff;
-    padding: 50px;
-    color: #6A6A6A;
-
+	flex-direction: column; */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    
+}
+
+.board-box{
+    width: 1500px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-top: 50px;
+	border-radius: 15px;
+    background-color: white;
+    /* background-color: hsl(0, 100%, 55%); */
+    /* margin-top: 10px;
+    padding-left: 500px;
+    padding-right: 500px; */
+    color: #6A6A6A;
+/* 
+    display: flex;
+    justify-content: center; */
+    /* align-items: center; */
+}
+
+.board-detail{
+    padding-left: 50px;
+    padding-right: 50px;
 }
 
 
-.write-title{
+.board-detail-top{
     width: 100%;
     border:none;
     font-size: 20px;
     padding-bottom: 10px;
+    
+    display: flex;
+    flex-direction: row;
 }
+
+.update-btn,
+.delete-btn{
+    width: 115px;
+    border: none; 
+    background-color: transparent; 
+    color: #005A4E; 
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.update-btn:hover,
+.delete-btn:hover{
+    text-decoration: underline;
+}
+    
 
 
 .board_line_d{
@@ -47,20 +76,21 @@ body{
     padding: 20px 0;
 }
 
+
+/* ----------------------------------------------------- */
+
 .box-left{
     width: 50%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 5% 5% 5% 0;
+    justify-content: center;
+    padding: 100px;
 }
-
-/* ----------------------------------------------------- */
 
 .tap-gallery{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center;    
 }
 
 .container{
@@ -107,10 +137,16 @@ body{
 .box-right{
     width: 50%;
     padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .content{
-    height: 45%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    
 }
 
 .content-writer{
@@ -127,12 +163,14 @@ body{
 }
 
 .description {
-    max-height: 80%; /* 원하는 최대 높이 설정 */
+    
+    max-height: 200px; /* 원하는 최대 높이 설정 */
     overflow-y: auto; /* 필요할 때 스크롤바 표시 */
+
 }
 
 .right-middle{
-    height: 35%;
+    height: 250px;
 }
 
 .middle-bar{
@@ -194,7 +232,7 @@ body{
 
 .comments{
     overflow-y: auto;
-    max-height: 80%; /* 원하는 최대 높이 설정 */
+    max-height: 170px; /* 원하는 최대 높이 설정 */
 
 }
 /* ----------------------------------------------------- */
@@ -340,3 +378,18 @@ body{
     columns: #005A4E;
 } */
 
+/* 미디어 쿼리 */
+@media(max-width:1500px){
+    .view_center_d{
+        display: none;
+    }
+
+    .main-content{
+        display: flex; /* Flexbox를 사용하여 요소들을 가로로 정렬합니다. */
+        flex-direction: column; /* 요소들을 세로로 정렬합니다. */
+        align-items: center; /* 세로 방향 가운데 정렬합니다. */
+        justify-content: center; /* 가로 방향 가운데 정렬합니다. */
+    }
+
+
+}

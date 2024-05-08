@@ -24,9 +24,9 @@ section {
 }
 
 .board_top{
-	display: flex;
-	justify-content: space-between;
+	display: flex;  
     align-items: center;
+	justify-content: space-between;
     margin-bottom: 10px;
 }
 
@@ -276,4 +276,25 @@ section {
 .pagination li a:hover {
     color: #005A4E; /* hover 시 글자색 변경 */
     font-weight: bold; /* hover 시 bold체 적용 */
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1200px) {
+    .board_main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .board_info {
+        order: 1; /* board_info를 위로 */
+        width: 100%;
+    }
+
+    .board_date {
+        order: 2; /* board_date를 board_info 아래로 */
+    }
+
+    .board_left, .board_right {
+        width: 100%; /* board_left와 board_right를 꽉 채우도록 */
+    }
 }
