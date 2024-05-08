@@ -11,51 +11,93 @@ import main_bottom_button_4 from './../images/main/main_bottom_button_4.png';
 import test_image from './../images/main/test_image.png'; 
 import bottom_image from './../images/main/bottom_image.webp'; 
 
-
+import { useSpring, animated } from 'react-spring';
 
 function App() {
+
+    // 첫 번째 요소의 애니메이션 설정
+    const firstProps = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 500 }, // 1초 동안 애니메이션
+        delay: 300, // 첫 애니메이션이 시작하기 전 300ms 지연
+    });
+
+    // 두 번째 요소의 애니메이션 설정
+    const secondProps = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 500 }, // 1초 동안 애니메이션
+        delay: 800, // 첫 번째 애니메이션이 거의 끝나갈 때 시작
+    });
+
+    // 두 번째 요소의 애니메이션 설정
+    const thirdProps = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 500 }, // 1초 동안 애니메이션
+        delay: 1000, // 첫 번째 애니메이션이 거의 끝나갈 때 시작
+    });
+
+    // 두 번째 요소의 애니메이션 설정
+    const fourthProps = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+        config: { duration: 500 }, // 1초 동안 애니메이션
+        delay: 1200, // 첫 번째 애니메이션이 거의 끝나갈 때 시작
+    });
+
+    const props = useSpring({
+        from: { transform: 'translateY(50vh)' }, // 화면 중간부터 시작
+        to: { transform: 'translateY(0vh)' },    // 화면의 상단으로 이동
+        config: { duration: 1000 },              // 애니메이션 지속 시간 1000ms (1초)
+        delay: 1500, // 첫 번째 애니메이션이 거의 끝나갈 때 시작
+      });
+
+
     return (
-        <div>
+        <div className='main-form'>
             <Navi />
             <Menu />
             <div className='main_top'>
                 <div className='top_div'>
-                    <div className="font_top top_1" >EAT</div>
-                    <div className="font_top top_2 ">HEALTHY</div>
-                    <div className="font_top top_2 ">BE HEALTHY</div>
-                    <div className="font_top top_3">고민없는, 나만의 위한 식단</div>
-                    <div className="font_top top_4 top_button">영양 진단 받아보기</div>
+                    <animated.div className="font_top top_1" style={firstProps}>EAT</animated.div>
+                    <animated.div className="font_top top_2 " style={secondProps}>HEALTHY</animated.div>
+                    <animated.div className="font_top top_2 " style={secondProps}>BE HEALTHY</animated.div>
+                    <animated.div className="font_top top_3" style={thirdProps}>고민없는, 나만의 위한 식단</animated.div>
+                    <animated.div className="font_top top_4 top_button"style={fourthProps}>영양 진단 받아보기</animated.div>
                 </div>
-                <img className='img_main' src={main} alt="메인 이미지"></img>
+                <animated.img className='img_main' src={main} alt="메인 이미지" style={fourthProps}></animated.img>
             </div>
-            <div className='main_line'></div>
-            <div className='main_mid'>
-                <div className='font_mid mid_1'>건강 식단</div>
-                <div className='font_mid mid_2'>건강한 일상을 지키는 가장 쉬운 관리</div>
+            <animated.div style={props}>
+                <div className='main_line'></div>
+                <div className='main_mid'>
+                    <div className='font_mid mid_1'>건강 식단</div>
+                    <div className='font_mid mid_2'>건강한 일상을 지키는 가장 쉬운 관리</div>
 
-                <div className='mid_area_button'>
-                    <div className='mid_area_1'>
-                        <div className="mid_button">
-                                <img className='main_bottom_button main_bottom_button_1' src={main_bottom_button_1} alt="버튼1"></img>
+                    <div className='mid_area_button'>
+                        <div className='mid_area_1'>
+                            <div className="mid_button">
+                                    <img className='main_bottom_button main_bottom_button_1' src={main_bottom_button_1} alt="버튼1"></img>
+                            </div>
+                            <div style={{margin:"1%"}}></div>
+                            <div className="mid_button">
+                                <img className='main_bottom_button main_bottom_button_2' src={main_bottom_button_2} alt="버튼1"></img>
+                            </div>
                         </div>
-                        <div style={{margin:"1%"}}></div>
+
+                        <div className='mid_area_2'>
                         <div className="mid_button">
-                            <img className='main_bottom_button main_bottom_button_2' src={main_bottom_button_2} alt="버튼1"></img>
+                                    <img className='main_bottom_button main_bottom_button_3' src={main_bottom_button_3} alt="버튼3"></img>
+                            </div>
+                            <div style={{margin:"1%"}}></div>
+                            <div className="mid_button">
+                                    <img className='main_bottom_button main_bottom_button_4' src={main_bottom_button_4} alt="버튼4"></img>
+                            </div>
                         </div>
                     </div>
-
-                    <div className='mid_area_2'>
-                       <div className="mid_button">
-                                <img className='main_bottom_button main_bottom_button_3' src={main_bottom_button_3} alt="버튼3"></img>
-                        </div>
-                        <div style={{margin:"1%"}}></div>
-                        <div className="mid_button">
-                                <img className='main_bottom_button main_bottom_button_4' src={main_bottom_button_4} alt="버튼4"></img>
-                        </div>
-                    </div>
                 </div>
-            </div>
-
+            </animated.div>
             <div className='main_bottom_1'>
                 <div>
                     <img className='test_image' src={test_image} alt="테스트 이미지"></img>
