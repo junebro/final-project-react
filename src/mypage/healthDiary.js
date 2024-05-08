@@ -10,9 +10,13 @@ import Footer from '../common/footer';
 import Calendar from 'react-calendar';
 
 
+
+
 function App() {
     
     const [value, onChange] = useState(new Date());
+
+    console.log(value); // value 값 확인
 
 
     return (
@@ -29,7 +33,7 @@ function App() {
         <li><Link to="/EditProfile">내 정보 수정</Link></li>
           <li><Link to="/Nutrition">영양 진단 결과</Link></li>
           <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
-          <li><Link to="/HealthDiary"  className='active'>건강 일기</Link></li>
+          <li><Link to="/HealthDiary"  className='mypage-menu-active'>건강 일기</Link></li>
           <li><Link to="/OrderList">주문 내역</Link></li>
           <li><a href="#">회원 탈퇴</a></li>
         </ul>
@@ -38,7 +42,7 @@ function App() {
       <div className="contents">
             <h1 className="title">건강일기</h1>
             <hr className="title-line" />
-            
+            <form>
             {/* 달력 */}
             <div className="calendar-box">
             <Calendar onChange={onChange} value={value} />
@@ -62,6 +66,7 @@ function App() {
             <div className="diary-btn-box">
                 <button type="button" className="write-btn">일기 쓰기</button>
             </div>
+            </form>
         </div>
     </div>
     </div>
