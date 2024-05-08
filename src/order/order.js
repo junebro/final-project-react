@@ -30,9 +30,6 @@ function Order() {
         setIsPopupOpen(false)
     }
 
-
-
-    
     const [formData, setFormData] = useState({
         buyerName: '',
         buyerEmail: '',
