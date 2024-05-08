@@ -105,6 +105,7 @@ li {
 }
 
 .diary-box {
+    text-align: left;
     margin: 0 25px 75px;
     padding: 45px;
     border-radius: 15px;
@@ -135,11 +136,14 @@ li {
     border-radius: 100%;
 }
 
+.diary-contents {
+    text-align: left;
+}
 .diary-btn-box {
     position: fixed;
     bottom: 0;
     left: 0;
-width: 100%;
+    width: 100%;
     padding: 25px;
     border-radius: 30px;
     background-color: white;

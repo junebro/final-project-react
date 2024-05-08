@@ -1,13 +1,20 @@
 import './../App.css';
 import './healthDiary.css';
+import './diary.css';
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useState } from 'react';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
+import Calendar from 'react-calendar';
+
 
 function App() {
     
+    const [value, onChange] = useState(new Date());
+
+
     return (
         <div>
             <Navi />
@@ -31,10 +38,10 @@ function App() {
       <div className="contents">
             <h1 className="title">건강일기</h1>
             <hr className="title-line" />
-    
+            
+            {/* 달력 */}
             <div className="calendar-box">
-                <div id="month">날짜</div>
-                <div id="calendar">달력</div>
+            <Calendar onChange={onChange} value={value} />
             </div>
 
             <div className="diary-box">
