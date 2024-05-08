@@ -22,7 +22,7 @@ function App() {
       <li><Link to="/Nutrition" >영양 진단 결과</Link></li>
       <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
       <li><Link to="/HealthDiary"  >건강 일기</Link></li>
-      <li><Link to="/OrderList" className='active'>주문 내역</Link></li>
+      <li><Link to="/OrderList" className='mypage-menu-active'>주문 내역</Link></li>
       <li><a href="#">회원 탈퇴</a></li>
     </ul>
   </nav>

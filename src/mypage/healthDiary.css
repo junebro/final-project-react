@@ -59,7 +59,7 @@ li {
     margin-bottom: 30px;
 }
 
-.active{
+.mypage-menu-active{
     border-radius: 5px;
     background-color: #005A4E;
     color:white;
@@ -110,7 +110,7 @@ li {
     padding: 45px;
     border-radius: 15px;
     background-color: #FAFAFA;
-    /* 다예쁨체 설정하기 */
+   
 }
 
 .diary-box span {
@@ -138,6 +138,10 @@ li {
 
 .diary-contents {
     text-align: left;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 25px;
+    font-family: 'omyu_pretty';
 }
 .diary-btn-box {
     position: fixed;
@@ -169,6 +173,13 @@ li {
 .write-btn:active {
     background-color: #F1FFF2;
 }
+
+/* 날짜에 마진값 주는거 */
+/* .react-calendar__month-view__days button{
+    margin: 5px;
+    margin-inline-end: 5px !important; 
+} */
+
 @media (min-width: 640px) {
 
    
@@ -211,6 +222,13 @@ li {
         display: block;
     }
 
+    .react-calendarmonth-viewdays button {
+        margin: 50px;
+        margin-inline-end: 10px !important; 
+    }
+
+    
+
     .h1 {
         width: 60%;
         margin: 10px 0;
@@ -238,18 +256,22 @@ li {
         font-size: 20px;
     }
     
+ 
+
     /* 컨텐츠 영역 */
 .contents{
     width: 80%;
     padding: 50px;
     margin-top: 90px;
-
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
     border-radius: 15px;
     background-color: white;
 }
 
 /* 템플릿 이후 */
-h1 {
+.title {
     margin-left: 10px;
     color: #005A4E;
 }
