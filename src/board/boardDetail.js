@@ -21,8 +21,12 @@ import shareButtonDefault from './../images/board/share-button.png';
 import shareButtonOn from './../images/board/share-on-button.png';
 import submitButtonDefault from './../images/board/plus-button.png';
 import submitButtonOn from './../images/board/plus-on-button.png';
+import updateButton from './../images/board/update-button.png';
+import deleteButton from './../images/board/delete-button.png';
 
 // import '@joeattardi/emoji-button';
+
+
 
 const images = [
     { src: test01, alt: 'test01' },
@@ -30,7 +34,22 @@ const images = [
     { src: test03, alt: 'test03' }
 ];
 
-function App() {
+function App({ currentUser, postAuthor }) {
+
+    
+
+    // 사용자 확인
+    const isAuthor = (currentUser, postAuthor) => {
+        return currentUser === postAuthor;
+    };
+
+    const handleEdit = () => {
+        // 수정 기능 구현
+    };
+
+    const handleDelete = () => {
+        // 삭제 기능 구현
+    };
 
     // 확대된 이미지를 상태로 관리합니다.
     const [expandedImage, setExpandedImage] = useState(images[0]);
@@ -93,7 +112,8 @@ function App() {
     };
 
 
-    // 이모지 입력을 위한 state
+    
+    // 댓글 입력을 위한 상태
     const [commentText, setCommentText] = useState('');
     const emojiInputRef = useRef(null);
 
@@ -101,16 +121,49 @@ function App() {
         setCommentText(text);
     };
 
-    
-    
+     // 댓글 목록을 관리하는 상태 변수
+     const [comments, setComments] = useState([]);
+
+     // 댓글 제출 핸들러
+    const handleSubmitComment = (event) => {
+        event.preventDefault(); // 폼 제출 기본 이벤트 방지
+        if (commentText.trim()) { // 공백만 있는 문자열은 제외
+            // 새 댓글을 댓글 목록에 추가
+            setComments([...comments, commentText]);
+            setCommentText(''); // 입력 필드 초기화
+        }
+    };
+
+
+
     return (
         <>
             <Navi />
             <Menu />
-            <section className='sec-'>
-                <div className='write-box'>
+
+            
+            <div className='sec-bdetail'>
+                <div className='board-box'>
                     <div className='board-detail'>
-                        <div className='write-title' name='writeTitle'>이번에 진단받은 식단이에요! </div>
+                        <div className='board-detail-top'>
+                        <div className='write-title' name='writeTitle'>
+                            이번에 진단받은 식단이에요! </div>
+                            {isAuthor(currentUser, postAuthor) && (
+                                <>
+                                    <button className='update-btn' onClick={handleEdit}>
+                                        <img src={updateButton}
+                                            alt="Udate Button"
+                                            className="update-btn-img" />
+                                        수정하기</button>
+                                    <button className='delete-btn' onClick={handleDelete}
+                                    >
+                                        <img src={deleteButton}
+                                            alt="Delete Button"
+                                            className="delete-btn-img" />
+                                        삭제하기</button>
+                                </>
+                            )}
+                       </div>
                         <div className='board_line_d'></div>
 
                         <div className='main-content'>
@@ -239,8 +292,8 @@ function App() {
                                         요즘 사과값이 많이 비싸던데
                                         사과 대신에 저렴한 과일 뭐가 있을까요?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
-                                        </div>
-                                        
+                                    </div>
+
                                 </div>
 
                                 <div className='board_line_d'></div>
@@ -269,6 +322,7 @@ function App() {
                                         </div>
                                         <div className='board-date'>2024-04-28 00:00:00</div>
                                     </div>
+                                    {/* 댓글 목록 표시 */}
                                     <div className='comments'>
                                         <div className='comment-detail'>
                                             <span>
@@ -286,144 +340,7 @@ function App() {
                                                     </div></div>
                                                 <div className='comment-description'>댓글내용ㅇ입니당</div>
                                             </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
-                                            </div>
-                                        </div>
-                                        
+                                        </div>                                   
                                     </div>
                                 </div>
                                 <div className='board_line_d'></div>
@@ -432,17 +349,17 @@ function App() {
 
                                     <div role='button'>
                                         {/* 이모지 버튼 */}
-                                        
+
                                     </div>
                                     {/* 댓글 입력창 */}
-                                    <form className='comment-form' method='POST'>
+                                    <form className='comment-form' onSubmit={handleSubmitComment} method='POST'>
                                         {isCommenting && (
                                             <InputEmoji
-                                            ref={emojiInputRef}
-                                            value={commentText}
-                                            onChange={handleEmojiInput}
-                                            cleanOnEnter
-                                            placeholder='댓글 달기'
+                                                ref={emojiInputRef}
+                                                value={commentText}
+                                                onChange={handleEmojiInput}
+                                                cleanOnEnter
+                                                placeholder='댓글 달기'
                                             />
                                         )}
 
@@ -458,14 +375,20 @@ function App() {
                         </div>
                         <div className='board_line_d'></div>
                     </div>
-                </div>
 
-                <Link to="/boardList" className='link'>
-                <div className='submit-btn'>
-                    <button className='out'>나가기</button>
+
                 </div>
+                <Link to="/boardList" className='link'>
+                    <div className='submit-btn'>
+                        <button className='out'>나가기</button>
+                    </div>
                 </Link>
-            </section>
+
+
+
+
+
+            </div>
             <Footer />
         </>
     );
