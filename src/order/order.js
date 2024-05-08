@@ -91,23 +91,23 @@ function Order() {
             <Navi />
             <form className='order-form'> 
                 <h1 style={{marginTop:'30px'}}>주문 결제</h1>
-                <h2 style={{marginTop:'30px', marginLeft:'60px'}}>구매자 정보</h2>
+                <h2 className="order-top-h2">구매자 정보</h2>
                 <div className='line' style={{marginTop:'10px', marginBottom:'30px'}}/>
                 <div class="form-group">
-                    <label>이름:</label>
+                    <label className='order-customer-label'>이름:</label>
                     <div>
                         <input className="order-test-text" type="text" id="buyerName" name="buyerName" value={formData.buyerName} onChange={handleChange} />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>이메일:</label>
+                    <label className='order-customer-label'>이메일:</label>
                     <div>
                         <input className="order-test-text" type="email" id="buyerEmail" name="buyerEmail" value={formData.buyerEmail} onChange={handleChange} />
                     </div>
                 </div>
                 <div class="phone-box">
+                    <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
-                    <label>핸드폰 번호:</label>
                         <select className="order-phone-text" name="phone1" value={formData.buyerPhone[0]} onChange={e => handlePhoneChange(0, e.target.value)}>
                             <option value="010">010</option>
                             <option value="011">011</option>
@@ -125,45 +125,48 @@ function Order() {
 
                 <div className='order-customer-radio'>
                     <input type="radio" id="customer-select" name="customer-select" value="customer-select" />
-                    <label for="customer-select">주문자 정보와 동일</label>
+                    <label className='order-customer-label' for="customer-select">주문자 정보와 동일</label>
                 </div>
 
-                <div class="form-group">
-                    <label>받는 분:</label>
+                <div className="form-group">
+                    <label className='order-customer-label'>받는 분:</label>
                     <div>
                         <input className="order-test-text" type="text" id="buyerName" name="buyerName" value={formData.buyerName} onChange={handleChange} />
                     </div>
                 </div>
 
-                <div className="address-box">
-                    <label>주 소:</label>
+                <div className="form-group">
+                    <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input id="post" className="order-post-text" placeholder="우편번호" value={inputAddress.zonecode} />
-                    </div>
-                    <button type="button" id="post-btn" className="post-btn"
-                        onClick={openPostCode}>우편번호 찾기</button>
-                    {/* // 팝업 생성 기준 div */}
-                    <div id='popupDom'>
-                        {isPopupOpen && (
-                            <PopupDom>
-                                <PopupPostCode onClose={closePostCode} />
-                            </PopupDom>
-                        )}
+                        <input className="order-test-text-test"  placeholder="우편번호" value={inputAddress.zonecode} />
+                        <button type="button" id="post-btn" className="post-btn"
+                            onClick={openPostCode}>우편번호 찾기</button>
+                        {/* // 팝업 생성 기준 div */}
+                        <div id='popupDom'>
+                            {isPopupOpen && (
+                                <PopupDom>
+                                    <PopupPostCode onClose={closePostCode} />
+                                </PopupDom>
+                            )}
+                        </div>
                     </div>
                 </div>
 
-                <div className="address-box-test">
-                    <div style={{marginBottom:'10px'}}>
-                        <label>주 소:</label>
-                        <input id="road-name" className="order-adress-text" placeholder="도로명주소" value={inputAddress.address} style={{marginRight:'10px'}}/>
-                        <input id="address-detail" className="order-adress-text" placeholder="상세주소" />
+                <div className="order-adress">
+                    <label className='order-adress-label'></label>
+                    <div className='order-address-box'>
+                        <div style={{marginBottom:'10px'}}>
+                            <input id="road-name" className="order-adress-text" placeholder="도로명주소" value={inputAddress.address} style={{marginRight:'10px'}}/>
+                        </div>
+                        <div style={{marginBottom:'10px'}}>
+                            <input id="address-detail" className="order-adress-text" placeholder="상세주소" /> 
+                        </div>
                     </div>
-                </div>
+                </div>                      
 
                 <div class="phone-box">
-                    
+                    <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
-                        <label>핸드폰 번호:</label>
                         <select className="order-phone-text" name="phone1" value={formData.buyerPhone[0]} onChange={e => handlePhoneChange(0, e.target.value)}>
                             <option value="010">010</option>
                             <option value="011">011</option>
