@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
+import InputEmoji from 'react-input-emoji';
 
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
@@ -18,8 +19,6 @@ import commnetButtonDefault from './../images/board/comment-button.png';
 import commentButtonOn from './../images/board/comment-on-button.png';
 import shareButtonDefault from './../images/board/share-button.png';
 import shareButtonOn from './../images/board/share-on-button.png';
-import emojiButtonDefault from './../images/board/emoji-button.png';
-import emojiButtonOn from './../images/board/emoji-on-button.png';
 import submitButtonDefault from './../images/board/plus-button.png';
 import submitButtonOn from './../images/board/plus-on-button.png';
 
@@ -94,33 +93,25 @@ function App() {
     };
 
 
+    // 이모지 입력을 위한 state
+    const [commentText, setCommentText] = useState('');
+    const emojiInputRef = useRef(null);
 
+    const handleEmojiInput = (text) => {
+        setCommentText(text);
+    };
 
-    // // 이모지 선택기
-    // useEffect(() => {
-    //     const button = document.querySelector('.emoji-btn');
-    //     const picker = new EmojiButton();
-
-    //     picker.on('emoji', emoji => {
-    //         const inputComment = document.querySelector('.input-comment');
-    //         inputComment.value += emoji; // 선택한 이모지를 입력란에 추가
-    //     });
-
-    //     button.addEventListener('click', () => {
-    //         picker.togglePicker(button); // 버튼을 클릭하면 이모지 선택기를 토글합니다.
-    //     });
-    // }, []); // useEffect 한 번만 실행되어야 함을 나타내는 빈 배열
-
-
+    
+    
     return (
         <>
             <Navi />
             <Menu />
-            <section>
+            <section className='sec-'>
                 <div className='write-box'>
-                    <div className='board'>
+                    <div className='board-detail'>
                         <div className='write-title' name='writeTitle'>이번에 진단받은 식단이에요! </div>
-                        <div className='board_line'></div>
+                        <div className='board_line_d'></div>
 
                         <div className='main-content'>
                             <div className='box-left'>
@@ -155,7 +146,7 @@ function App() {
                                 </div>
                             </div>
 
-                            <div className='view_center'></div>
+                            <div className='view_center_d'></div>
 
                             <div className='box-right'>
 
@@ -181,10 +172,78 @@ function App() {
                                         사과 대신에 저렴한 과일 뭐가 있을까요?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
                                         맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!</div>
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        비타민이 부족해서 사과도 추가해봤습니다
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        맛이 어떨지 궁금해요
+                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
+                                        요즘 사과값이 많이 비싸던데
+                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        로즈힙차가 레몬보다 비타민이 20배라던데
+                                        </div>
+                                        
                                 </div>
 
-                                <div className='board_line'></div>
+                                <div className='board_line_d'></div>
 
                                 <div className='right-middle'>
                                     <div className='middle-bar'>
@@ -228,28 +287,162 @@ function App() {
                                                 <div className='comment-description'>댓글내용ㅇ입니당</div>
                                             </div>
                                         </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        <div className='comment-detail'>
+                                            <span>
+                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                            </span>
+                                            <div>
+                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
+                                                    <div className='popup' data-role="popup" id="memberPopup">
+                                                        <ul data-role="listview" data-inset="true">
+                                                            <li><a href="#">게시글 보기</a></li>
+                                                            <li><a href="#">1:1 채팅</a></li>
+                                                            <li><a href="#">친구 추가</a></li>
+                                                            <li><a href="#">신고하기</a></li>
+                                                        </ul>
+                                                    </div></div>
+                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                 </div>
-                                <div className='board_line'></div>
+                                <div className='board_line_d'></div>
 
                                 <div className='input-comments'>
 
-                                    <div role='button'><path d="#">
+                                    <div role='button'>
                                         {/* 이모지 버튼 */}
-                                        <button className="emoji-btn">
-                                            <img src={emojiButtonDefault} className='btn-default' />
-                                            <img src={emojiButtonOn} className='btn-on' />
-                                        </button>
-                                    </path></div>
+                                        
+                                    </div>
                                     {/* 댓글 입력창 */}
                                     <form className='comment-form' method='POST'>
                                         {isCommenting && (
-                                            <input
-                                                type='text'
-                                                className='input-comment'
-                                                name='inputComment'
-                                                placeholder='댓글 달기'
-                                                ref={inputRef}
+                                            <InputEmoji
+                                            ref={emojiInputRef}
+                                            value={commentText}
+                                            onChange={handleEmojiInput}
+                                            cleanOnEnter
+                                            placeholder='댓글 달기'
                                             />
                                         )}
 
@@ -263,7 +456,7 @@ function App() {
                             </div>
 
                         </div>
-                        <div className='board_line'></div>
+                        <div className='board_line_d'></div>
                     </div>
                 </div>
 

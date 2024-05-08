@@ -13,33 +13,12 @@ section {
 	flex-direction: column;
 }
 
-/* 검색(돋보기) 버튼 */
-.search-btn{
-	margin-right: 31px;
-	background-color: transparent;
-	border: none;
-    cursor: pointer;
-	
-	position: relative;
-}
-
-.search-btn-on{
-	position: absolute;
-	top: 1px;
-	left: 6px;
-	display: none;
-}
-
-.search-btn:hover .search-btn-on{
-	display: block;
-}
-
 .board{
-	width: 80%;
+	width: 70%;
     height: auto;
 	border-radius: 15px;
     background-color: #ffffff;
-    padding: 80px;
+    padding: 50px 80px;
 
     color: #6A6A6A;
 }
@@ -126,6 +105,27 @@ section {
 
 .search-box:focus {
     border-color: #005A4E;
+}
+
+/* 검색(돋보기) 버튼 */
+.search-btn{
+	margin-right: 31px;
+	background-color: transparent;
+	border: none;
+    cursor: pointer;
+	
+	position: relative;
+}
+
+.search-btn-on{
+	position: absolute;
+	top: 1px;
+	left: 6px;
+	display: none;
+}
+
+.search-btn:hover .search-btn-on{
+	display: block;
 }
 
 
@@ -239,6 +239,7 @@ section {
     display: flex;
     justify-content: center; 
     align-items: center; 
+    margin-top: 20px;
 }
 
 .pagination {
