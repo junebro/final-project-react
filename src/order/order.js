@@ -7,8 +7,10 @@ import Footer from './../common/footer';
 import PopupDom from './../member/popupDom';
 import PopupPostCode from './../member/PopupPostCode';
 import { addressData } from './../member/PopupPostCode';
+//import { resetAddressData } from './../member/PopupPostCode'; // PopupPostCode.js 파일에서 resetAddressData 함수를 가져옵니다.
 
 function Order() {
+
 
     // 체크박스 상태
     const [isChecked, setIsChecked] = useState(false);
@@ -53,16 +55,27 @@ function Order() {
         setIsPopupOpen(false)
     }
 
+    // let inputAddress = '';
+
     // if (addressData) {
-    //     if (isToggle1 && !isToggle2) {
-    //         inputBuyerAddress = addressData;
-    //         inputRecipientAddress = '';
-    //     } else if (!isToggle1 && isToggle2 ) {
-    //         inputRecipientAddress = addressData;
-    //         inputBuyerAddress = '';
-    //     }
+    //     inputAddress = addressData;
     // }
-    
+
+   
+
+    if (addressData) {
+        if (isToggle1 && !isToggle2) {
+            inputBuyerAddress = addressData;
+            inputRecipientAddress = '';
+            //resetAddressData();
+
+        } else if (!isToggle1 && isToggle2 ) {
+            inputRecipientAddress = addressData;
+            inputBuyerAddress = '';
+            //resetAddressData();
+        }
+    }
+
     // 표시할 텍스트의 인덱스를 저장하는 state
     const [activeTextIndex, setActiveTextIndex] = useState(null);
 
