@@ -10,6 +10,7 @@ import EditProfile from "./mypage/editProfile";
 import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
+import DiaryDetail from "./mypage/diaryDetail";
 
 import Order from "./order/order";
 
@@ -34,6 +35,8 @@ function App() {
       <Route path="/Nutrition" element={<Nutrition />} /> 
       <Route path="/MyCommunity" element={<MyCommunity />} /> 
       <Route path="/HealthDiary" element={<HealthDiary />} /> 
+      <Route path="/DiaryDetail" element={<DiaryDetail />} /> 
+      <Route path="/OrderList" element={<OrderList />} /> 
       
       <Route path="/EditProfile" element={<EditProfile />} /> 
       <Route path="/ChangePw" element={<ChangePw />} /> 
