@@ -20,8 +20,8 @@ import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
 import BoardDetail from "./board/boardDetail";
+import Nutri from "./TT/App_nutri";
 // import Diary from "./mypage/diary";
-
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
       <Route path="/" element={<Main />} />
       <Route path="/Products" element={<Products />} />
       <Route path="/Cart" element={<Cart />} />
+      <Route path="/Order" element={<Order />} />
 
       <Route path="/Join" element={<Join />} /> 
       <Route path="/Nutrition" element={<Nutrition />} /> 
@@ -47,10 +48,9 @@ function App() {
       <Route path="/boardDetail" element={<BoardDetail />} />
 
       <Route path="/Diet" element={<Diet />} />
+      <Route path="/Nutri/*" element={<Nutri />} />
 
-      {/* <Route path="/Diary" element={<Diary />} /> */}
-
-
+  
     </Routes>
   );
 }
