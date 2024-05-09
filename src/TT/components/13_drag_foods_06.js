@@ -157,7 +157,7 @@ const App = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <p className="main_alert">
-        두부/콩류,과일류,유제품류를 얼마나 자주 드시나요?
+        가당음료,과자,사탕/젤리류를 얼마나 자주 드시나요?
       </p>
       <div className="grid-container">
         <Droppable droppableId="drop-1">
