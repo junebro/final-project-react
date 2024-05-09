@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import "./../css/top_css.css";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [progress, setProgress] = useState(40); // 초기 진행도 설정
   const [pageNumber, setPageNumber] = useState(1); // 초기 페이지 번호 설정
