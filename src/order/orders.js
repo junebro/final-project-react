@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import './order.css'
+import './orders.css'
 
-import Navi from './../common/navigation';  
-import Footer from './../common/footer';
+import Navi from '../common/navigation';  
+import Footer from '../common/footer';
 
-import PopupDom from './../member/popupDom';
-import PopupPostCode from './../member/PopupPostCode';
-import { addressData } from './../member/PopupPostCode';
+import PopupDom from '../member/popupDom';
+import PopupPostCode from '../member/PopupPostCode';
+import { addressData } from '../member/PopupPostCode';
 
 function Order() {
 
