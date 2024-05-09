@@ -12,6 +12,7 @@ import test_image from "./../images/main/test_image.png";
 import bottom_image from "./../images/main/bottom_image.webp";
 
 import { useSpring, animated } from "react-spring";
+import { Link } from "react-router-dom";
 
 function App() {
   // 첫 번째 요소의 애니메이션 설정
@@ -71,12 +72,14 @@ function App() {
           <animated.div className="font_top top_3" style={thirdProps}>
             고민없는, 나만의 위한 식단
           </animated.div>
-          <animated.div
-            className="font_top top_4 top_button"
-            style={fourthProps}
-          >
-            영양 진단 받아보기
-          </animated.div>
+          <Link to={"/Nutri"}>
+            <animated.div
+              className="font_top top_4 top_button"
+              style={fourthProps}
+            >
+              영양 진단 받아보기
+            </animated.div>
+          </Link>
         </div>
         <animated.img
           className="img_main"
