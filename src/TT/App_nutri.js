@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Top from "./components/top01.js";
-import { Outlet } from "react-router-dom";
 //  추가할 페이지 임포트 구간
 import Content01 from "./components/01_personal_info_survay.js";
 import Content02 from "./components/02_disease_survey.js";
