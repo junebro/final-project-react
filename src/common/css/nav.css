@@ -1,22 +1,22 @@
-@import './../css/App.css';
+@import './../../css/App.css';
 
 .nav_container {
+    position: sticky;
+    top: 0;
     font-family: 'Pretendard-Regular';
-    background-color: lightblue; /* 변경하고 싶은 색상으로 대체 */
+    background-color: white; /* 변경하고 싶은 색상으로 대체 */
     display: flex; 
     justify-content: space-between;
     align-items: center;
+    z-index: 1000;
 }
 
 .div_text {
     display: flex; 
 }
 
-.div_logo{
-    width: 30px;
-    height: 35px;
-    padding-top:5px;
-    padding-left:1%;
+.img_logo {
+  padding: 10px;
 }
 
 .logo_left {

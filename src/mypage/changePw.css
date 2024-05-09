@@ -64,7 +64,7 @@ li {
     margin-bottom: 30px;
 }
 
-.active{
+.mypage-menu-active{
     border-radius: 5px;
     background-color: #005A4E;
     color:white;
@@ -85,7 +85,6 @@ li {
     padding: 30px;
 }
 
-/* 템플릿 이후 */
 .title {
     margin-left: 10px;
     color: #005A4E;
@@ -97,107 +96,63 @@ li {
     margin: 10px 0;
 }
 
-/* 초록 박스 */
-.nutrition-box {
+/* 템플릿 이후 */
+.changePw-box {
     width: 100%;
-    height: 180px;
-    
-    margin: 40px 0;
-    border-radius: 10px;
-    background-color: #F1FFF2;
+    margin-top: 50px 
 }
 
-.left-box {
-    padding: 30px;
-}
-.left-box >:first-child {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: #4b4b4b;
-}
-
-.left-box >:nth-child(2) {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-/* 식습관 파헤치기 버튼 */
-.nutrition-a {
-    width: 100%;
-    height: 45px;
-    line-height: 45px;
-    text-align: center;
-    font-weight: 700;
-    border-radius: 50px;
-    background-color: #005A4E;
-    color: white;
-}
-
-/* 이미지 */
-.right-box {
-    display: none;
-}
-
-
-.sub-title {
-    
-    font-weight: 700;
-    margin-bottom: 15px;
-}
-
-.sub-title-line {
-    color: #4b4b4b;
-}
-
-/* 진단 정보 */
-.survey-one {
+.changePw-form {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    border-bottom: 1px solid #9a9a9a;
-}
-.survey-one {
+    flex-direction: column;
+    justify-content: center;
     padding: 20px;
+    margin: 0 auto;
+
+    max-width: 500px;
 }
 
-.text >:first-child {
-    font-size: 14px;
+.changePw-form p {
     font-weight: 700;
-    margin: 0 15px;
 }
 
-.text >:last-child {
-    font-size: 14px;
+.changePw-form input {
+    height: 50px;
+    border-radius: 10px;
+    margin: 10px 0 20px;
+
+    border: 1px solid #D9D9D9;
+    outline: none;
+
+    text-indent: 15px;
 }
 
-/* 진단결과 보기 버튼 */
-.survey-result {
-    padding: 10px 15px;
-    border: 1px solid #005A4E;
-    border-radius: 50px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #005A4E;
-    background-color: white;
+.changePw-btn {
+    width: 100px;
+    height: 45px;
+    padding: 0 20px;
+    margin: 20px auto;
+    border-radius: 5px;
+    border: none;
+
+    font-size: 16px;
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
     cursor: pointer;
 }
 
-.survey-result:hover {
-    background-color: #F1FFF2;
-    
+.changePw-btn:hover {
+    opacity: 0.7;
 }
 
-.survey-result:active {
-    background-color: #F1FFF2;
-}
 @media (min-width: 640px) {
 
    
 
-    section {
+    .changePw-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
@@ -266,7 +221,7 @@ li {
 .contents{
     width: 80%;
     padding: 50px;
-    margin-top: 110px;
+    margin-top: 90px;
 
     border-radius: 15px;
     background-color: white;
@@ -274,25 +229,4 @@ li {
 
 /* 템플릿 이후 */
 
-.nutrition-box {
-    display: flex;
-    justify-content: space-between;
-}
-
-/* 식습관 파헤치기 버튼 */
-.nutrition-a {
-    width: 280px;
-    font-size: 18px;
-
- 
-}
-
-.right-box {
-    display: block;
-    margin-right: 30px;
-}
-
-.right-box img {
-    width: 200px;
-}
 }

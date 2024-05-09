@@ -1,9 +1,4 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
+@import './../css/App.css';
 
 * {
 	box-sizing : border-box;
@@ -18,7 +13,7 @@ body {
 }
 
 /* 회원가입 상자 가운데 정렬 */
-section {
+.join-section {
    width: 100vw;
    /* height: 100vh; */
 
@@ -165,7 +160,9 @@ hr {
 
 /* 주소 입력 박스 */
 
+
 .address-box {
+    position: relative;
     margin: 10px 0 40px;
 }
 .address-box >:first-child {
@@ -181,6 +178,11 @@ hr {
     border-radius: 10px;
     outline: none;
     text-indent: 15px;
+}
+
+#popupDom {
+    position: absolute;
+    transform: translateY(-300px);
 }
 
 .post-btn {
@@ -244,9 +246,10 @@ a {
     }
     
     /* 회원가입 상자 가운데 정렬 */
-    section {
+    .join-section {
        width: 100vw;
        /* height: 100vh; */
+       
         padding: 50px 0;
        display: flex;
         justify-content: center;

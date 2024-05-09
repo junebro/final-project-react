@@ -13,41 +13,20 @@ section {
 	flex-direction: column;
 }
 
-/* 검색(돋보기) 버튼 */
-.search-btn{
-	margin-right: 31px;
-	background-color: transparent;
-	border: none;
-    cursor: pointer;
-	
-	position: relative;
-}
-
-.search-btn-on{
-	position: absolute;
-	top: 1px;
-	left: 6px;
-	display: none;
-}
-
-.search-btn:hover .search-btn-on{
-	display: block;
-}
-
 .board{
-	width: 80%;
+	width: 70%;
     height: auto;
 	border-radius: 15px;
     background-color: #ffffff;
-    padding: 80px;
+    padding: 50px 80px;
 
     color: #6A6A6A;
 }
 
 .board_top{
-	display: flex;
-	justify-content: space-between;
+	display: flex;  
     align-items: center;
+	justify-content: space-between;
     margin-bottom: 10px;
 }
 
@@ -126,6 +105,27 @@ section {
 
 .search-box:focus {
     border-color: #005A4E;
+}
+
+/* 검색(돋보기) 버튼 */
+.search-btn{
+	margin-right: 31px;
+	background-color: transparent;
+	border: none;
+    cursor: pointer;
+	
+	position: relative;
+}
+
+.search-btn-on{
+	position: absolute;
+	top: 1px;
+	left: 6px;
+	display: none;
+}
+
+.search-btn:hover .search-btn-on{
+	display: block;
 }
 
 
@@ -239,6 +239,7 @@ section {
     display: flex;
     justify-content: center; 
     align-items: center; 
+    margin-top: 20px;
 }
 
 .pagination {
@@ -275,4 +276,25 @@ section {
 .pagination li a:hover {
     color: #005A4E; /* hover 시 글자색 변경 */
     font-weight: bold; /* hover 시 bold체 적용 */
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1200px) {
+    .board_main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .board_info {
+        order: 1; /* board_info를 위로 */
+        width: 100%;
+    }
+
+    .board_date {
+        order: 2; /* board_date를 board_info 아래로 */
+    }
+
+    .board_left, .board_right {
+        width: 100%; /* board_left와 board_right를 꽉 채우도록 */
+    }
 }

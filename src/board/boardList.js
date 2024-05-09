@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import './boardList.css';
 import Pagination from 'react-js-pagination';
 import Navi from '../common/navigation';
@@ -50,6 +51,7 @@ function App() {
             <Menu />
             <section>
                 <div className='board'>
+
                     <div className='board_top'>
                         <div className='selectbox'>
                             <select onChange={ChangeCategory} id="sel_range" name="sel_range">
@@ -61,12 +63,14 @@ function App() {
                         </div>
 
                         {/* 글쓰기 버튼 */}
-                        <a>
+                        <Link to="/boardInsert" className='link'>
                             <button type='submit' className='btn btn-primary'>
+
                                 <img src={require('./../images/board/plus_icon.png')} className='plus_icon' />
                                 글쓰기
+
                             </button>
-                        </a>
+                        </Link>
 
                         {/* 검색창 */}
                         <form action='#'>
@@ -83,16 +87,18 @@ function App() {
                                 </div>
                             </div>
                         </form>
-                        {/* 검색어에 대한 응답 출력 */} 
+                        {/* 검색어에 대한 응답 출력 */}
                         {/* <div id='resultContainer' className='resultContainer'></div> */}
                     </div>
 
-                    <div className='board_line'></div>
                     <div className="board_main_wrapper">
+                        <div className='board_line'></div>
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    <Link to="/boardDetail" className='link'>
+                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    </Link>
                                     <div className='comment'>[4]</div>
                                     <div className='new'>
                                         <span >NEW</span>
@@ -100,16 +106,18 @@ function App() {
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <div className='board_bottom_section'>
-                                    <div className='description'>비타민이 부족해서 어쩌구</div>
-                                    <br />
-                                    <div className='thumbnail'>
-                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
+                                <Link to="/boardDetail" className='link'>
+                                    <div className='board_bottom_section'>
+                                        <div className='description'>비타민이 부족해서 어쩌구</div>
+                                        <br />
+                                        <div className='thumbnail'>
+                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className='view_center'></div>
                             <div className='board_right'>
@@ -135,24 +143,28 @@ function App() {
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    <Link to="/boardDetail" className='link'>
+                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    </Link>
                                     <div className='comment'>[4]</div>
                                     <div className='new'>
-                                        <span>NEW</span>
+                                        <span >NEW</span>
                                     </div>
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <div className='board_bottom_section'>
-                                    <div className='description'>비타민이 부족해서 어쩌구</div>
-                                    <br />
-                                    <div className='thumbnail'>
-                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
+                                <Link to="/boardDetail" className='link'>
+                                    <div className='board_bottom_section'>
+                                        <div className='description'>비타민이 부족해서 어쩌구</div>
+                                        <br />
+                                        <div className='thumbnail'>
+                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className='view_center'></div>
                             <div className='board_right'>
@@ -178,24 +190,28 @@ function App() {
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    <Link to="/boardDetail" className='link'>
+                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
+                                    </Link>
                                     <div className='comment'>[4]</div>
                                     <div className='new'>
-                                        <span>NEW</span>
+                                        <span >NEW</span>
                                     </div>
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <div className='board_bottom_section'>
-                                    <div className='description'>비타민이 부족해서 어쩌구</div>
-                                    <br />
-                                    <div className='thumbnail'>
-                                        <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                        <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                        <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
+                                <Link to="/boardDetail" className='link'>
+                                    <div className='board_bottom_section'>
+                                        <div className='description'>비타민이 부족해서 어쩌구</div>
+                                        <br />
+                                        <div className='thumbnail'>
+                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
+                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
+                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
+                                        </div>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
 
                             <div className='view_center'></div>

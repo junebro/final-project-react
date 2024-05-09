@@ -1,9 +1,9 @@
 import './../App.css';
 import './mypageT.css';
 import React from 'react';
-import Navi from './../common/navigation';
-import Menu from './../common/menu';
-import Footer from './../common/footer';
+import Navi from '../common/navigation';
+import Menu from '../common/menu';
+import Footer from '../common/footer';
 
 function App() {
     return (

@@ -1,9 +1,4 @@
-@font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-}
+@import './../css/App.css';
 
 
 /* css 초기화 */
@@ -64,7 +59,7 @@ li {
     margin-bottom: 30px;
 }
 
-.active{
+.mypage-menu-active{
     border-radius: 5px;
     background-color: #005A4E;
     color:white;
@@ -81,7 +76,7 @@ li {
 }
 
 .contents {
-    min-height: 1000px;
+    /* min-height: 1000px; */
     padding: 30px;
 }
 
@@ -97,62 +92,99 @@ li {
 }
 
 /* 템플릿 이후 */
-.changePw-box {
+
+.calendar-box {
     width: 100%;
-    margin-top: 50px 
+    padding: 0 25px;
 }
 
-.changePw-form {
+#calendar {
+    height: 500px;
+    margin-bottom: 30px;
+    background-color:antiquewhite;
+}
+
+.diary-box {
+    text-align: left;
+    margin: 0 25px 75px;
+    padding: 45px;
+    border-radius: 15px;
+    background-color: #FAFAFA;
+   
+}
+
+.diary-box span {
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.icon-box {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    margin: 0 auto;
-
-    max-width: 500px;
+    align-items: center;
+    margin: 15px 0;
 }
 
-.changePw-form p {
-    font-weight: 700;
-}
-
-.changePw-form input {
-    height: 50px;
-    border-radius: 10px;
-    margin: 10px 0 20px;
-
-    border: 1px solid #D9D9D9;
-    outline: none;
-
-    text-indent: 15px;
-}
-
-.changePw-btn {
-    width: 100px;
-    height: 45px;
-    padding: 0 20px;
-    margin: 20px auto;
-    border-radius: 5px;
-    border: none;
-
+.icon-box span {
     font-size: 16px;
-    color: white;
-    background-color: #005A4E;
+}
 
-    transition: all ease-in-out 0.15s;
+.icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    background-color: black;
+    border-radius: 100%;
+}
 
+.diary-contents {
+    text-align: left;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 25px;
+    font-family: 'omyu_pretty';
+}
+.diary-btn-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 25px;
+    border-radius: 30px;
+    background-color: white;
+}
+
+.write-btn {
+    width: 100%;
+    height: 45px;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 1px solid #005A4E;
+    color: #005A4E;
+    background-color: white;
+    outline: none;
     cursor: pointer;
 }
 
-.changePw-btn:hover {
-    opacity: 0.7;
+.write-btn:hover {
+    background-color: #F1FFF2;
+    
 }
+
+.write-btn:active {
+    background-color: #F1FFF2;
+}
+
+/* 날짜에 마진값 주는거 */
+/* .react-calendar__month-view__days button{
+    margin: 5px;
+    margin-inline-end: 5px !important; 
+} */
 
 @media (min-width: 640px) {
 
    
 
-    section {
+    .diary-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
@@ -190,6 +222,13 @@ li {
         display: block;
     }
 
+    .react-calendarmonth-viewdays button {
+        margin: 50px;
+        margin-inline-end: 10px !important; 
+    }
+
+    
+
     .h1 {
         width: 60%;
         margin: 10px 0;
@@ -217,16 +256,44 @@ li {
         font-size: 20px;
     }
     
+ 
+
     /* 컨텐츠 영역 */
 .contents{
     width: 80%;
     padding: 50px;
-    margin-top: 110px;
-
+    margin-top: 90px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
     border-radius: 15px;
     background-color: white;
 }
 
 /* 템플릿 이후 */
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
 
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
+
+.diary-btn-box {
+    width: 100%;
+    position: relative; 
+    display: flex;
+    justify-content: center;
+}
+
+.write-btn {
+    width: 50%;
+}
+
+.diary-box {
+    margin-bottom: 55px;
+}
 }

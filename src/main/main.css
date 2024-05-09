@@ -5,12 +5,15 @@
     display: flex; /* div태그 한줄로 */
     user-select: none; /* 드래그 방지 */
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding-top: 2%;
-    padding-left: 30%;
-    padding-right: 30%;
+    background-color: white;
+    padding-bottom: 90px;
 }
 
+.top_div {
+    margin-right: 1%;
+}
 
 .font_top {
     font-family: 'Pretendard-Regular';
@@ -33,6 +36,7 @@
 }
 
 .img_main {
+    margin-left: 1%;
     transition: opacity 0.5s ease; /* 이미지 숨김/보임 효과를 부드럽게 */
 }
 
@@ -49,7 +53,7 @@
     transition: background-color 0.3s, color 0.3s; /* 배경색과 텍스트 색상에 대한 변화를 부드럽게 적용하기 위한 트랜지션 설정 */
 }
 
-.main_mid{
+.main_mid {
     padding-top:3%;
     padding-bottom: 5%;
     background-color: var(--gray-color);
@@ -195,11 +199,12 @@
 
 /* 모바일 화면에서 이미지 숨기기 */
 @media (max-width: 640px) {
-    *{
+    .main-form {
         text-align: center;
     }
     .img_main {
         display: none; /* 화면이 768px 이하일 때 이미지 숨기기 */
+        
     }
     .top_div {
         padding-top: 15%;
@@ -235,6 +240,14 @@
     }
 }
 
+.slide-up-box {
+    padding: 20px;
+    background-color: lightblue; /* 배경색 추가 */
+    width: 50%;                  /* 너비 조정 */
+    margin: 0 auto;              /* 가운데 정렬 */
+    border-radius: 8px;          /* 모서리 둥글게 처리 */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* 그림자 효과 */
+  }
 /* 태블릿 및 데스크탑 화면에서 이미지 보이기 */
 @media (min-width: 769px) {
     .img_main {
