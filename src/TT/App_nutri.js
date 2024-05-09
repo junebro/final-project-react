@@ -17,7 +17,6 @@ import Content11 from "./components/11_drag_foods_04.js";
 import Content12 from "./components/12_drag_foods_05.js";
 import Content13 from "./components/13_drag_foods_06.js";
 //  추가할 페이지 임포트 구간
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/content_css.css";
 
 class App extends Component {
