@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
 import "./../css/drag_css.css";
-import img1 from "./../images/볶음밥덮밥류.png";
-import img2 from "./../images/밥류.png";
-import img3 from "./../images/대체식품류.png";
+import img1 from "./../images/견과류.png";
+import img2 from "./../images/패스트푸드류.png";
+import img3 from "./../images/달콤한간식류.png";
 
 const initialItems = [
   { id: "item-1", content: img1 },
@@ -157,7 +157,7 @@ const App = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
       <p className="main_alert">
-        밥류/식사대용식품류/덮밥류를 얼마나 자주 드시나요?
+        견과류,패스트푸드류,달콤한간식류를 얼마나 자주 드시나요?
       </p>
       <div className="grid-container">
         <Droppable droppableId="drop-1">

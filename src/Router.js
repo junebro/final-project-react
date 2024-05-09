@@ -10,6 +10,7 @@ import EditProfile from "./mypage/editProfile";
 import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
+import DiaryDetail from "./mypage/diaryDetail";
 
 import OrderList from "./mypage/orderList";
 
@@ -17,9 +18,8 @@ import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
 import BoardDetail from "./board/boardDetail";
-import Order from "./order/order";
+import Nutri from "./TT/App_nutri";
 // import Diary from "./mypage/diary";
-
 
 function App() {
   return (
@@ -34,6 +34,8 @@ function App() {
       <Route path="/Nutrition" element={<Nutrition />} /> 
       <Route path="/MyCommunity" element={<MyCommunity />} /> 
       <Route path="/HealthDiary" element={<HealthDiary />} /> 
+      <Route path="/DiaryDetail" element={<DiaryDetail />} /> 
+      <Route path="/OrderList" element={<OrderList />} /> 
       
       <Route path="/EditProfile" element={<EditProfile />} /> 
       <Route path="/ChangePw" element={<ChangePw />} /> 
@@ -44,10 +46,9 @@ function App() {
       <Route path="/boardDetail" element={<BoardDetail />} />
 
       <Route path="/Diet" element={<Diet />} />
+      <Route path="/Nutri/*" element={<Nutri />} />
 
-      {/* <Route path="/Diary" element={<Diary />} /> */}
-
-
+  
     </Routes>
   );
 }
