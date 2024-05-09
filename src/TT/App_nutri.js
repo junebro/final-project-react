@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Top from "./components/top01.js";
+import { Outlet } from "react-router-dom";
 //  추가할 페이지 임포트 구간
 import Content01 from "./components/01_personal_info_survay.js";
 import Content02 from "./components/02_disease_survey.js";
@@ -16,7 +17,6 @@ import Content11 from "./components/11_drag_foods_04.js";
 import Content12 from "./components/12_drag_foods_05.js";
 import Content13 from "./components/13_drag_foods_06.js";
 //  추가할 페이지 임포트 구간
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/content_css.css";
 
 class App extends Component {
