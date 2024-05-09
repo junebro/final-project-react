@@ -1,8 +1,11 @@
 import ReactDom from 'react-dom';
  
 const PopupDom = ({ children }) => {
-    const el = document.getElementById('popupDom');
+
+    let el = document.getElementById('popupDom'); // 초기 값을 설정
+    
     return ReactDom.createPortal(children, el);
+
 };
  
 export default PopupDom;

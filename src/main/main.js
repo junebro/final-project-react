@@ -72,7 +72,7 @@ function App() {
           <animated.div className="font_top top_3" style={thirdProps}>
             고민없는, 나만의 위한 식단
           </animated.div>
-          <Link to={"/Nutri"}>
+          <Link to={"/nutri/nutri"}>
             <animated.div
               className="font_top top_4 top_button"
               style={fourthProps}

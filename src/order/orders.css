@@ -120,7 +120,7 @@ select {
 
 #popupDom {
     position: absolute;
-    transform: translate(200px, 160px);
+    transform: translate(0px, 5px);
 }
 
 .form-group-bottom {
