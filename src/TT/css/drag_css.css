@@ -1,10 +1,13 @@
+@import "./../../App.css";
+
 .grid-container {
-  margin-top: 3%;
   justify-content: center;
+  font-family: "Pretendard-Regular";
 }
 
 .main_alert {
   text-align: center;
+  margin-top: 10px;
 }
 
 .draggable-item {
@@ -41,7 +44,7 @@
 .drop-05,
 .drop-06,
 .drop-07 {
-  width: 400px; /* 고정된 너비 */
+  width: 500px; /* 고정된 너비 */
   height: 150px; /* 고정된 높이 */
   border: 3px solid #ccc; /* 테두리 스타일 */
   border-radius: 20px;
@@ -58,6 +61,8 @@
   position: absolute;
   top: -12px;
   left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
   background-color: white;
   font-size: 14px;
   font-weight: bolder;
@@ -65,41 +70,61 @@
 }
 .drop-03:before {
   content: "일주일에 1~2번"; /* 표시할 텍스트 내용 */
-  position: absolute; /* 절대 위치 */
-  top: -15px; /* 상단과의 간격 조정 */
-  left: 120px; /* 왼쪽 여백 */
-  background-color: white; /* 텍스트 백그라운드 색상을 박스와 동일하게 설정 */
-  padding: 0 5px; /* 텍스트 주변에 적절한 간격 설정 */
+  position: absolute;
+  top: -12px;
+  left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  color: black;
 }
 .drop-04:before {
   content: "일주일에 3~4번"; /* 표시할 텍스트 내용 */
-  position: absolute; /* 절대 위치 */
-  top: -15px; /* 상단과의 간격 조정 */
-  left: 120px; /* 왼쪽 여백 */
-  background-color: white; /* 텍스트 백그라운드 색상을 박스와 동일하게 설정 */
-  padding: 0 5px; /* 텍스트 주변에 적절한 간격 설정 */
+  position: absolute;
+  top: -12px;
+  left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  color: black;
 }
 .drop-05:before {
   content: "일주일에 5~6번"; /* 표시할 텍스트 내용 */
-  position: absolute; /* 절대 위치 */
-  top: -15px; /* 상단과의 간격 조정 */
-  left: 120px; /* 왼쪽 여백 */
-  background-color: white; /* 텍스트 백그라운드 색상을 박스와 동일하게 설정 */
-  padding: 0 5px; /* 텍스트 주변에 적절한 간격 설정 */
+  position: absolute;
+  top: -12px;
+  left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  color: black;
 }
 .drop-06:before {
   content: "하루에 1번"; /* 표시할 텍스트 내용 */
-  position: absolute; /* 절대 위치 */
-  top: -15px; /* 상단과의 간격 조정 */
-  left: 120px; /* 왼쪽 여백 */
-  background-color: white; /* 텍스트 백그라운드 색상을 박스와 동일하게 설정 */
-  padding: 0 5px; /* 텍스트 주변에 적절한 간격 설정 */
+  position: absolute;
+  top: -12px;
+  left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  color: black;
 }
 .drop-07:before {
   content: "하루에 2번 이상"; /* 표시할 텍스트 내용 */
-  position: absolute; /* 절대 위치 */
-  top: -15px; /* 상단과의 간격 조정 */
-  left: 120px; /* 왼쪽 여백 */
-  background-color: white; /* 텍스트 백그라운드 색상을 박스와 동일하게 설정 */
-  padding: 0 5px; /* 텍스트 주변에 적절한 간격 설정 */
+  position: absolute;
+  top: -12px;
+  left: 120px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: white;
+  font-size: 14px;
+  font-weight: bolder;
+  color: black;
 }

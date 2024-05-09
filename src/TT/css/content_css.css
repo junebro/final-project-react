@@ -13,12 +13,13 @@
   bottom: 0;
   border: none;
   background-color: var(--green-color);
-  width: 100%;
-  height: 10%;
+  width: 100vw;
+  height: 50px;
   font-size: 30px;
   font-weight: bolder;
   color: aliceblue;
   margin-top: 3%;
+  content: "다음";
 }
 
 /* 입력 안내 문구 */
@@ -90,18 +91,20 @@
     height: 100vh;
   }
 
-  /* 버튼 css */
   .next_button {
+    text-decoration: none;
     text-align: center;
     position: fixed;
     bottom: 0;
     border: none;
     background-color: var(--green-color);
-    width: 100%;
-    height: 10%;
+    width: 100vw;
+    height: 50px;
     font-size: 30px;
     font-weight: bolder;
     color: aliceblue;
+    margin-top: 3%;
+    content: "다음";
   }
 
   /* 입력 안내 문구 */

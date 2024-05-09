@@ -10,6 +10,9 @@ import Content04 from "./components/04_exercise_rate.js";
 import Content05 from "./components/05_soup_qa.js";
 import Content06 from "./components/06_alcohol_qa.js";
 import Content07 from "./components/07_drag_foods.js";
+import Content08 from "./components/08_drag_foods_01.js";
+import Content09 from "./components/09_drag_foods_02.js";
+import Content10 from "./components/10_drag_foods_03.js";
 //  추가할 페이지 임포트 구간
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/content_css.css";
@@ -27,6 +30,9 @@ class App extends Component {
         Content05,
         Content06,
         Content07,
+        Content08,
+        Content09,
+        Content10,
       ], // 렌더링할 컴포넌트 목록
       paths: [
         "/Nutri",
@@ -36,6 +42,9 @@ class App extends Component {
         "/Nutri/content05",
         "/Nutri/content06",
         "/Nutri/content07",
+        "/Nutri/content08",
+        "/Nutri/content09",
+        "/Nutri/content10",
       ], // 컴포넌트에 해당하는 경로 목록
     };
   }
@@ -74,6 +83,9 @@ class App extends Component {
           <Route path="/content05" element={<Content05 />} />
           <Route path="/content06" element={<Content06 />} />
           <Route path="/content07" element={<Content07 />} />
+          <Route path="/content08" element={<Content08 />} />
+          <Route path="/content09" element={<Content09 />} />
+          <Route path="/content10" element={<Content10 />} />
         </Routes>
         <div>
           {/* 다음 버튼에 Link를 사용하여 다음 페이지로 이동 */}
