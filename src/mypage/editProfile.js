@@ -36,7 +36,7 @@ function App() {
             <Menu />
             <div className="section-p">
             <div className="profile-section">
-      <nav className="nav">
+      <nav className="mypage-nav">
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
@@ -51,7 +51,7 @@ function App() {
       </nav>
 
       <div className="profile-contents">
-            <h1 className="title">내 정보 수정</h1>
+            <h1 className="mypage-title">내 정보 수정</h1>
             <hr className="title-line" />
     
             {/* 프로필 사진, 이메일, 닉네임, 비밀번호 변경 */}
@@ -123,7 +123,7 @@ function App() {
                 <input className="address-detail" placeholder="상세주소" />
             </div>
             <hr className="address-hr" />
-            <h2 className="title">관리가 필요한 질환 (1개 선택)</h2>
+            <h2>관리가 필요한 질환 (1개 선택)</h2>
             <div className="disease-box">
                 {/* 라디오 버튼 1개 단위 */}
                 <div className="disease-radio">

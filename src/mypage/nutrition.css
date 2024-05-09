@@ -47,6 +47,9 @@ li {
     display: none;
 }
 
+.nutrition-section{
+    background-color: white;
+}
 .mypage-ul li{
     width: 100%;  
     display: inline-block;
@@ -76,12 +79,13 @@ li {
 }
 
 .contents {
-    min-height: 1000px;
     padding: 30px;
 }
 
 /* 템플릿 이후 */
-.title {
+.mypage-title {
+    font-size: 24px;
+    font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
@@ -196,7 +200,7 @@ li {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
-        background-color: #FAFAFA;background-color: #FAFAFA;
+        background-color: #FAFAFA;
         
     }
 

@@ -15,12 +15,12 @@ function App() {
         <Menu />
         <div className="section-p">
         <div className="nutrition-section">
-  <nav className="nav">
+  <nav className="mypage-nav">
     <div className="nav-profile-img"></div>
     <p className="nav-nickName">닉네임</p>
     <hr className="h1" />
     <ul class="mypage-ul">
-    <li><Link to="/EditProfile">내 정보 수정</Link></li>
+    <li><Link to="/EditProfile" className='mypage-ul-Link'>내 정보 수정</Link></li>
       <li><Link to="/Nutrition" className='mypage-menu-active'>영양 진단 결과</Link></li>
       <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
       <li><Link to="/HealthDiary"  >건강 일기</Link></li>
@@ -30,13 +30,13 @@ function App() {
   </nav>
  
        <div className="contents">
-                 <h1 className="title">영양 진단 결과</h1>
+                 <h1 className="mypage-title">영양 진단 결과</h1>
                  <hr className="title-line" />
  
                  <div className="nutrition-box">
                      <div className="left-box">
                          <p>영양소 섭취량으로 파악하는 나의 식습관</p>
-                         <p>??? 영양 진단 서비스</p>
+                         <p>Happy Green Life 영양 진단 서비스</p>
                          <p className="nutrition-a"><a href="#">나의 식이습관 파헤치기 →</a></p>
                      </div>
                      <div className="right-box">

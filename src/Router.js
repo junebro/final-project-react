@@ -1,5 +1,6 @@
 // Router.js
 import { Routes, Route } from "react-router-dom";
+import Nutri from "./TT/App_nutri";
 import Main from "./main/main";
 import Products from "./products/App";
 import Cart from "./cart/cart";
@@ -20,7 +21,7 @@ import Board from "./board/boardList";
 import BoardList from "./board/boardList";
 import BoardInsert from "./board/boardInsert";
 import BoardDetail from "./board/boardDetail";
-import Nutri from "./TT/App_nutri";
+
 // import Diary from "./mypage/diary";
 
 function App() {

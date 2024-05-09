@@ -25,7 +25,7 @@ function App() {
             <Menu />
             <div className="section-p">
             <div className="diary-section">
-      <nav className="nav">
+      <nav className="mypage-nav">
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
@@ -40,7 +40,7 @@ function App() {
       </nav>
 
       <div className="contents">
-            <h1 className="title">건강일기</h1>
+            <h1 className="mypage-title">건강일기</h1>
             <hr className="title-line" />
             <form>
             {/* 달력 */}

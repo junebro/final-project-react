@@ -46,16 +46,21 @@ li {
     display: none;
 }
 
+.community-section {
+    background-color: white;
+}
+
 .mypage-ul li{
     width: 100%;  
     display: inline-block;
-    
+    background-color: white;
 }
 
 .mypage-ul{
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 30px;
+    background-color: white;
 }
 
 .mypage-menu-active{
@@ -71,14 +76,17 @@ li {
     justify-content: center;
     padding: 20px 0 ;
     font-size: 14px;
+    
 }
 
 .contents {
-    
+    background-color: white;
     padding: 30px;
 }
 
-.title {
+.mypage-title {
+    font-size: 24px;
+    font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
@@ -146,11 +154,11 @@ li {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
-        background-color: #FAFAFA;background-color: #FAFAFA;
+        background-color: #FAFAFA;
         
     }
 
-    .nav {
+    .mypage-nav {
         display: flex;
         flex-direction: column;
         position: sticky;
@@ -210,8 +218,6 @@ li {
 .contents{
     width: 80%;
     padding: 50px;
-    /* margin-top: 110px; */
-
     border-radius: 15px;
     background-color: white;
 }

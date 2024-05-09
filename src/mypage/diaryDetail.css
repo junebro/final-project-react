@@ -81,12 +81,12 @@ li {
 .diaryDetail-contents {
     padding: 30px;
 }
-
-.title {
+.mypage-title {
+    font-size: 24px;
+    font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
-
 .title-line {
     width: 100%;
     border: 1px solid #005A4E;
@@ -217,7 +217,7 @@ li {
         
     }
 
-    .nav {
+    .mypage-nav {
         display: flex;
         flex-direction: column;
         position: sticky;

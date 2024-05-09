@@ -25,7 +25,7 @@ function App() {
             <Menu />
             <div className="section-p">
             <div className="diaryDetail-section">
-      <nav className="nav">
+      <nav className="mypage-nav">
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
@@ -40,7 +40,7 @@ function App() {
       </nav>
 
       <div className="diaryDetail-contents">
-            <h1 className="title">건강일기</h1>
+            <h1 className="mypage-title">건강일기</h1>
             <hr className="title-line" />
             <div className='title-margin'>
             <p className="sticker-title">다양한 스티커로</p>

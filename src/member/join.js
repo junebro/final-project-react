@@ -86,7 +86,7 @@ function App() {
                             <input className="phone-number" placeholder="0000" /> -
                             <input className="phone-number" placeholder="0000" />
 
-                            <button className="send-number" type="button">인증번호 받기</button>
+                            <button className="send-number" type="button">인증번호</button>
 
                             <input className="cert-number" placeholder="4자리 숫자" />
                             <button className="complete-number" type="button">인증하기</button>
