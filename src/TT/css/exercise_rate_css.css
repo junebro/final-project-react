@@ -22,6 +22,7 @@
   display: flex; /* 라벨을 플렉스 박스로 설정하여 내부 요소를 정렬 */
   align-items: center; /* 내부 요소를 세로로 중앙 정렬 */
   height: 8%;
+  background-color: white;
 }
 
 .exercise_QA_container span.checkbox_span {
@@ -36,6 +37,7 @@
   text-align: center;
   font-weight: bolder;
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  background-color: white;
 }
 
 .exercise_QA_container span.checkbox_span:hover {
