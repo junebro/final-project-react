@@ -13,6 +13,9 @@ import Content07 from "./components/07_drag_foods.js";
 import Content08 from "./components/08_drag_foods_01.js";
 import Content09 from "./components/09_drag_foods_02.js";
 import Content10 from "./components/10_drag_foods_03.js";
+import Content11 from "./components/11_drag_foods_04.js";
+import Content12 from "./components/12_drag_foods_05.js";
+import Content13 from "./components/13_drag_foods_06.js";
 //  추가할 페이지 임포트 구간
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/content_css.css";
@@ -33,6 +36,9 @@ class App extends Component {
         Content08,
         Content09,
         Content10,
+        Content11,
+        Content12,
+        Content13,
       ], // 렌더링할 컴포넌트 목록
       paths: [
         "/Nutri",
@@ -45,6 +51,9 @@ class App extends Component {
         "/Nutri/content08",
         "/Nutri/content09",
         "/Nutri/content10",
+        "/Nutri/content11",
+        "/Nutri/content12",
+        "/Nutri/content13",
       ], // 컴포넌트에 해당하는 경로 목록
     };
   }
@@ -86,6 +95,9 @@ class App extends Component {
           <Route path="/content08" element={<Content08 />} />
           <Route path="/content09" element={<Content09 />} />
           <Route path="/content10" element={<Content10 />} />
+          <Route path="/content11" element={<Content11 />} />
+          <Route path="/content12" element={<Content12 />} />
+          <Route path="/content13" element={<Content13 />} />
         </Routes>
         <div>
           {/* 다음 버튼에 Link를 사용하여 다음 페이지로 이동 */}
