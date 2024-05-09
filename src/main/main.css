@@ -199,9 +199,7 @@
 
 /* 모바일 화면에서 이미지 숨기기 */
 @media (max-width: 640px) {
-    .main-form {
-        text-align: center;
-    }
+
     .img_main {
         display: none; /* 화면이 768px 이하일 때 이미지 숨기기 */
         
