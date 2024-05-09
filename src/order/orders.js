@@ -1,40 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import './order.css'
+import React, { useState, useEffect, useRef } from 'react';
+import './orders.css'
 
-import Navi from './../common/navigation';
-import Footer from './../common/footer';
+import Navi from '../common/navigation';  
+import Footer from '../common/footer';
 
-import PopupDom from './../member/popupDom';
-import PopupPostCode from './../member/PopupPostCode';
-import { addressData } from './../member/PopupPostCode';
-//import { resetAddressData } from './../member/PopupPostCode'; // PopupPostCode.js 파일에서 resetAddressData 함수를 가져옵니다.
+import PopupDom from '../member/popupDom';
+import PopupPostCode from '../member/PopupPostCode';
+import { addressData } from '../member/PopupPostCode';
 
 function Order() {
 
+    let [data, setData] = useState('');
+    let [data1, setData1] = useState('');
 
-    // 체크박스 상태
-    const [isChecked, setIsChecked] = useState(false);
+    // 클릭 이벤트에 대한 처리
+    const handleClic1k = () => {
+        setData('111');
+        setData1('222');
+    };
 
-    const [buyerInfo, setBuyerInfo] =  useState({
-        name: '',
-        phone: ''
-    });
+    const handleClic2k = () => {
+        setData('333');
+        setData1('444');
+    };
+
+    useEffect(() => {
+        if (data == '111' && data1 == '222') {
+            setData(addressData);
+        } else if (data == '333' && data1 == '444') {
+            setData1(addressData);
+        }
+    }, [addressData]);
+
+
 
     // 팝업창 상태 관리
     const [isBuyerPopupOpen, setBuyerIsPopupOpen] = React.useState(false)
     const [isPopupOpen, setIsPopupOpen] = React.useState(false)
 
-    const [isToggle1, setIsToggle1] = useState(false);
-    const [isToggle2, setIsToggle2] = useState(false);
-
-     // 주소
-     let inputBuyerAddress = '';
-     let inputRecipientAddress = '';
-
     // 팝업창 열기
     const openByerPostCode = () => {
-        setIsToggle1(true);
-        setIsToggle2(false);
+        handleClic1k();
         setBuyerIsPopupOpen(true);
     }
 
@@ -45,8 +51,7 @@ function Order() {
 
     // 팝업창 열기
     const openPostCode = () => {
-        setIsToggle1(false);
-        setIsToggle2(true);
+        handleClic2k();
         setIsPopupOpen(true)
     }
 
@@ -55,26 +60,50 @@ function Order() {
         setIsPopupOpen(false)
     }
 
-    // let inputAddress = '';
 
-    // if (addressData) {
-    //     inputAddress = addressData;
-    // }
+    /* 체크 박스 클릭시 데이터 이동 */
 
-   
+    const checkboxRef = useRef();
 
-    if (addressData) {
-        if (isToggle1 && !isToggle2) {
-            inputBuyerAddress = addressData;
-            inputRecipientAddress = '';
-            //resetAddressData();
+    const infoBuyer = useRef({
+        name: '',
+        address: '',
+        addressPost: '',
+        addressDetail: '',
+        phoneFirst: '010',
+        phoneSecond: '',
+        phoneThird: ''
+    });
 
-        } else if (!isToggle1 && isToggle2 ) {
-            inputRecipientAddress = addressData;
-            inputBuyerAddress = '';
-            //resetAddressData();
+    const infoReceiver = useRef({
+        name: '',
+        address: '',
+        addressPost: '',
+        addressDetail: '',
+        phoneFirst: '010',
+        phoneSecond: '',
+        phoneThird: ''
+    });
+    const handleCopyInfo = () => {
+        
+        if (checkboxRef.current.checked) {
+            Object.keys(infoBuyer.current).forEach(key => {
+                infoReceiver.current[key].value = infoBuyer.current[key].value;
+            });
+        } else {
+            Object.keys(infoReceiver.current).forEach(key => {
+                if (key === 'phoneFirst') {
+                    infoReceiver.current[key].value = '010';
+                } else {
+                    infoReceiver.current[key].value = '';
+                }
+            });
         }
-    }
+    };
+    
+
+
+    /* 결제 방법 버튼 이벤트 */
 
     // 표시할 텍스트의 인덱스를 저장하는 state
     const [activeTextIndex, setActiveTextIndex] = useState(null);
@@ -109,17 +138,17 @@ function Order() {
                 <div class="form-group">
                     <label className='order-customer-label'>이름:</label>
                     <div>
-                        <input className="order-test-text" type="text" />
+                        <input className="order-test-text" type="text" ref={(el) => infoBuyer.current.name = el} />
                     </div>
                 </div>
                 <div className="form-group">
                     <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input className="order-test-text-test" placeholder="우편번호" value={inputBuyerAddress.zonecode} />
+                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoBuyer.current.addressPost = el} value={data.zonecode} />
                         <button type="button" id="post-btn" className="post-btn"
                             onClick={openByerPostCode}>우편번호 찾기</button>
                         {/* // 팝업 생성 기준 div */}
-                        <div id='popupDom'>
+                        <div id='popupDom' className='order-top-popupDom'>
                             {isBuyerPopupOpen && (
                                 <PopupDom>
                                     <PopupPostCode onClose={closeByerPostCode} />
@@ -133,10 +162,10 @@ function Order() {
                     <label className='order-adress-label'></label>
                     <div className='order-address-box'>
                         <div style={{marginBottom:'10px'}}>
-                            <input id="road-name" className="order-adress-text" placeholder="도로명주소" value={inputBuyerAddress.address} />
+                            <input id="road-name" className="order-adress-text" ref={(el) => infoBuyer.current.address = el} placeholder="도로명주소" value={data.address} />
                         </div>
                         <div style={{marginBottom:'10px'}}>
-                            <input id="address-detail" className="order-adress-text" placeholder="상세주소" /> 
+                            <input id="address-detail" className="order-adress-text" ref={(el) => infoBuyer.current.addressDetail = el} placeholder="상세주소"  /> 
                         </div>
                     </div>
                 </div>          
@@ -144,15 +173,15 @@ function Order() {
                 <div class="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
-                        <select className="order-phone-text" >
+                        <select className="order-phone-text" ref={(el) => infoBuyer.current.phoneFirst = el}>
                             <option value="010">010</option>
                             <option value="011">011</option>
                             <option value="016">016</option> 
                         </select>
                         -
-                        <input className="order-phone-text" type="text" />
+                        <input className="order-phone-text" type="text" ref={(el) => infoBuyer.current.phoneSecond = el} />
                         -
-                        <input className="order-phone-text" type="text" />
+                        <input className="order-phone-text" type="text" ref={(el) => infoBuyer.current.phoneThird = el} />
                     </div>
                 </div>
                 <div style={{marginTop:'30px'}} className='line-bold'></div>
@@ -160,25 +189,25 @@ function Order() {
                 <div style={{marginBottom:'30px'}} className='line' />
 
                 <div className='order-customer-radio'>
-                    <input type="checkbox" id="customer-select" name="customer-select" checked={isChecked} />
-                    <label className='order-customer-label' for="customer-select">주문자 정보와 동일</label>
+                    <input type="checkbox" id="customer-select" name="customer-select" ref={checkboxRef} onChange={handleCopyInfo} />
+                    <label className='order-customer-label' for="customer-select" >주문자 정보와 동일</label>
                 </div>
 
                 <div className="form-group">
                     <label className='order-customer-label'>받는 분:</label>
                     <div>
-                        <input className="order-test-text" type="text"/>
+                        <input className="order-test-text" type="text" ref={(el) => infoReceiver.current.name = el}/>
                     </div>
                 </div>
 
                 <div className="form-group">
                     <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input className="order-test-text-test" placeholder="우편번호" value={inputRecipientAddress.zonecode} />
+                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoReceiver.current.addressPost = el} value={data1.zonecode} />
                         <button type="button" id="post-btn" className="post-btn"
                             onClick={openPostCode}>우편번호 찾기</button>
                         {/* // 팝업 생성 기준 div */}
-                        <div id='popupDom'>
+                        <div id='popupDom' className='order-bottom-popupDom'>
                             {isPopupOpen && (
                                 <PopupDom>
                                     <PopupPostCode onClose={closePostCode} />
@@ -192,10 +221,10 @@ function Order() {
                     <label className='order-adress-label'></label>
                     <div className='order-address-box'>
                         <div style={{marginBottom:'10px'}}>
-                            <input id="road-name" className="order-adress-text" placeholder="도로명주소" value={inputRecipientAddress.address} />
+                            <input id="road-name" className="order-adress-text" ref={(el) => infoReceiver.current.address = el}  placeholder="도로명주소" value={data1.address} />
                         </div>
                         <div style={{marginBottom:'10px'}}>
-                            <input id="address-detail" className="order-adress-text" placeholder="상세주소" /> 
+                            <input id="address-detail" className="order-adress-text" ref={(el) => infoReceiver.current.addressDetail = el}  placeholder="상세주소" /> 
                         </div>
                     </div>
                 </div>                      
@@ -203,15 +232,15 @@ function Order() {
                 <div class="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
-                        <select className="order-phone-text" name="phone1">
+                        <select className="order-phone-text" name="phone1" ref={(el) => infoReceiver.current.phoneFirst = el}>
                             <option value="010">010</option>
                             <option value="011">011</option>
                             <option value="016">016</option> 
                         </select>
+                        -    
+                        <input className="order-phone-text" type="text" name="phone2" ref={(el) => infoReceiver.current.phoneSecond = el}/>
                         -
-                        <input className="order-phone-text" type="text" name="phone2" />
-                        -
-                        <input className="order-phone-text" type="text" name="phone3" />
+                        <input className="order-phone-text" type="text" name="phone3" ref={(el) => infoReceiver.current.phoneThird = el}/>
                     </div>
                 </div>
                 <div style={{marginTop:'30px'}} className='line-bold'></div>

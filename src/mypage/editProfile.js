@@ -50,7 +50,7 @@ function App() {
         </ul>
       </nav>
 
-      <div className="contents">
+      <div className="profile-contents">
             <h1 className="title">내 정보 수정</h1>
             <hr className="title-line" />
     
@@ -106,7 +106,7 @@ function App() {
 
             {/* 주소 */}
             <span className="sub-title">주소</span>
-            <div className="address-box">
+            <div className="mypage-address-box">
                 <input className="post" placeholder="우편번호" value={inputAddress.zonecode}/>
                 <button type="button" className="post-btn" onClick={openPostCode}>우편번호 찾기</button>
 
@@ -128,39 +128,39 @@ function App() {
                 {/* 라디오 버튼 1개 단위 */}
                 <div className="disease-radio">
                     <input type="radio" id="disease1" className="disease-item" name="disease" value="1" />
-                    <label htmlFor="disease1">해당없음</label>
+                    <label htmlFor="disease1" className='disease-label'>해당없음</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease2" className="disease-item" name="disease" value="2" />
-                    <label htmlFor="disease2">비만</label>
+                    <label htmlFor="disease2" className='disease-label'>비만</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease3" className="disease-item" name="disease" value="3" />
-                    <label htmlFor="disease3">지방간</label>
+                    <label htmlFor="disease3" className='disease-label'>지방간</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease4" className="disease-item" name="disease" value="4" />
-                    <label htmlFor="disease4">당뇨</label>
+                    <label htmlFor="disease4" className='disease-label'>당뇨</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease5" className="disease-item" name="disease" value="5" />
-                    <label htmlFor="disease5">고혈압</label>
+                    <label htmlFor="disease5" className='disease-label'>고혈압</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease6" className="disease-item" name="disease" value="6" />
-                    <label htmlFor="disease6">골다공증</label>
+                    <label htmlFor="disease6" className='disease-label'>골다공증</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease7" className="disease-item" name="disease" value="7" />
-                    <label htmlFor="disease7">고콜레스테롤혈증</label>
+                    <label htmlFor="disease7" className='disease-label'>고콜레스테롤혈증</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease8" className="disease-item" name="disease" value="8" />
-                    <label htmlFor="disease8">고중성지방혈증</label>
+                    <label htmlFor="disease8" className='disease-label'>고중성지방혈증</label>
                 </div>
                 <div className="disease-radio">
                     <input type="radio" id="disease9" className="disease-item" name="disease" value="1" />
-                    <label htmlFor="disease9">암</label>
+                    <label htmlFor="disease9" className='disease-label'>암</label>
                 </div>
             </div>
         </div>

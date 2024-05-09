@@ -1,0 +1,310 @@
+@import './../css/App.css';
+
+
+/* css 초기화 */
+* {
+	box-sizing : border-box;
+	margin: 0;
+    font-family: 'Pretendard-Regular'; 
+}
+
+a {
+	color: inherit; 
+	text-decoration: none;
+}
+
+
+button,
+input,
+textarea {
+	font-family: "적용할 폰트", sans-serif;
+	font-size: 16px;
+}
+
+button:focus,
+button:active,
+input:focus,
+input:active,
+textarea:focus,
+textarea:active {
+	outline: none;
+	box-shadow: none;
+}
+
+ul,
+ol,
+li {
+	list-style-type: none;
+	padding-left: 0;
+	margin-left: 0;
+}
+
+
+/* 작은 화면에서 숨김처리 */
+.nav-profile-img,
+.nav-nickName,
+.h1 {
+    display: none;
+}
+
+.diaryDetail-section {
+    background-color: white;
+}
+.mypage-ul li{
+    width: 100%;  
+    display: inline-block;
+    
+}
+
+.mypage-ul{
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+}
+
+.mypage-menu-active{
+    border-radius: 5px;
+    background-color: #005A4E;
+    color:white;
+}
+
+
+
+.mypage-ul li a{ 
+    
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 ;
+    font-size: 14px;
+}
+
+.diaryDetail-contents {
+    padding: 30px;
+}
+
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
+
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
+
+/* 템플릿 이후 */
+.status-box {
+    width: 100%;
+    margin: 20px 0 50px 0;
+    display: flex;
+    
+     /* 가로 스크롤 */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.sticker-item-box {
+    width: 63px;
+    margin-right: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    
+}
+
+.sticker-item-box input[type=radio]{
+    display: none;
+}
+
+.sticker-item-box img{
+    width: 50px;
+}
+
+
+.sticker-item-box label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    width: 63px;
+    height: 63px;
+    
+    
+    cursor: pointer;
+}
+
+.sticker-item-box input[type="radio"]:checked + label {
+    background-color: black;
+}
+
+.sticker-title {
+    font-size: 24px;
+    margin:  5px 0;
+}
+
+.title-margin {
+    margin: 30px 0;
+}
+
+.diary-detail {
+    width: 100%;
+    min-height: 300px;
+    padding: 40px;
+    margin: 20px 0;
+    background-color: #F9F9F9;
+    border: none;
+    border-radius: 15px;
+    resize: none;
+
+    /* 다예쁨체 적용 */
+    font-family: 'omyu_pretty';
+}
+
+.date-select {
+    height: 45px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: 1px solid #005A4E;
+    color: #005A4E;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+.date-select:hover {
+    background-color: #F1FFF2;
+}
+
+.diaryBtn-box {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.diary-submit {
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 5px;
+    border: none;
+
+    font-size: 16px;
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+/* 날짜에 마진값 주는거 */
+/* .react-calendar__month-view__days button{
+    margin: 5px;
+    margin-inline-end: 5px !important; 
+} */
+
+@media (min-width: 640px) {
+
+   
+
+    .diaryDetail-section {
+        padding: 0 250px 100px;
+        width: 100%;
+        display: flex;
+        background-color: #FAFAFA;background-color: #FAFAFA;
+        
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 200px;
+
+        align-items: center;
+        width: 250px;
+        height: 580px;
+        border-radius: 15px;
+        padding-top: 40px;
+        margin-right: 30px;
+        background-color: white;
+    }    
+
+
+    .nav-profile-img{
+        display: block;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+        border-radius: 100%;
+        background-color: black;
+    }
+
+    .nav-nickName {
+        font-size: 20px;
+        display: block;
+    }
+
+    .react-calendarmonth-viewdays button {
+        margin: 50px;
+        margin-inline-end: 10px !important; 
+    }
+
+    
+
+    .h1 {
+        width: 60%;
+        margin: 10px 0;
+        display: block;
+    }
+
+    .mypage-ul li {
+      
+        width: 250px;
+        font-size: 18px;
+        text-align: center;
+        line-height: 40px;
+    }
+    
+    .mypage-ul{
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    .mypage-ul li a{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 5px 0 ;
+        font-size: 20px;
+    }
+    
+ 
+
+    /* 컨텐츠 영역 */
+.diaryDetail-contents{
+    width: 80%;
+    padding: 50px;
+    margin-top: 90px;
+ 
+    border-radius: 15px;
+    background-color: white;
+}
+
+
+/* 템플릿 이후 */
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
+
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
+
+
+}
