@@ -10,6 +10,7 @@ import EditProfile from "./mypage/editProfile";
 import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
+import DiaryDetail from "./mypage/diaryDetail";
 
 import Order from "./order/order";
 
@@ -31,13 +32,15 @@ function App() {
       <Route path="/Cart" element={<Cart />} />
       <Route path="/Order" element={<Order />} />
 
-      <Route path="/Join" element={<Join />} />
-      <Route path="/Nutrition" element={<Nutrition />} />
-      <Route path="/MyCommunity" element={<MyCommunity />} />
-      <Route path="/HealthDiary" element={<HealthDiary />} />
-
-      <Route path="/EditProfile" element={<EditProfile />} />
-      <Route path="/ChangePw" element={<ChangePw />} />
+      <Route path="/Join" element={<Join />} /> 
+      <Route path="/Nutrition" element={<Nutrition />} /> 
+      <Route path="/MyCommunity" element={<MyCommunity />} /> 
+      <Route path="/HealthDiary" element={<HealthDiary />} /> 
+      <Route path="/DiaryDetail" element={<DiaryDetail />} /> 
+      <Route path="/OrderList" element={<OrderList />} /> 
+      
+      <Route path="/EditProfile" element={<EditProfile />} /> 
+      <Route path="/ChangePw" element={<ChangePw />} /> 
 
       <Route path="/board" element={<Board />} />
       <Route path="/boardList" element={<BoardList />} />
@@ -47,7 +50,7 @@ function App() {
       <Route path="/Diet" element={<Diet />} />
       <Route path="/Nutri/*" element={<Nutri />} />
 
-      {/*<Route path="/Diary" element={<Diary />} />  */}
+  
     </Routes>
   );
 }

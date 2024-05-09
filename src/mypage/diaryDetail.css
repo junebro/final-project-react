@@ -1,5 +1,6 @@
 @import './../css/App.css';
 
+
 /* css 초기화 */
 * {
 	box-sizing : border-box;
@@ -46,6 +47,9 @@ li {
     display: none;
 }
 
+.diaryDetail-section {
+    background-color: white;
+}
 .mypage-ul li{
     width: 100%;  
     display: inline-block;
@@ -65,6 +69,7 @@ li {
 }
 
 
+
 .mypage-ul li a{ 
     
     display: flex;
@@ -73,8 +78,7 @@ li {
     font-size: 14px;
 }
 
-.contents {
-    
+.diaryDetail-contents {
     padding: 30px;
 }
 
@@ -90,59 +94,122 @@ li {
 }
 
 /* 템플릿 이후 */
-.community-category {
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 20px;
+.status-box {
+    width: 100%;
+    margin: 20px 0 50px 0;
     display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid black;
+    
+     /* 가로 스크롤 */
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.sticker-item-box {
+    width: 63px;
+    margin-right: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    
+}
+
+.sticker-item-box input[type=radio]{
+    display: none;
+}
+
+.sticker-item-box img{
+    width: 50px;
+}
+
+
+.sticker-item-box label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    margin: 0 auto;
+    text-align: center;
+    width: 63px;
+    height: 63px;
+    
+    
     cursor: pointer;
 }
 
-.community-category div {
-    padding: 20px;
-    width: 100%;
-    height: 100%;
+.sticker-item-box input[type="radio"]:checked + label {
+    background-color: black;
 }
-.community-category div >:first-child {
-    padding: 5px;
 
+.sticker-title {
     font-size: 24px;
-    font-weight: 700;
+    margin:  5px 0;
 }
 
-.community-category div >:last-child {
-    font-size: 14px;
-
+.title-margin {
+    margin: 30px 0;
 }
 
-/* 작성한글, 좋아요 목록 눌렀을 때 */
-.contents-active {
-   color:#005A4E;
+.diary-detail {
+    width: 100%;
+    min-height: 300px;
+    padding: 40px;
+    margin: 20px 0;
+    background-color: #F9F9F9;
+    border: none;
+    border-radius: 15px;
+    resize: none;
+
+    /* 다예쁨체 적용 */
+    font-family: 'omyu_pretty';
 }
 
-.list-one {
-    padding: 15px;
-    border-bottom: 1px solid black;
+.date-select {
+    height: 45px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: 1px solid #005A4E;
+    color: #005A4E;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
 }
 
-/* 글 제목 */
-.list-one p {
-    margin-bottom: 5px;
-    font-weight: 700;
+.date-select:hover {
+    background-color: #F1FFF2;
 }
 
-/* 작성자, 날짜, 조회수 */
-.list-one span {
-    font-size: 14px;
-    margin-right: 10px;
+.diaryBtn-box {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
 }
+
+.diary-submit {
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 5px;
+    border: none;
+
+    font-size: 16px;
+    color: white;
+    background-color: #005A4E;
+
+    transition: all ease-in-out 0.15s;
+
+    cursor: pointer;
+}
+/* 날짜에 마진값 주는거 */
+/* .react-calendar__month-view__days button{
+    margin: 5px;
+    margin-inline-end: 5px !important; 
+} */
+
 @media (min-width: 640px) {
 
    
 
-    .community-section {
+    .diaryDetail-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
@@ -165,6 +232,7 @@ li {
         background-color: white;
     }    
 
+
     .nav-profile-img{
         display: block;
         width: 150px;
@@ -178,6 +246,13 @@ li {
         font-size: 20px;
         display: block;
     }
+
+    .react-calendarmonth-viewdays button {
+        margin: 50px;
+        margin-inline-end: 10px !important; 
+    }
+
+    
 
     .h1 {
         width: 60%;
@@ -206,16 +281,30 @@ li {
         font-size: 20px;
     }
     
+ 
+
     /* 컨텐츠 영역 */
-.contents{
+.diaryDetail-contents{
     width: 80%;
     padding: 50px;
-    /* margin-top: 110px; */
-
+    margin-top: 90px;
+ 
     border-radius: 15px;
     background-color: white;
 }
 
+
 /* 템플릿 이후 */
+.title {
+    margin-left: 10px;
+    color: #005A4E;
+}
+
+.title-line {
+    width: 100%;
+    border: 1px solid #005A4E;
+    margin: 10px 0;
+}
+
 
 }
