@@ -128,3 +128,67 @@
   font-weight: bolder;
   color: black;
 }
+
+@media (max-width: 1100px) {
+  .drop-01 {
+    width: 400px; /* 고정된 너비 */
+    height: 150px; /* 고정된 높이 */
+    margin: auto; /* 각각의 Droppable 영역 사이의 간격 */
+    display: flex; /* Flexbox를 사용하여 내부 요소를 정렬 */
+    justify-content: space-between;
+    padding-top: 10px;
+  }
+
+  .check_div {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin-top: 10%;
+    margin: auto;
+    width: 80%;
+    height: 50%;
+  }
+
+  .drop-02,
+  .drop-03,
+  .drop-04,
+  .drop-05,
+  .drop-06,
+  .drop-07 {
+    width: 500px; /* 고정된 너비 */
+    height: 150px; /* 고정된 높이 */
+    border: 3px solid #ccc; /* 테두리 스타일 */
+    border-radius: 20px;
+    padding-left: 15px;
+    margin: auto; /* 각각의 Droppable 영역 사이의 간격 */
+    display: flex; /* Flexbox를 사용하여 내부 요소를 정렬 */
+    position: relative; /* 부모 요소를 기준으로 절대 위치 설정 */
+    padding-top: 10px;
+    margin-top: 4%;
+  }
+
+  @media (max-width: 600px) {
+    .drop-02,
+    .drop-03,
+    .drop-04,
+    .drop-05,
+    .drop-06,
+    .drop-07 {
+      width: 400px; /* 고정된 너비 */
+      height: 150px; /* 고정된 높이 */
+      border: 3px solid #ccc; /* 테두리 스타일 */
+      border-radius: 20px;
+      padding-left: 15px;
+      margin: auto; /* 각각의 Droppable 영역 사이의 간격 */
+      display: flex; /* Flexbox를 사용하여 내부 요소를 정렬 */
+      position: relative; /* 부모 요소를 기준으로 절대 위치 설정 */
+      padding-top: 10px;
+      margin-top: 4%;
+    }
+
+    .drag_img {
+      width: 120px;
+      height: 95px;
+      z-index: 100;
+    }
+  }
+}
