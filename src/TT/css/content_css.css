@@ -4,6 +4,7 @@
 .full-screen-container {
   align-items: center;
   height: 100vh;
+  background-color: #fafafa;
 }
 /* 버튼 css */
 .next_button {
