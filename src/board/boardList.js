@@ -124,7 +124,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>
@@ -171,7 +171,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>
@@ -220,7 +220,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>

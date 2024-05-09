@@ -5,6 +5,7 @@ import InputEmoji from 'react-input-emoji';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
+import UserNicknameModal from './UserNicknameModal';
 
 // import { useParams } from 'react-router-dom'; // React Router의 useParams 훅
 
@@ -24,8 +25,6 @@ import submitButtonOn from './../images/board/plus-on-button.png';
 import updateButton from './../images/board/update-button.png';
 import deleteButton from './../images/board/delete-button.png';
 
-// import '@joeattardi/emoji-button';
-
 
 
 const images = [
@@ -34,9 +33,7 @@ const images = [
     { src: test03, alt: 'test03' }
 ];
 
-function App({ currentUser, postAuthor }) {
-
-    
+function App({ currentUser }) {
 
     // 사용자 확인
     const isAuthor = (currentUser, postAuthor) => {
@@ -59,32 +56,6 @@ function App({ currentUser, postAuthor }) {
         setExpandedImage(img); // 확대된 이미지를 설정합니다.
     };
 
-    // 팝업 열기
-    const openPopup = () => {
-        const popup = document.getElementById('memberPopup');
-        popup.style.display = 'block';
-    };
-
-    // 팝업 닫기
-    const closePopup = () => {
-        const popup = document.getElementById('memberPopup');
-        popup.style.display = 'none';
-    };
-
-    // 팝업 외부 클릭 시 팝업 닫기
-    useEffect(() => {
-        function handleClickOutside(event) {
-            const popup = document.getElementById('memberPopup');
-            if (popup && !popup.contains(event.target)) {
-                closePopup();
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     // 좋아요 상태를 관리하는 상태 변수
     const [liked, setLiked] = useState(false);
@@ -112,7 +83,7 @@ function App({ currentUser, postAuthor }) {
     };
 
 
-    
+
     // 댓글 입력을 위한 상태
     const [commentText, setCommentText] = useState('');
     const emojiInputRef = useRef(null);
@@ -121,34 +92,60 @@ function App({ currentUser, postAuthor }) {
         setCommentText(text);
     };
 
-     // 댓글 목록을 관리하는 상태 변수
-     const [comments, setComments] = useState([]);
+    // 댓글 목록 상태와 핸들러 + 댓글 사용자 
+    const [comments, setComments] = useState([
+        { id: 1, text: "안녕하세요 user123입니다", author: "user123" },
+        { id: 2, text: "안녕하세요 user456입니다", author: "user456" }
+    ]);
 
-     // 댓글 제출 핸들러
-    const handleSubmitComment = (event) => {
-        event.preventDefault(); // 폼 제출 기본 이벤트 방지
-        if (commentText.trim()) { // 공백만 있는 문자열은 제외
-            // 새 댓글을 댓글 목록에 추가
-            setComments([...comments, commentText]);
-            setCommentText(''); // 입력 필드 초기화
+    const handleAddComment = () => {
+        if (commentText.trim() !== '') {
+            setComments(prevComments => [...prevComments, commentText]); // 함수형 업데이트 사용
+            setCommentText('');
         }
     };
 
+    const handleDeleteComment = (index) => {
+        setComments(prevComments => prevComments.filter((_, i) => i !== index));
+    };
 
+    // 폼 제출 핸들러
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        handleAddComment();
+    };
+
+    // 모달 상태를 관리하기 위한 상태 변수
+    const [showModal, setShowModal] = useState(false);
+    const [activeComment, setActiveComment] = useState(null);
+    const [activeModalType, setActiveModalType] = useState(null); 
+
+    // 모달 위치 상태
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+
+    // 유저 닉네임 클릭 시 UserNicknameModal 열기
+    const handleNicknameClick = (event, comment) => {
+        event.stopPropagation(); // 이벤트 버블링 방지
+        const rect = event.target.getBoundingClientRect();
+        setModalPosition({ x: rect.left, y: rect.top }); // 클릭한 요소의 위치를 저장
+        setActiveComment(comment); // 활성화된 댓글 상태 설정
+        setActiveModalType('comment');
+        setShowModal(true); // 모달 표시
+    };
 
     return (
         <>
             <Navi />
             <Menu />
 
-            
+
             <div className='sec-bdetail'>
                 <div className='board-box'>
                     <div className='board-detail'>
                         <div className='board-detail-top'>
-                        <div className='write-title' name='writeTitle'>
-                            이번에 진단받은 식단이에요! </div>
-                            {isAuthor(currentUser, postAuthor) && (
+                            <div className='write-title' name='writeTitle'>
+                                이번에 진단받은 식단이에요! </div>
+                            {isAuthor(currentUser) && (
                                 <>
                                     <button className='update-btn' onClick={handleEdit}>
                                         <img src={updateButton}
@@ -163,7 +160,7 @@ function App({ currentUser, postAuthor }) {
                                         삭제하기</button>
                                 </>
                             )}
-                       </div>
+                        </div>
                         <div className='board_line_d'></div>
 
                         <div className='main-content'>
@@ -208,17 +205,17 @@ function App({ currentUser, postAuthor }) {
                                         <span>
                                             <img alt="냠냠님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
                                         </span>
-                                        <div className='member-name' onClick={openPopup}>글쓴이냠냠
-                                            {/* 닉네임 클릭시 리스트 팝업 */}
-                                            <div className='popup' data-role="popup" id="memberPopup">
-                                                <ul data-role="listview" data-inset="true">
-                                                    <li><a href="#">게시글 보기</a></li>
-                                                    <li><a href="#">1:1 채팅</a></li>
-                                                    <li><a href="#">친구 추가</a></li>
-                                                    <li><a href="#">신고하기</a></li>
-                                                </ul>
-                                            </div>
+                                        <div className='member-name' onClick={(e) => handleNicknameClick(e)}>글쓴이냠냠
+
                                         </div>
+                                        {showModal && activeModalType === 'writer' && (
+                                            <UserNicknameModal
+                                                comment={activeComment}
+                                                isCurrentUser={currentUser === activeComment.author}
+                                                position={modalPosition}
+                                                onClose={() => setShowModal(false)}
+                                            />
+                                        )}
                                     </div>
                                     <div className='description'>비타민이 부족해서 사과도 추가해봤습니다
                                         요즘 사과값이 많이 비싸던데
@@ -324,23 +321,28 @@ function App({ currentUser, postAuthor }) {
                                     </div>
                                     {/* 댓글 목록 표시 */}
                                     <div className='comments'>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                        {comments.map((comment, index) => (
+                                            <div className='comment-detail' key={comment.id} >
+                                                <span>
+                                                    <img alt="프로필 사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                                </span>
+                                                <div>
+                                                    <div className='comment-nickname' onClick={(e) => handleNicknameClick(e, comment)}>
+                                                        {`댓글쓴사람 ${index + 1}`}
+                                                    </div>
+
+                                                    <div className='comment-description'>{comment.text}</div>
+                                                </div>
                                             </div>
-                                        </div>                                   
+                                        ))}
+                                        {showModal && activeModalType === 'comment' && (
+                                            <UserNicknameModal
+                                                comment={activeComment}
+                                                isCurrentUser={currentUser === activeComment.author}
+                                                position={modalPosition}
+                                                onClose={() => setShowModal(false)}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                                 <div className='board_line_d'></div>
@@ -352,7 +354,8 @@ function App({ currentUser, postAuthor }) {
 
                                     </div>
                                     {/* 댓글 입력창 */}
-                                    <form className='comment-form' onSubmit={handleSubmitComment} method='POST'>
+                                    {/* db 연결후엔 onSubmit으로 변경하기 / method='POST' 추가하기*/}
+                                    <form className='comment-form' onSubmit={handleSubmit} >
                                         {isCommenting && (
                                             <InputEmoji
                                                 ref={emojiInputRef}
@@ -363,7 +366,7 @@ function App({ currentUser, postAuthor }) {
                                             />
                                         )}
 
-                                        <button type='submit' className='comment-submit-btn'>
+                                        <button type='submit' className='comment-submit-btn' >
                                             <img src={submitButtonDefault} className='btn-default' />
                                             <img src={submitButtonOn} className='btn-on' />
                                         </button>

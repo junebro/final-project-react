@@ -11,8 +11,6 @@ import Nutrition from "./mypage/nutrition";
 import MyCommunity from "./mypage/myCommunity";
 import HealthDiary from "./mypage/healthDiary";
 
-import Order from "./order/order";
-
 import OrderList from "./mypage/orderList";
 
 import Board from "./board/boardList";

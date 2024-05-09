@@ -1,0 +1,55 @@
+/* .popup-detail {
+    display: none; 팝업은 기본적으로 숨겨져 있음
+    position: fixed;
+    z-index: 9999; 다른 요소보다 위에 표시되도록 z-index 설정
+    background-color: #ffffff;
+    border: 1px solid #ccc; 팝업 테두리 설정 
+    border-radius: 5px; /팝업 모서리 둥글게 설정
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 그림자 효과 추가
+  } 
+  
+  */
+
+.modal{
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999; /* 오버레이 z-index 설정 */
+  }
+
+.popup-detail ul{
+    list-style-type: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+.popup-detail li{
+    padding: 5px;
+}
+
+.popup-detail ul li:hover{
+    color: #005A4E;
+    font-weight: bold;
+}
+
+.popup-detail ul li a {
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상위 요소의 색상으로 상속 */
+}
+
+.popup-list ul li a:visited {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none; /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
+}
