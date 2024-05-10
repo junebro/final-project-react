@@ -3,6 +3,7 @@ import './ModalCSS.css';
 
 function UserNicknameModal({ comment, isCurrentUser, onClose, position  }) {
 
+  // 여기서 comment가 유효하지 않으면 컴포넌트를 렌더링하지 않음
   if (!comment) return null;
 
   // 백그라운드 클릭 시 팝업 닫기
@@ -21,8 +22,8 @@ function UserNicknameModal({ comment, isCurrentUser, onClose, position  }) {
   };
 
   return (
-    <div className="modal-overlay" onClick={handleBackgroundClick}>
-      <div className="modal" style={modalPosition} onClick={handleContentClick}>
+    <div className="board-modal-overlay" onClick={handleBackgroundClick}>
+      <div className="board-modal" style={modalPosition} onClick={handleContentClick}>
         <p>{comment.text}(임시)</p>
         {isCurrentUser ? (
           <>
@@ -39,8 +40,6 @@ function UserNicknameModal({ comment, isCurrentUser, onClose, position  }) {
                 <li><a href="#" onClick={() => console.log('Report')}>신고하기</a></li>
               </ul>
             </div>
-            
-
           </>
         )}
       </div>

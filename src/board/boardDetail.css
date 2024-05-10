@@ -1,4 +1,4 @@
-  .sec-bdetail{
+  .section-bdetail{
 	/* width: 100vw;
 	height: 100vh;
 
@@ -11,7 +11,9 @@
 }
 
 .board-box{
-    width: 1500px;
+    max-width: 1500px;
+    min-width: 640px;
+    width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
     margin-top: 50px;
@@ -334,6 +336,15 @@
         flex-direction: column; /* 요소들을 세로로 정렬합니다. */
         align-items: center; /* 세로 방향 가운데 정렬합니다. */
         justify-content: center; /* 가로 방향 가운데 정렬합니다. */
+    }
+
+    .box-left{
+        width: 700px;
+        padding-bottom: 20px;
+    }
+
+    .box-right{
+        width: 500px;
     }
 
 

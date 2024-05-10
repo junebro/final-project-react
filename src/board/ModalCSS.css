@@ -1,31 +1,20 @@
-/* .popup-detail {
-    display: none; 팝업은 기본적으로 숨겨져 있음
-    position: fixed;
-    z-index: 9999; 다른 요소보다 위에 표시되도록 z-index 설정
-    background-color: #ffffff;
-    border: 1px solid #ccc; 팝업 테두리 설정 
-    border-radius: 5px; /팝업 모서리 둥글게 설정
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 그림자 효과 추가
-  } 
-  
-  */
 
-.modal{
-    position: absolute;
+.board-modal{
+    position: fixed;
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* 다른 요소 위에 표시 */
+    z-index: 1040; /* 다른 요소 위에 표시 */
 }
 
-.modal-overlay {
+.board-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: 999; /* 오버레이 z-index 설정 */
+    z-index: 1050; /* 오버레이 z-index 설정 */
   }
 
 .popup-detail ul{

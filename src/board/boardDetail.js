@@ -1,15 +1,14 @@
+import './boardDetail.css';
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
+import UserNicknameModal from './UserNicknameModal';
 import InputEmoji from 'react-input-emoji';
 
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
-import UserNicknameModal from './UserNicknameModal';
 
 // import { useParams } from 'react-router-dom'; // React Router의 useParams 훅
-
-import './boardDetail.css';
 
 import test01 from './../images/board/board_test01.png'
 import test02 from './../images/board/board_test02.png'
@@ -27,18 +26,28 @@ import deleteButton from './../images/board/delete-button.png';
 
 
 
-const images = [
-    { src: test01, alt: 'test01' },
-    { src: test02, alt: 'test02' },
-    { src: test03, alt: 'test03' }
-];
-
 function App({ currentUser }) {
 
-    // 사용자 확인
+    // 임시 이미지 파일
+    const images = [
+        { src: test01, alt: 'test01' },
+        { src: test02, alt: 'test02' },
+        { src: test03, alt: 'test03' }
+    ];
+
+    // 사용자 확인 //임시
     const isAuthor = (currentUser, postAuthor) => {
         return currentUser === postAuthor;
     };
+
+    const [post, setPost] = useState({
+        id: null,
+        title: '',
+        content: ''
+    });
+
+    // 가정: post 상태가 게시글 데이터를 로드하는 로직을 통해 설정됨
+    const postId = post.id;  // 이 값을 Link 컴포넌트의 to 속성에 사용
 
     const handleEdit = () => {
         // 수정 기능 구현
@@ -55,7 +64,6 @@ function App({ currentUser }) {
     const handleImageClick = (img) => {
         setExpandedImage(img); // 확대된 이미지를 설정합니다.
     };
-
 
     // 좋아요 상태를 관리하는 상태 변수
     const [liked, setLiked] = useState(false);
@@ -100,8 +108,13 @@ function App({ currentUser }) {
 
     const handleAddComment = () => {
         if (commentText.trim() !== '') {
-            setComments(prevComments => [...prevComments, commentText]); // 함수형 업데이트 사용
-            setCommentText('');
+            const newComment = {
+                id: comments.length + 1, // 간단한 예제로 id 설정
+                text: commentText,
+                author: "currentUsername" // 현재 사용자 이름 또는 고유 식별자
+            };
+            setComments(prevComments => [...prevComments, newComment]); // 댓글 배열에 새 객체 추가
+            setCommentText(''); // 입력 필드 초기화
         }
     };
 
@@ -118,13 +131,14 @@ function App({ currentUser }) {
     // 모달 상태를 관리하기 위한 상태 변수
     const [showModal, setShowModal] = useState(false);
     const [activeComment, setActiveComment] = useState(null);
-    const [activeModalType, setActiveModalType] = useState(null); 
+    const [activeModalType, setActiveModalType] = useState(null);
 
     // 모달 위치 상태
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
     // 유저 닉네임 클릭 시 UserNicknameModal 열기
     const handleNicknameClick = (event, comment) => {
+        console.log("Nickname clicked, comment: ", comment);
         event.stopPropagation(); // 이벤트 버블링 방지
         const rect = event.target.getBoundingClientRect();
         setModalPosition({ x: rect.left, y: rect.top }); // 클릭한 요소의 위치를 저장
@@ -139,7 +153,7 @@ function App({ currentUser }) {
             <Menu />
 
 
-            <div className='sec-bdetail'>
+            <div className='section-bdetail'>
                 <div className='board-box'>
                     <div className='board-detail'>
                         <div className='board-detail-top'>
@@ -147,17 +161,22 @@ function App({ currentUser }) {
                                 이번에 진단받은 식단이에요! </div>
                             {isAuthor(currentUser) && (
                                 <>
-                                    <button className='update-btn' onClick={handleEdit}>
-                                        <img src={updateButton}
-                                            alt="Udate Button"
-                                            className="update-btn-img" />
-                                        수정하기</button>
-                                    <button className='delete-btn' onClick={handleDelete}
-                                    >
-                                        <img src={deleteButton}
-                                            alt="Delete Button"
-                                            className="delete-btn-img" />
-                                        삭제하기</button>
+                                    <Link to={`/board/boardUpdate/${postId}`} className='link'>
+                                        <button className='update-btn' onClick={handleEdit}>
+                                            <img src={updateButton}
+                                                alt="Udate Button"
+                                                className="update-btn-img" />
+                                            수정하기</button>
+                                    </Link>
+                                    <Link>
+                                        {/* 삭제하기 버튼 링크 임시니까 나중에 지워 */}
+                                        <button className='delete-btn' onClick={handleDelete}
+                                        >
+                                            <img src={deleteButton}
+                                                alt="Delete Button"
+                                                className="delete-btn-img" />
+                                            삭제하기</button>
+                                    </Link>
                                 </>
                             )}
                         </div>
@@ -173,7 +192,6 @@ function App({ currentUser }) {
                                                 id="expandedImg"
                                                 src={expandedImage.src}
                                                 alt={expandedImage.alt}
-
                                             />
 
                                         </div>
@@ -205,21 +223,13 @@ function App({ currentUser }) {
                                         <span>
                                             <img alt="냠냠님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
                                         </span>
-                                        <div className='member-name' onClick={(e) => handleNicknameClick(e)}>글쓴이냠냠
-
+                                        <div className='member-name' onClick={(e) => handleNicknameClick(e)}>글쓴이 냠냠
                                         </div>
-                                        {showModal && activeModalType === 'writer' && (
-                                            <UserNicknameModal
-                                                comment={activeComment}
-                                                isCurrentUser={currentUser === activeComment.author}
-                                                position={modalPosition}
-                                                onClose={() => setShowModal(false)}
-                                            />
-                                        )}
+
                                     </div>
                                     <div className='description'>비타민이 부족해서 사과도 추가해봤습니다
                                         요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        사과 대신에 저?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
                                         맛이 어떨지 궁금해요
                                         혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
@@ -238,57 +248,7 @@ function App({ currentUser }) {
                                         요즘 사과값이 많이 비싸던데
                                         사과 대신에 저렴한 과일 뭐가 있을까요?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
+
                                     </div>
 
                                 </div>
@@ -335,14 +295,7 @@ function App({ currentUser }) {
                                                 </div>
                                             </div>
                                         ))}
-                                        {showModal && activeModalType === 'comment' && (
-                                            <UserNicknameModal
-                                                comment={activeComment}
-                                                isCurrentUser={currentUser === activeComment.author}
-                                                position={modalPosition}
-                                                onClose={() => setShowModal(false)}
-                                            />
-                                        )}
+
                                     </div>
                                 </div>
                                 <div className='board_line_d'></div>
@@ -377,11 +330,19 @@ function App({ currentUser }) {
 
                         </div>
                         <div className='board_line_d'></div>
+                        {showModal && activeModalType === 'comment' && (
+                            <UserNicknameModal
+                                comment={activeComment}
+                                isCurrentUser={currentUser === activeComment.author}
+                                position={modalPosition}
+                                onClose={() => setShowModal(false)}
+                            />
+                        )}
                     </div>
 
 
                 </div>
-                <Link to="/boardList" className='link'>
+                <Link to="/board/boardList" className='link'>
                     <div className='submit-btn'>
                         <button className='out'>나가기</button>
                     </div>
