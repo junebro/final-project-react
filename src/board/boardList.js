@@ -1,13 +1,14 @@
+import './boardList.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
-import './boardList.css';
 import Pagination from 'react-js-pagination';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
 
+
 function App() {
-    const ChangeCategory = (evnet) => {
+    const ChangeCategory = (event) => {
         console.log()
     }
 
@@ -49,7 +50,7 @@ function App() {
         <>
             <Navi />
             <Menu />
-            <section>
+            <section className='section-blist'>
                 <div className='board'>
 
                     <div className='board_top'>
@@ -63,7 +64,7 @@ function App() {
                         </div>
 
                         {/* 글쓰기 버튼 */}
-                        <Link to="/boardInsert" className='link'>
+                        <Link to="/board/boardInsert" className='link'>
                             <button type='submit' className='btn btn-primary'>
 
                                 <img src={require('./../images/board/plus_icon.png')} className='plus_icon' />
@@ -96,7 +97,7 @@ function App() {
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <Link to="/boardDetail" className='link'>
+                                    <Link to="/board/boardDetail" className='link'>
                                         <div className='subject'>이번에 진단받은 식단이에요!</div>
                                     </Link>
                                     <div className='comment'>[4]</div>
@@ -106,7 +107,7 @@ function App() {
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <Link to="/boardDetail" className='link'>
+                                <Link to="/board/boardDetail" className='link'>
                                     <div className='board_bottom_section'>
                                         <div className='description'>비타민이 부족해서 어쩌구</div>
                                         <br />
@@ -124,7 +125,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>
@@ -143,7 +144,7 @@ function App() {
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <Link to="/boardDetail" className='link'>
+                                    <Link to="/board/boardDetail" className='link'>
                                         <div className='subject'>이번에 진단받은 식단이에요!</div>
                                     </Link>
                                     <div className='comment'>[4]</div>
@@ -153,7 +154,7 @@ function App() {
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <Link to="/boardDetail" className='link'>
+                                <Link to="/board/boardDetail" className='link'>
                                     <div className='board_bottom_section'>
                                         <div className='description'>비타민이 부족해서 어쩌구</div>
                                         <br />
@@ -171,7 +172,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>
@@ -190,7 +191,7 @@ function App() {
                         <div className='board_main'>
                             <div className='board_left'>
                                 <div className='board_top_section'>
-                                    <Link to="/boardDetail" className='link'>
+                                    <Link to="/board/boardDetail" className='link'>
                                         <div className='subject'>이번에 진단받은 식단이에요!</div>
                                     </Link>
                                     <div className='comment'>[4]</div>
@@ -200,7 +201,7 @@ function App() {
                                     <div className='board_date'>2024-04-28 00:00:00</div>
                                 </div>
                                 <br />
-                                <Link to="/boardDetail" className='link'>
+                                <Link to="/board/boardDetail" className='link'>
                                     <div className='board_bottom_section'>
                                         <div className='description'>비타민이 부족해서 어쩌구</div>
                                         <br />
@@ -220,7 +221,7 @@ function App() {
                                 <div className='board_info'>
                                     <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
                                         {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup' data-role="popup" id="memberPopup">
+                                        <div className='popup-list' data-role="popup" id="memberPopup">
                                             <ul data-role="listview" data-inset="true">
                                                 <li><a href="#">게시글 보기</a></li>
                                                 <li><a href="#">1:1 채팅</a></li>
