@@ -1,5 +1,5 @@
 // Router.js
-import React from 'react';
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import NutriRoutes from "./routes/NutriRoutes";
@@ -18,7 +18,7 @@ function App() {
     <Routes>
       <Route path="/nutri/*" element={<NutriRoutes />} />
       <Route path="/" element={<MainRoutes />} />
-      <Route path="/board/*" element={<BoardRoutes />} /> 
+      <Route path="/board/*" element={<BoardRoutes />} />
       <Route path="/mypage/*" element={<MyPageRoutes />} />
       <Route path="/products/*" element={<ProductsRoutes />} />
       <Route path="/cart/*" element={<CartRoutes />} />
@@ -26,7 +26,6 @@ function App() {
 
       <Route path="/diet/*" element={<DietRoutes />} />
       <Route path="/order/*" element={<OrderRoutes />} />
-      
     </Routes>
   );
 }
