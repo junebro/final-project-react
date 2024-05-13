@@ -1,5 +1,5 @@
-// Router.js
-import React from "react";
+// Router.js   
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import NutriRoutes from "./routes/NutriRoutes";

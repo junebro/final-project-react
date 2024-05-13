@@ -4,7 +4,7 @@ import Modal from './Modal'; // 모달 컴포넌트 임포트
 import cartClick from './../images/cart_click.png';
 import cart from './../images/cart.png';
 
-import { ItemProvider, useItem } from '../common/ItemContext';  // 경로 수정
+import { ItemProvider, useItem } from '../common/contexts/ItemContext';  // 경로 수정
 
 function App() {
     return (
@@ -27,6 +27,7 @@ const ItemDisplay = () => {
 
   const item = useItem();
 
+  console.log(item);
 
   const [cartImages, setCartImages] = useState(products.map(product => ({
     id: product.id,
