@@ -11,17 +11,7 @@ function App() {
         setMessage(message);
       });
   }, []);
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img className="App-logo" alt="logo" />
-        <h1 className="App-title">{message}</h1>
-      </header>
-      <p className="App-intro">
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
-    </div>
-  );
+  return <div className="App">{message}</div>;
 }
 
 export default App;
