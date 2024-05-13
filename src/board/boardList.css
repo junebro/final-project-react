@@ -315,6 +315,12 @@ body{
         display: flex; /* Flexbox 레이아웃 활성화 */
         flex-direction: row;
         margin-top: 10px;
+    }
 
+    .subject {
+        max-width: 220px; /* 최대 너비 설정 */
+        overflow: hidden; /* 내용이 넘칠 경우 숨김 */
+        text-overflow: ellipsis; /* 넘친 텍스트를 ...으로 표시 */
+        white-space: nowrap; /* 텍스트를 한 줄에 표시 */
     }
 }
