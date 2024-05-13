@@ -4,8 +4,7 @@ import Modal from './Modal'; // 모달 컴포넌트 임포트
 import cartClick from './../images/cart_click.png';
 import cart from './../images/cart.png';
 
-import { observer } from 'mobx-react';
-import itemStore from '../common/stores/ProductStore';
+import { useItem } from '../ItemProvider';  // ItemProvider에서 제공하는 useItem 훅을 사용
 
 // 제품 데이터 생성
 const products = Array.from({ length: 20 }, (v, i) => ({
@@ -16,15 +15,18 @@ const products = Array.from({ length: 20 }, (v, i) => ({
   cartState: 'cart' // 제품별 카트 상태 초기화
 })); 
 
-const App = observer(() => {
+const App = () => {
 
-  useEffect(() => {
-    itemStore.fetchProducts();
-  }, []);
+  const { product, error, loading } = useItem();  // ItemContext에서 order 데이터와 상태를 가져옴
 
-  console.log(itemStore.products[0].product_name);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!product) return <div>No orders found.</div>;
 
-  const [cartImages, setCartImages] = useState(products.map(product => ({
+  console.log(product);
+
+
+  const [cartImages, setCartImages] = useState(products.map(product => ({ 
     id: product.id,
     state: product.cartState
   })));
@@ -80,6 +82,6 @@ const App = observer(() => {
     </div>
     </>
   );
-});
+};
 
 export default App;

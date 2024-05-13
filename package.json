@@ -19,10 +19,12 @@
     "react-dom": "^18.3.1",
     "react-input-emoji": "^5.9.0",
     "react-js-pagination": "^3.0.3",
+    "react-redux": "^9.1.2",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",
     "react-scripts": "^5.0.1",
     "react-spring": "^9.7.3",
+    "redux": "^5.0.1",
     "swiper": "^11.1.1",
     "web-vitals": "^2.1.4"
   },
