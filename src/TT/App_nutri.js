@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Top from "./components/top01.js";
-import { Outlet } from "react-router-dom";
 //  추가할 페이지 임포트 구간
 import Content01 from "./components/01_personal_info_survay.js";
 import Content02 from "./components/02_disease_survey.js";
@@ -16,8 +15,8 @@ import Content10 from "./components/10_drag_foods_03.js";
 import Content11 from "./components/11_drag_foods_04.js";
 import Content12 from "./components/12_drag_foods_05.js";
 import Content13 from "./components/13_drag_foods_06.js";
+import Content14 from "./components/14_conclusion.js";
 //  추가할 페이지 임포트 구간
-import "./css/content_css.css";
 
 class App extends Component {
   constructor(props) {
@@ -38,21 +37,23 @@ class App extends Component {
         Content11,
         Content12,
         Content13,
+        Content14
       ], // 렌더링할 컴포넌트 목록
       paths: [
-        "/Nutri",
-        "/Nutri/content02",
-        "/Nutri/content03",
-        "/Nutri/content04",
-        "/Nutri/content05",
-        "/Nutri/content06",
-        "/Nutri/content07",
-        "/Nutri/content08",
-        "/Nutri/content09",
-        "/Nutri/content10",
-        "/Nutri/content11",
-        "/Nutri/content12",
-        "/Nutri/content13",
+        "/nutri/nutri",
+        "/nutri/nutri/content02",
+        "/nutri/nutri/content03",
+        "/nutri/nutri/content04",
+        "/nutri/nutri/content05",
+        "/nutri/nutri/content06",
+        "/nutri/nutri/content07",
+        "/nutri/nutri/content08",
+        "/nutri/nutri/content09",
+        "/nutri/nutri/content10",
+        "/nutri/nutri/content11",
+        "/nutri/nutri/content12",
+        "/nutri/nutri/content13",
+        "/nutri/nutri/content14",
       ], // 컴포넌트에 해당하는 경로 목록
     };
   }
@@ -97,6 +98,7 @@ class App extends Component {
           <Route path="/content11" element={<Content11 />} />
           <Route path="/content12" element={<Content12 />} />
           <Route path="/content13" element={<Content13 />} />
+          <Route path="/content14" element={<Content14 />} />
         </Routes>
         <div>
           {/* 다음 버튼에 Link를 사용하여 다음 페이지로 이동 */}

@@ -25,22 +25,22 @@ function App() {
             <Menu />
             <div className="section-p">
             <div className="diaryDetail-section">
-      <nav className="nav">
+      <nav className="mypage-nav">
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
         <ul class="mypage-ul">
-        <li><Link to="/EditProfile">내 정보 수정</Link></li>
-          <li><Link to="/Nutrition">영양 진단 결과</Link></li>
-          <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
-          <li><Link to="/HealthDiary"  className='mypage-menu-active'>건강 일기</Link></li>
-          <li><Link to="/OrderList">주문 내역</Link></li>
+        <li><Link to="/mypage/EditProfile">내 정보 수정</Link></li>
+          <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
+          <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
+          <li><Link to="/mypage/HealthDiary"  className='mypage-menu-active'>건강 일기</Link></li>
+          <li><Link to="/mypage/OrderList">주문 내역</Link></li>
           <li><a href="#">회원 탈퇴</a></li>
         </ul>
       </nav>
 
       <div className="diaryDetail-contents">
-            <h1 className="title">건강일기</h1>
+            <h1 className="mypage-title">건강일기</h1>
             <hr className="title-line" />
             <div className='title-margin'>
             <p className="sticker-title">다양한 스티커로</p>
