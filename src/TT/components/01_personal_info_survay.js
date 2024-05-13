@@ -1,93 +1,95 @@
 import React, { useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectFlip } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import "./../css/personal_survey_css.css";
 import "./../css/content_css.css";
-import "swiper/css/effect-flip";
 
-// 성별 선택 스와이퍼
-const Swiper_Gender = () => {
-  return (
-    <>
-      <Swiper
-        className="gender-swiper-container"
-        modules={[EffectFlip]}
-        // direction="vertical"
-        spaceBetween={0}
-        slidesPerView={1}
-        loop={true}
-        pagination={{ clickable: true }}
-        effect="flip" // 플립 효과
-        flipEffect={{
-          slideShadows: false,
-        }}
-      >
-        <SwiperSlide>남자</SwiperSlide>
-        <SwiperSlide>여자</SwiperSlide>
-      </Swiper>
-    </>
-  );
-};
+function App() {
+  // 텍스트 입력 상자 정보를 담은 배열
 
-const App = () => {
-  const [numberChecker, setNumberChecker] = useState(1);
+  const checkboxes = [
+    { id: "1", name: "남성" },
+    { id: "2", name: "여성" },
+  ];
 
-  const handleInputChange = (e) => {
-    const value = e.target.value;
+  const [selectedCheckbox, setSelectedCheckbox] = useState(1);
 
-    // 숫자 이외의 값이 입력되면 빈 문자열로 변경
-    if (!/^[0-9]*$/.test(value)) {
-      e.target.value = ""; // 빈 문자열로 변경
-      return;
-    }
+  // 체크박스 상태 업데이트 함수
+  const CheckOnlyOne = (id) => {
+    setSelectedCheckbox(id);
   };
 
+  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 여기서 폼 데이터를 처리하거나 API로 전송하는 등의 작업 수행
+  };
   return (
     <>
       <div className="main_alert">
         <p>개인 별 영양 정보 측정을 위해</p>
         <p>성별, 나이, 키, 몸무게를 입력해주세요</p>
       </div>
-
-      <div className="box-container">
-        <div className="swiper_box">
-          <Swiper_Gender />
-        </div>
-        <div className="swiper_box">
-          나이{" "}
-          <input
-            type="text"
-            className="input_info_01"
-            maxLength={"2"}
-            onChange={handleInputChange}
-          />
-          세
-        </div>
-        <div className="swiper_box">
-          키{" "}
-          <input
-            type="text"
-            className="input_info"
-            maxLength={"3"}
-            onChange={handleInputChange}
-          />
-          cm
-        </div>
-        <div className="swiper_box">
-          몸무게{" "}
-          <input
-            type="text"
-            className="input_info"
-            maxLength={"3"}
-            onChange={handleInputChange}
-          />
-          kg
+      <div className="center_container">
+        <div className="input_container">
+          <div className="gender_container">
+            {/* 각 체크박스 렌더링 */}
+            {checkboxes.map((checkbox) => (
+              <div key={checkbox.id}>
+                <input
+                  type="checkbox"
+                  id={`checkbox${checkbox.id}`}
+                  value={checkbox.id}
+                  checked={selectedCheckbox === checkbox.id}
+                  onChange={() => CheckOnlyOne(checkbox.id)}
+                />
+                <label htmlFor={`checkbox${checkbox.id}`}>
+                  <span className="checkbox_span">{checkbox.name}</span>
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="input_group">
+            <label htmlFor="age">나이</label>
+            <input
+              type="text"
+              id="age"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              required
+              minLength={2}
+              maxLength={3}
+            />
+          </div>
+          <div className="input_group">
+            <label htmlFor="height">키(cm)</label>
+            <input
+              type="text"
+              id="height"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              required
+              minLength={2}
+              maxLength={3}
+            />
+          </div>
+          <div className="input_group">
+            <label htmlFor="weight">몸무게(kg)</label>
+            <input
+              type="text"
+              id="weight"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              required
+              minLength={2}
+              maxLength={3}
+            />
+          </div>
         </div>
       </div>
     </>
   );
-};
+}
 
 export default App;

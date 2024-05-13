@@ -36,22 +36,22 @@ function App() {
             <Menu />
             <div className="section-p">
             <div className="profile-section">
-      <nav className="nav">
+      <nav className="mypage-nav">
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
         <ul class="mypage-ul">
-          <li><Link to="/EditProfile" className='mypage-menu-active'>내 정보 수정</Link></li>
-          <li><Link to="/Nutrition">영양 진단 결과</Link></li>
-          <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
-          <li><Link to="/HealthDiary" >건강 일기</Link></li>
-          <li><Link to="/OrderList">주문 내역</Link></li>
+          <li><Link to="/mypage/EditProfile" className='mypage-menu-active'>내 정보 수정</Link></li>
+          <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
+          <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
+          <li><Link to="/mypage/HealthDiary" >건강 일기</Link></li>
+          <li><Link to="/mypage/OrderList">주문 내역</Link></li>
           <li><a href="#">회원 탈퇴</a></li>
         </ul>
       </nav>
 
       <div className="profile-contents">
-            <h1 className="title">내 정보 수정</h1>
+            <h1 className="mypage-title">내 정보 수정</h1>
             <hr className="title-line" />
     
             {/* 프로필 사진, 이메일, 닉네임, 비밀번호 변경 */}
@@ -72,7 +72,7 @@ function App() {
                     <p className="sub-title">닉네임</p>
                     <input className="profile-input" value="김종민" />
                     <div className="pw-box">
-                    <Link to="/ChangePw"><img src={require("./../images/member/setting.png")} alt="setting" />비밀번호 변경</Link>
+                    <Link to="/mypage/ChangePw"><img src={require("./../images/member/setting.png")} alt="setting" />비밀번호 변경</Link>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@ function App() {
                 <input className="address-detail" placeholder="상세주소" />
             </div>
             <hr className="address-hr" />
-            <h2 className="title">관리가 필요한 질환 (1개 선택)</h2>
+            <h2>관리가 필요한 질환 (1개 선택)</h2>
             <div className="disease-box">
                 {/* 라디오 버튼 1개 단위 */}
                 <div className="disease-radio">
@@ -163,6 +163,8 @@ function App() {
                     <label htmlFor="disease9" className='disease-label'>암</label>
                 </div>
             </div>
+
+            <button type="submit">수정 완료</button>
         </div>
     </div>
     </div>

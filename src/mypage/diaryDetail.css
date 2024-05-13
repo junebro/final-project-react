@@ -79,14 +79,15 @@ li {
 }
 
 .diaryDetail-contents {
+    min-height: 1000px;
     padding: 30px;
 }
-
-.title {
+.mypage-title {
+    font-size: 24px;
+    font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
-
 .title-line {
     width: 100%;
     border: 1px solid #005A4E;
@@ -217,11 +218,11 @@ li {
         
     }
 
-    .nav {
+    .mypage-nav {
         display: flex;
         flex-direction: column;
         position: sticky;
-        top: 200px;
+        top: 216px;
 
         align-items: center;
         width: 250px;
@@ -288,7 +289,7 @@ li {
     width: 80%;
     padding: 50px;
     margin-top: 90px;
- 
+    
     border-radius: 15px;
     background-color: white;
 }
