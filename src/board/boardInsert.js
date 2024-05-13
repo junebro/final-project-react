@@ -1,15 +1,16 @@
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
+import { Link } from "react-router-dom";
 
 import './boardInsert.css';
 
 function App() {
 
-    function fn_out(){
-        alert("나가기");
+    function fn_out() {
+        // 나가기
     }
-    function fn_submit(){
+    function fn_submit() {
         alert("등록하기");
     }
 
@@ -17,7 +18,7 @@ function App() {
         <>
             <Navi />
             <Menu />
-            <section>
+            <section className='section-binsert'>
                 <div className='write-box'>
                     <form action='#' method='post' className='board-insert'>
                         <input type='hidden' name='command' value='boardInsert' />
@@ -40,7 +41,9 @@ function App() {
                 </div>
 
                 <div className='submit-btn'>
-                    <button className='out' onClick={fn_out}>나가기</button>
+                    <Link to="/board/boardList" className='link'>
+                        <button className='out' onClick={fn_out}>나가기</button>
+                    </Link>
                     <button className='submit' type='submit' id='submit' onClick={fn_submit}>등록하기</button>
                 </div>
             </section>
