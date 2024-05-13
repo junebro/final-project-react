@@ -1,7 +1,7 @@
 import './../App.css';
 import './join.css';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import Navi from './../common/navigation';
 import Footer from './../common/footer';
 import PopupDom from './popupDom';
@@ -29,6 +29,67 @@ function App() {
         setIsPopupOpen(false)
     }
 
+    // 비밀번호 유효성 검사
+    const [memberPw, setMemberPw] = React.useState('');
+  const [memberPwCheck, setMemberPwCheck] = React.useState('');
+  const [pwMessage1, setPwMessage1] = React.useState('');
+  const [pwMessage2, setPwMessage2] = React.useState('');
+  const [pwMessage1Color, setPwMessage1Color] = React.useState(''); 
+  const [pwMessage2Color, setPwMessage2Color] = React.useState('');
+  
+  const handlePwChange = (event) => {
+    const { value } = event.target;
+    setMemberPw(value);
+
+    if (value.length === 0) {
+      setPwMessage1('사용할 비밀번호를 입력해주세요.');
+      setPwMessage1Color('gray');
+      return;
+    }
+
+    const regExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
+
+    if (regExp.test(value)) {
+      if (memberPwCheck.length === 0) {
+        setPwMessage1('유효한 비밀번호 형식입니다.');
+        setPwMessage1Color('green');
+      } else {
+        checkPw();
+      }
+    } else {
+      setPwMessage1('8자 이상 문자와 숫자 또는 특수문자를 포함해야 합니다.');
+      setPwMessage1Color('red');
+    }
+  };
+
+  const test = useRef(null);
+
+  const handlePwCheckChange = (event) => {
+    const { value } = event.target;
+    
+    if ( value  === test.current.value) {
+        setPwMessage2('비밀번호가 일치합니다.');
+      setPwMessage2Color('green');
+    } else {
+        setPwMessage2('비밀번호가 일치하지 않습니다.');
+        setPwMessage2Color('red');
+    }
+
+    setMemberPwCheck(value);
+    
+  };
+
+  const checkPw = () => {
+    if (memberPw === memberPwCheck) {
+      setPwMessage2('비밀번호가 일치하지 않습니다.');
+      setPwMessage2Color('red');
+    } else {
+      setPwMessage2('비밀번호가 일치합니다.');
+      setPwMessage2Color('green');
+    }
+  };
+
+
     return (
 
         <div>
@@ -51,20 +112,25 @@ function App() {
                         />
 
                         <span className="sub-title">비밀번호</span>
-                        <span className="pw-message">8자리 이상, 대소문자 포함</span>
+                        <span className="pw-message" style={{ color: pwMessage1Color }}>{pwMessage1}</span>
                         <input
+                            ref={test}
                             type="password"
                             id="memberPw"
+                            value={memberPw}
+                            onChange={handlePwChange}
                             className="input-signUp"
                             name="memberPw"
                             placeholder="비밀번호를 입력해주세요!"
                         />
 
                         <span className="sub-title">비밀번호 확인</span>
-                        <span className="pwCheck-message">비밀번호가 일치하지 않습니다</span>
+                        <span className="pwCheck-message"style={{ color: pwMessage2Color }}>{pwMessage2}</span>
                         <input
                             type="password"
                             id="memberPwCheck"
+                            value={memberPwCheck}
+                            onChange={handlePwCheckChange}
                             className="input-signUp"
                             name="memberPwCheck"
                             placeholder="비밀번호를 한번 더 입력해주세요!"

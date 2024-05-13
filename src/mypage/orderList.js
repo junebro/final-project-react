@@ -19,10 +19,10 @@ function App() {
     <hr className="h1" />
     <ul class="mypage-ul">
       <li><a href="#">내 정보 수정</a></li>
-      <li><Link to="/Nutrition" >영양 진단 결과</Link></li>
-      <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
-      <li><Link to="/HealthDiary"  >건강 일기</Link></li>
-      <li><Link to="/OrderList" className='mypage-menu-active'>주문 내역</Link></li>
+      <li><Link to="/mypage/Nutrition" >영양 진단 결과</Link></li>
+      <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
+      <li><Link to="/mypage/HealthDiary"  >건강 일기</Link></li>
+      <li><Link to="/mypage/OrderList" className='mypage-menu-active'>주문 내역</Link></li>
       <li><a href="#">회원 탈퇴</a></li>
     </ul>
   </nav>
@@ -39,16 +39,18 @@ function App() {
 
                 <div className="product-box">
                     <div className="product-img">
-                        <img src="./assets/프사.jpg" alt="프로필 사진" />
+                        <img src={require("./../images/products/product2.jpg")} alt="프로필 사진" />
                     </div>
                     <div className="order-info">
                         <p>리코타치즈 샐러드 | 1 개</p>
                         <p>20,000원</p>
-                        <p>서울특별시 마포구 어디동 300번지 어쩌고 102호 </p>
+                        {/* 주소가 있던자리 빼게되면 lastchild 속성 빼기 */}
+                        <p> </p> 
                     </div>
                 </div>
 
                 <div className="order-result">
+                    {/* 결제 테이블에서 최종 결제 금액으로 표시하기 */}
                     <span className="payment">총 결제금액 : 20,000원</span>
                     <button type="button" className="delivery-btn">주문 취소</button>
                 </div>
@@ -62,7 +64,7 @@ function App() {
 
                 <div className="product-box">
                     <div className="product-img">
-                        <img src="./assets/프사.jpg" alt="프로필 사진" />
+                        <img src={require("./../images/products/product1.jpg")} alt="프로필 사진" />
                     </div>
                     <div className="order-info">
                         <p>리코타치즈 샐러드 | 1 개</p>
@@ -73,7 +75,7 @@ function App() {
 
                 <div className="product-box">
                     <div className="product-img">
-                        <img src="./assets/프사.jpg" alt="프로필 사진" />
+                        <img src={require("./../images/products/product3.jpg")} alt="프로필 사진" />
                     </div>
                     <div className="order-info">
                         <p>리코타치즈 샐러드 | 1 개</p>

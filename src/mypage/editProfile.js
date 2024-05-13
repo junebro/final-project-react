@@ -41,11 +41,11 @@ function App() {
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
         <ul class="mypage-ul">
-          <li><Link to="/EditProfile" className='mypage-menu-active'>내 정보 수정</Link></li>
-          <li><Link to="/Nutrition">영양 진단 결과</Link></li>
-          <li><Link to="/MyCommunity">커뮤니티 활동</Link></li>
-          <li><Link to="/HealthDiary" >건강 일기</Link></li>
-          <li><Link to="/OrderList">주문 내역</Link></li>
+          <li><Link to="/mypage/EditProfile" className='mypage-menu-active'>내 정보 수정</Link></li>
+          <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
+          <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
+          <li><Link to="/mypage/HealthDiary" >건강 일기</Link></li>
+          <li><Link to="/mypage/OrderList">주문 내역</Link></li>
           <li><a href="#">회원 탈퇴</a></li>
         </ul>
       </nav>
@@ -72,7 +72,7 @@ function App() {
                     <p className="sub-title">닉네임</p>
                     <input className="profile-input" value="김종민" />
                     <div className="pw-box">
-                    <Link to="/ChangePw"><img src={require("./../images/member/setting.png")} alt="setting" />비밀번호 변경</Link>
+                    <Link to="/mypage/ChangePw"><img src={require("./../images/member/setting.png")} alt="setting" />비밀번호 변경</Link>
                     </div>
                 </div>
             </div>
@@ -163,6 +163,8 @@ function App() {
                     <label htmlFor="disease9" className='disease-label'>암</label>
                 </div>
             </div>
+
+            <button type="submit">수정 완료</button>
         </div>
     </div>
     </div>

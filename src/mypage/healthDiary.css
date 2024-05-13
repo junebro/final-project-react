@@ -79,6 +79,7 @@ li {
 }
 
 .contents {
+    min-height: 1000px;
     padding: 30px;
 }
 
@@ -200,7 +201,7 @@ li {
         display: flex;
         flex-direction: column;
         position: sticky;
-        top: 200px;
+        top: 216px;
 
         align-items: center;
         width: 250px;
