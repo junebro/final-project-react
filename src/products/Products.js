@@ -1,18 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./css/Products.css";
 import Modal from './Modal'; // 모달 컴포넌트 임포트  
 import cartClick from './../images/cart_click.png';
 import cart from './../images/cart.png';
 
-import { ItemProvider, useItem } from '../common/ItemContext';  // 경로 수정
-
-function App() {
-    return (
-        <ItemProvider>
-            <ItemDisplay />
-        </ItemProvider>
-    );
-}
+import { observer } from 'mobx-react';
+import itemStore from '../common/stores/ProductStore';
 
 // 제품 데이터 생성
 const products = Array.from({ length: 20 }, (v, i) => ({
@@ -23,10 +16,13 @@ const products = Array.from({ length: 20 }, (v, i) => ({
   cartState: 'cart' // 제품별 카트 상태 초기화
 })); 
 
-const ItemDisplay = () => {
+const App = observer(() => {
 
-  const item = useItem();
+  useEffect(() => {
+    itemStore.fetchProducts();
+  }, []);
 
+  console.log(itemStore.products[0].product_name);
 
   const [cartImages, setCartImages] = useState(products.map(product => ({
     id: product.id,
@@ -84,6 +80,6 @@ const ItemDisplay = () => {
     </div>
     </>
   );
-};
+});
 
 export default App;
