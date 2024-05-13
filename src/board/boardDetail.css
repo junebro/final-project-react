@@ -1,4 +1,4 @@
-  .sec-bdetail{
+  .section-bdetail{
 	/* width: 100vw;
 	height: 100vh;
 
@@ -11,7 +11,9 @@
 }
 
 .board-box{
-    width: 1500px;
+    max-width: 1500px;
+    min-width: 640px;
+    width: 100%;
     padding-top: 50px;
     padding-bottom: 50px;
     margin-top: 50px;
@@ -275,61 +277,6 @@
     cursor: pointer;
 }
 
-.popup {
-    display: none; /* 팝업은 기본적으로 숨겨져 있음 */
-    position: fixed;
-    z-index: 9999; /* 다른 요소보다 위에 표시되도록 z-index 설정 */
-    background-color: #ffffff;
-    border: 1px solid #ccc; /* 팝업 테두리 설정 */
-    border-radius: 5px; /* 팝업 모서리 둥글게 설정 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-  }
-
-.popup ul{
-    list-style-type: none;
-    padding: 10px;
-    margin: 10px;
-}
-
-.popup li{
-    padding: 5px;
-    font-weight: normal;
-}
-
-.popup ul li:hover{
-    color: #005A4E;
-    font-weight: bold;
-}
-
-.popup ul li a {
-    text-decoration: none; /* 링크의 밑줄 제거 */
-    color: inherit; /* 링크의 색상을 상위 요소의 색상으로 상속 */
-}
-
-.popup ul li a:visited {
-    color: #000000;
-    font-weight: bold;
-    text-decoration: none; /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .submit-btn{
     display: flex;
@@ -389,6 +336,15 @@
         flex-direction: column; /* 요소들을 세로로 정렬합니다. */
         align-items: center; /* 세로 방향 가운데 정렬합니다. */
         justify-content: center; /* 가로 방향 가운데 정렬합니다. */
+    }
+
+    .box-left{
+        width: 700px;
+        padding-bottom: 20px;
+    }
+
+    .box-right{
+        width: 500px;
     }
 
 
