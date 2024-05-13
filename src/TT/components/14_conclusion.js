@@ -1,9 +1,5 @@
-import React, { useState } from "react";
-import { Droppable, Draggable, DragDropContext } from "react-beautiful-dnd";
+import React, { useState, useEffect } from "react";
 import "./../css/drag_css.css";
-import img1 from "./../images/가당음료.png";
-import img2 from "./../images/과자류.png";
-import img3 from "./../images/사탕.png";
 
 function App() {
   const [message, setMessage] = useState("");
@@ -18,7 +14,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img className="App-logo" alt="logo" />
         <h1 className="App-title">{message}</h1>
       </header>
       <p className="App-intro">
