@@ -246,9 +246,9 @@
     border-radius: 8px;          /* 모서리 둥글게 처리 */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);  /* 그림자 효과 */
   }
-/* 태블릿 및 데스크탑 화면에서 이미지 보이기 */
+
 @media (min-width: 769px) {
     .img_main {
-        display: block; /* 화면이 769px 이상일 때 이미지 보이기 */
+        display: block; 
     }
 } 

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Routes, Route } from "react-router-dom";
 
+import NutriRoutes from "./routes/NutriRoutes";
 import MainRoutes from "./routes/MainRoutes";
 import MyPageRoutes from "./routes/MyPageRoutes";
 import BoardRoutes from "./routes/BoardRoutes";
@@ -12,7 +13,7 @@ import MemberRoutes from "./routes/MemberRoutes";
 import DietRoutes from "./routes/DietRoutes";
 import OrderRoutes from "./routes/OrderRoutes";
 
-import NutriRoutes from "./routes/NutriRoutes";
+
 
 function App() {
   return (
