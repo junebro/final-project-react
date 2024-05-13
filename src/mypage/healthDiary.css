@@ -79,10 +79,13 @@ li {
 }
 
 .contents {
+    min-height: 1000px;
     padding: 30px;
 }
 
-.title {
+.mypage-title {
+    font-size: 24px;
+    font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
@@ -194,11 +197,11 @@ li {
         
     }
 
-    .nav {
+    .mypage-nav {
         display: flex;
         flex-direction: column;
         position: sticky;
-        top: 200px;
+        top: 216px;
 
         align-items: center;
         width: 250px;

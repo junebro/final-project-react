@@ -3,6 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import NutriRoutes from "./routes/NutriRoutes";
+
 import MainRoutes from "./routes/MainRoutes";
 import MyPageRoutes from "./routes/MyPageRoutes";
 import BoardRoutes from "./routes/BoardRoutes";
@@ -26,6 +27,8 @@ function App() {
 
       <Route path="/diet/*" element={<DietRoutes />} />
       <Route path="/order/*" element={<OrderRoutes />} />
+
+      <Route path="/nutri/*" element={<NutriRoutes />} />
     </Routes>
   );
 }
