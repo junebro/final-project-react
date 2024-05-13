@@ -59,19 +59,21 @@
   border-left: none;
   border-right: none;
   border-bottom: 2px solid #ccc;
+  background-color: #fafafa;
   width: 50px;
-  font-size: 15px;
+  font-size: 25px;
   text-align: center;
 }
 
 .input_info_01 {
-  margin-top: 30%;
+  margin-top: 20%;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 2px solid #ccc;
+  background-color: #fafafa;
   width: 50px;
-  font-size: 15px;
+  font-size: 25px;
   text-align: center;
 }
 

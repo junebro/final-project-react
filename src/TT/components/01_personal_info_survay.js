@@ -39,7 +39,6 @@ const App = () => {
 
     // 숫자 이외의 값이 입력되면 빈 문자열로 변경
     if (!/^[0-9]*$/.test(value)) {
-      alert("숫자만 입력하세요.");
       e.target.value = ""; // 빈 문자열로 변경
       return;
     }
