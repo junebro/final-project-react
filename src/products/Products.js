@@ -1,10 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import "./css/Products.css";
 import Modal from './Modal'; // 모달 컴포넌트 임포트  
 import cartClick from './../images/cart_click.png';
 import cart from './../images/cart.png';
 
-import { useItem } from '../ItemProvider';  // ItemProvider에서 제공하는 useItem 훅을 사용
+import { ItemProvider, useItem } from '../common/contexts/ItemContext';  // 경로 수정
+
+function App() {
+    return (
+        <ItemProvider>
+            <ItemDisplay />
+        </ItemProvider>
+    );
+}
 
 // 제품 데이터 생성
 const products = Array.from({ length: 20 }, (v, i) => ({
@@ -15,18 +23,13 @@ const products = Array.from({ length: 20 }, (v, i) => ({
   cartState: 'cart' // 제품별 카트 상태 초기화
 })); 
 
-const App = () => {
+const ItemDisplay = () => {
 
-  const { product, error, loading } = useItem();  // ItemContext에서 order 데이터와 상태를 가져옴
+  const item = useItem();
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!product) return <div>No orders found.</div>;
+  console.log(item);
 
-  console.log(product);
-
-
-  const [cartImages, setCartImages] = useState(products.map(product => ({ 
+  const [cartImages, setCartImages] = useState(products.map(product => ({
     id: product.id,
     state: product.cartState
   })));
