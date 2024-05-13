@@ -8,7 +8,7 @@ export const BoardProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8989/products/products')
+        fetch('http://localhost:8989/board/boardList')
             .then(response => {
                 if (!response.ok) {  // 응답 상태 확인
                     throw new Error('Network response was not ok');
