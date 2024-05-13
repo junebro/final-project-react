@@ -3,7 +3,7 @@ body{
 }
 
 /* 게시판 전체 */
-section {
+.section-blist {
 	width: 100vw;
 	height: 100vh;
 
@@ -14,7 +14,9 @@ section {
 }
 
 .board{
-	width: 70%;
+    max-width: 1500px; /* 고정 너비 대신 최대 너비 설정 */
+    min-width: 640px;
+    width: 100%; /* 뷰포트의 너비에 맞추기 */
     height: auto;
 	border-radius: 15px;
     background-color: #ffffff;
@@ -36,7 +38,7 @@ section {
 
 .board_main{
 	display: flex;
-    padding-block: 20px;
+    padding-block: 10px;
 }
 
 .board_left{
@@ -192,7 +194,7 @@ section {
     cursor: pointer;
 }
 
-.popup {
+.popup-list {
     display: none; /* 팝업은 기본적으로 숨겨져 있음 */
     position: fixed;
     z-index: 9999; /* 다른 요소보다 위에 표시되도록 z-index 설정 */
@@ -202,27 +204,27 @@ section {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
   }
 
-.popup ul{
+.popup-list ul{
     list-style-type: none;
     padding: 10px;
     margin: 10px;
 }
 
-.popup li{
+.popup-list li{
     padding: 5px;
 }
 
-.popup ul li:hover{
+.popup-list ul li:hover{
     color: #005A4E;
     font-weight: bold;
 }
 
-.popup ul li a {
+.popup-list ul li a {
     text-decoration: none; /* 링크의 밑줄 제거 */
     color: inherit; /* 링크의 색상을 상위 요소의 색상으로 상속 */
 }
 
-.popup ul li a:visited {
+.popup-list ul li a:visited {
     color: #000000;
     font-weight: bold;
     text-decoration: none; /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
@@ -279,7 +281,7 @@ section {
 }
 
 /* 미디어 쿼리 */
-@media (max-width: 1200px) {
+@media (max-width: 1500px) {
     .board_main {
         display: flex;
         flex-direction: column;
@@ -296,5 +298,23 @@ section {
 
     .board_left, .board_right {
         width: 100%; /* board_left와 board_right를 꽉 채우도록 */
+    }
+}
+
+@media (max-width: 700px) {
+    .board_top_section > div {
+        margin: 10px; /* 모든 자식 div에 마진 10px 적용 */
+    }
+
+    .thumbnail{
+        display: flex;
+        justify-content: center;
+    }
+
+    .board_info {
+        display: flex; /* Flexbox 레이아웃 활성화 */
+        flex-direction: row;
+        margin-top: 10px;
+
     }
 }

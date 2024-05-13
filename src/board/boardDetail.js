@@ -1,5 +1,7 @@
+import './boardDetail.css';
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from "react-router-dom";
+import UserNicknameModal from './UserNicknameModal';
 import InputEmoji from 'react-input-emoji';
 
 import Navi from '../common/navigation';
@@ -7,8 +9,6 @@ import Menu from '../common/menu';
 import Footer from '../common/footer';
 
 // import { useParams } from 'react-router-dom'; // React Router의 useParams 훅
-
-import './boardDetail.css';
 
 import test01 from './../images/board/board_test01.png'
 import test02 from './../images/board/board_test02.png'
@@ -24,24 +24,30 @@ import submitButtonOn from './../images/board/plus-on-button.png';
 import updateButton from './../images/board/update-button.png';
 import deleteButton from './../images/board/delete-button.png';
 
-// import '@joeattardi/emoji-button';
 
 
+function App({ currentUser }) {
 
-const images = [
-    { src: test01, alt: 'test01' },
-    { src: test02, alt: 'test02' },
-    { src: test03, alt: 'test03' }
-];
+    // 임시 이미지 파일
+    const images = [
+        { src: test01, alt: 'test01' },
+        { src: test02, alt: 'test02' },
+        { src: test03, alt: 'test03' }
+    ];
 
-function App({ currentUser, postAuthor }) {
-
-    
-
-    // 사용자 확인
+    // 사용자 확인 //임시
     const isAuthor = (currentUser, postAuthor) => {
         return currentUser === postAuthor;
     };
+
+    const [post, setPost] = useState({
+        id: null,
+        title: '',
+        content: ''
+    });
+
+    // 가정: post 상태가 게시글 데이터를 로드하는 로직을 통해 설정됨
+    const postId = post.id;  // 이 값을 Link 컴포넌트의 to 속성에 사용
 
     const handleEdit = () => {
         // 수정 기능 구현
@@ -58,33 +64,6 @@ function App({ currentUser, postAuthor }) {
     const handleImageClick = (img) => {
         setExpandedImage(img); // 확대된 이미지를 설정합니다.
     };
-
-    // 팝업 열기
-    const openPopup = () => {
-        const popup = document.getElementById('memberPopup');
-        popup.style.display = 'block';
-    };
-
-    // 팝업 닫기
-    const closePopup = () => {
-        const popup = document.getElementById('memberPopup');
-        popup.style.display = 'none';
-    };
-
-    // 팝업 외부 클릭 시 팝업 닫기
-    useEffect(() => {
-        function handleClickOutside(event) {
-            const popup = document.getElementById('memberPopup');
-            if (popup && !popup.contains(event.target)) {
-                closePopup();
-            }
-        }
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, []);
 
     // 좋아요 상태를 관리하는 상태 변수
     const [liked, setLiked] = useState(false);
@@ -112,7 +91,7 @@ function App({ currentUser, postAuthor }) {
     };
 
 
-    
+
     // 댓글 입력을 위한 상태
     const [commentText, setCommentText] = useState('');
     const emojiInputRef = useRef(null);
@@ -121,49 +100,86 @@ function App({ currentUser, postAuthor }) {
         setCommentText(text);
     };
 
-     // 댓글 목록을 관리하는 상태 변수
-     const [comments, setComments] = useState([]);
+    // 댓글 목록 상태와 핸들러 + 댓글 사용자 
+    const [comments, setComments] = useState([
+        { id: 1, text: "안녕하세요 user123입니다", author: "user123" },
+        { id: 2, text: "안녕하세요 user456입니다", author: "user456" }
+    ]);
 
-     // 댓글 제출 핸들러
-    const handleSubmitComment = (event) => {
-        event.preventDefault(); // 폼 제출 기본 이벤트 방지
-        if (commentText.trim()) { // 공백만 있는 문자열은 제외
-            // 새 댓글을 댓글 목록에 추가
-            setComments([...comments, commentText]);
+    const handleAddComment = () => {
+        if (commentText.trim() !== '') {
+            const newComment = {
+                id: comments.length + 1, // 간단한 예제로 id 설정
+                text: commentText,
+                author: "currentUsername" // 현재 사용자 이름 또는 고유 식별자
+            };
+            setComments(prevComments => [...prevComments, newComment]); // 댓글 배열에 새 객체 추가
             setCommentText(''); // 입력 필드 초기화
         }
     };
 
+    const handleDeleteComment = (index) => {
+        setComments(prevComments => prevComments.filter((_, i) => i !== index));
+    };
 
+    // 폼 제출 핸들러
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        handleAddComment();
+    };
+
+    // 모달 상태를 관리하기 위한 상태 변수
+    const [showModal, setShowModal] = useState(false);
+    const [activeComment, setActiveComment] = useState(null);
+    const [activeModalType, setActiveModalType] = useState(null);
+
+    // 모달 위치 상태
+    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
+
+    // 유저 닉네임 클릭 시 UserNicknameModal 열기
+    const handleNicknameClick = (event, comment) => {
+        console.log("Nickname clicked, comment: ", comment);
+        event.stopPropagation(); // 이벤트 버블링 방지
+        const rect = event.target.getBoundingClientRect();
+        setModalPosition({ x: rect.left, y: rect.top }); // 클릭한 요소의 위치를 저장
+        setActiveComment(comment); // 활성화된 댓글 상태 설정
+        setActiveModalType('comment');
+        setShowModal(true); // 모달 표시
+    };
 
     return (
         <>
             <Navi />
             <Menu />
 
-            
-            <div className='sec-bdetail'>
+
+            <div className='section-bdetail'>
                 <div className='board-box'>
                     <div className='board-detail'>
                         <div className='board-detail-top'>
-                        <div className='write-title' name='writeTitle'>
-                            이번에 진단받은 식단이에요! </div>
-                            {isAuthor(currentUser, postAuthor) && (
+                            <div className='write-title' name='writeTitle'>
+                                이번에 진단받은 식단이에요! </div>
+                            {isAuthor(currentUser) && (
                                 <>
-                                    <button className='update-btn' onClick={handleEdit}>
-                                        <img src={updateButton}
-                                            alt="Udate Button"
-                                            className="update-btn-img" />
-                                        수정하기</button>
-                                    <button className='delete-btn' onClick={handleDelete}
-                                    >
-                                        <img src={deleteButton}
-                                            alt="Delete Button"
-                                            className="delete-btn-img" />
-                                        삭제하기</button>
+                                    <Link to={`/board/boardUpdate/${postId}`} className='link'>
+                                        <button className='update-btn' onClick={handleEdit}>
+                                            <img src={updateButton}
+                                                alt="Udate Button"
+                                                className="update-btn-img" />
+                                            수정하기</button>
+                                    </Link>
+                                    <Link>
+                                        {/* 삭제하기 버튼 링크 임시니까 나중에 지워 */}
+                                        <button className='delete-btn' onClick={handleDelete}
+                                        >
+                                            <img src={deleteButton}
+                                                alt="Delete Button"
+                                                className="delete-btn-img" />
+                                            삭제하기</button>
+                                    </Link>
                                 </>
                             )}
-                       </div>
+                        </div>
                         <div className='board_line_d'></div>
 
                         <div className='main-content'>
@@ -176,7 +192,6 @@ function App({ currentUser, postAuthor }) {
                                                 id="expandedImg"
                                                 src={expandedImage.src}
                                                 alt={expandedImage.alt}
-
                                             />
 
                                         </div>
@@ -208,21 +223,13 @@ function App({ currentUser, postAuthor }) {
                                         <span>
                                             <img alt="냠냠님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
                                         </span>
-                                        <div className='member-name' onClick={openPopup}>글쓴이냠냠
-                                            {/* 닉네임 클릭시 리스트 팝업 */}
-                                            <div className='popup' data-role="popup" id="memberPopup">
-                                                <ul data-role="listview" data-inset="true">
-                                                    <li><a href="#">게시글 보기</a></li>
-                                                    <li><a href="#">1:1 채팅</a></li>
-                                                    <li><a href="#">친구 추가</a></li>
-                                                    <li><a href="#">신고하기</a></li>
-                                                </ul>
-                                            </div>
+                                        <div className='member-name' onClick={(e) => handleNicknameClick(e)}>글쓴이 냠냠
                                         </div>
+
                                     </div>
                                     <div className='description'>비타민이 부족해서 사과도 추가해봤습니다
                                         요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
+                                        사과 대신에 저?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
                                         맛이 어떨지 궁금해요
                                         혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
@@ -241,57 +248,7 @@ function App({ currentUser, postAuthor }) {
                                         요즘 사과값이 많이 비싸던데
                                         사과 대신에 저렴한 과일 뭐가 있을까요?
                                         로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        비타민이 부족해서 사과도 추가해봤습니다
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
-                                        맛이 어떨지 궁금해요
-                                        혹시 드셔본 회원님들 계시면 댓글로 알려주세요!!!
-                                        요즘 사과값이 많이 비싸던데
-                                        사과 대신에 저렴한 과일 뭐가 있을까요?
-                                        로즈힙차가 레몬보다 비타민이 20배라던데
+
                                     </div>
 
                                 </div>
@@ -324,23 +281,21 @@ function App({ currentUser, postAuthor }) {
                                     </div>
                                     {/* 댓글 목록 표시 */}
                                     <div className='comments'>
-                                        <div className='comment-detail'>
-                                            <span>
-                                                <img alt="dd님의 프로필사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
-                                            </span>
-                                            <div>
-                                                <div className='comment-nickname' onClick={openPopup}>댓글쓴사람  {/* 닉네임 클릭시 리스트 팝업 */}
-                                                    <div className='popup' data-role="popup" id="memberPopup">
-                                                        <ul data-role="listview" data-inset="true">
-                                                            <li><a href="#">게시글 보기</a></li>
-                                                            <li><a href="#">1:1 채팅</a></li>
-                                                            <li><a href="#">친구 추가</a></li>
-                                                            <li><a href="#">신고하기</a></li>
-                                                        </ul>
-                                                    </div></div>
-                                                <div className='comment-description'>댓글내용ㅇ입니당</div>
+                                        {comments.map((comment, index) => (
+                                            <div className='comment-detail' key={comment.id} >
+                                                <span>
+                                                    <img alt="프로필 사진" className='profile-photo' src={require('./../images/board/profile.png')}></img>
+                                                </span>
+                                                <div>
+                                                    <div className='comment-nickname' onClick={(e) => handleNicknameClick(e, comment)}>
+                                                        {`댓글쓴사람 ${index + 1}`}
+                                                    </div>
+
+                                                    <div className='comment-description'>{comment.text}</div>
+                                                </div>
                                             </div>
-                                        </div>                                   
+                                        ))}
+
                                     </div>
                                 </div>
                                 <div className='board_line_d'></div>
@@ -352,7 +307,8 @@ function App({ currentUser, postAuthor }) {
 
                                     </div>
                                     {/* 댓글 입력창 */}
-                                    <form className='comment-form' onSubmit={handleSubmitComment} method='POST'>
+                                    {/* db 연결후엔 onSubmit으로 변경하기 / method='POST' 추가하기*/}
+                                    <form className='comment-form' onSubmit={handleSubmit} >
                                         {isCommenting && (
                                             <InputEmoji
                                                 ref={emojiInputRef}
@@ -363,7 +319,7 @@ function App({ currentUser, postAuthor }) {
                                             />
                                         )}
 
-                                        <button type='submit' className='comment-submit-btn'>
+                                        <button type='submit' className='comment-submit-btn' >
                                             <img src={submitButtonDefault} className='btn-default' />
                                             <img src={submitButtonOn} className='btn-on' />
                                         </button>
@@ -374,11 +330,19 @@ function App({ currentUser, postAuthor }) {
 
                         </div>
                         <div className='board_line_d'></div>
+                        {showModal && activeModalType === 'comment' && (
+                            <UserNicknameModal
+                                comment={activeComment}
+                                isCurrentUser={currentUser === activeComment.author}
+                                position={modalPosition}
+                                onClose={() => setShowModal(false)}
+                            />
+                        )}
                     </div>
 
 
                 </div>
-                <Link to="/boardList" className='link'>
+                <Link to="/board/boardList" className='link'>
                     <div className='submit-btn'>
                         <button className='out'>나가기</button>
                     </div>
