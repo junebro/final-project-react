@@ -16,7 +16,7 @@ function App() {
     
     const [value, onChange] = useState(new Date());
 
-    console.log(value); // value 값 확인
+    console.log(value); // value(날짜) 값 확인
 
 
     return (
