@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-beautiful-dnd": "^13.1.8",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "http-proxy-middleware": "^3.0.0",
     "i": "^0.3.7",
@@ -29,9 +30,7 @@
     "swiper": "^11.1.1",
     "web-vitals": "^2.1.4"
   },
-  "proxy" : 
-    "http://localhost:8989"
-  ,
+  "proxy": "http://localhost:8989",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -56,5 +55,4 @@
       "last 1 safari version"
     ]
   }
-  
 }

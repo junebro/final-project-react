@@ -14,6 +14,8 @@ import MemberRoutes from "./routes/MemberRoutes";
 import DietRoutes from "./routes/DietRoutes";
 import OrderRoutes from "./routes/OrderRoutes";
 
+import Test from "./routes/TestRoutes";
+
 function App() {
   return (
     <Routes>
@@ -29,6 +31,8 @@ function App() {
       <Route path="/order/*" element={<OrderRoutes />} />
 
       <Route path="/nutri/*" element={<NutriRoutes />} />
+
+      <Route path="/Test/*" element={<Test />} />
     </Routes>
   );
 }
