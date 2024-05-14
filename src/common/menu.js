@@ -18,7 +18,7 @@ function Menu() {
                         <li><a href="#" className='link' onClick={fn_diagnosis}>영양진단</a></li>
                         <li><Link to="/products/products" className='link'>메뉴보기</Link></li>
                         <li><Link to="/diet/diet" className='link'>음식 추천</Link></li>
-                        <li><a href="#" className='link' onClick={fn_community}>커뮤니티</a></li>
+                        <li><Link to="/board/boardList" className='link'>커뮤니티</Link></li>
                     </ul>
                 </nav>
             </div>
