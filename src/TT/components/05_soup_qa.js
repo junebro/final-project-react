@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import "./../css/soup_alcohol_qa_css.css";
 import "./../css/content_css.css";
+import { Link } from "react-router-dom";
+import { NutriContext } from "../Nutri_Context";
+import { useContext } from "react";
 
 function App() {
   const [selectedCheckbox, setSelectedCheckbox] = useState(1);
   //  체크박스 상태 -> 한개만 체크
   const CheckOnlyOne = (value) => {
     setSelectedCheckbox(value);
+    setSoup(value);
+  };
+
+  const { soup, setSoup } = useContext(NutriContext);
+
+  const ContextUpdate = () => {
+    console.log(soup);
   };
 
   return (
@@ -44,6 +54,16 @@ function App() {
             <span className="checkbox_span">안처먹니?</span>
           </label>
         </div>
+      </div>
+      {/* 컨텍스트 저장 / 다음 링크로 넘어가는 버튼 */}
+      <div>
+        <Link
+          to="http://localhost:3000/nutri/nutri/content06"
+          onClick={ContextUpdate()}
+          className="next_button"
+        >
+          <span>다음</span>
+        </Link>
       </div>
     </>
   );
