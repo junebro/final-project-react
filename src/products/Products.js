@@ -14,31 +14,21 @@ function App() {
     );
 }
 
-// 제품 데이터 생성
-const products = Array.from({ length: 20 }, (v, i) => ({
-  id: i + 1,
-  name: `올리브 리코타 샐러드&발사믹 글레이즈 드레싱`,
-  price: '10,500원',
-  image: require(`./../images/products/product${(i % 3) + 1}.jpg`), 
-  cartState: 'cart' // 제품별 카트 상태 초기화
-})); 
-
 const ItemDisplay = () => {
 
-  const item = useItem();
+  const products = useItem().item;
 
-  console.log(item);
-
-  const [cartImages, setCartImages] = useState(products.map(product => ({
-    id: product.id,
-    state: product.cartState
-  })));
+  const [cartImages, setCartImages] = useState(products ? products.map(product => ({
+    id: product.procd,
+    state: 'cart'
+  })):[]);
 
   // 상태를 사용하여 각 제품의 카트 이미지 상태를 추적
   const [selectedProduct, setSelectedProduct] = useState(null); // 모달에 표시될 제품
 
   // 카트 이미지 토글 기능
   const toggleImage = (productId) => {
+    console.log(productId);
     setCartImages(cartImages.map(img => 
       img.id === productId ? { ...img, state: img.state === 'cart' ? 'cart_click' : 'cart' } : img
     ));
@@ -56,23 +46,23 @@ const ItemDisplay = () => {
     <>
     <h3 className='low-carb-diet'>저당 식단</h3>
     <div className="products-container">
-      {products.map(product => (
-        <div key={product.id} className="product">
+      {products ? products.map(product => (
+        <div key={product.procd} className="product">
           <div className="image-container" onClick={() => openModal(product)}>
-            <img className='img_product' src={product.image} alt={product.name} style={{ cursor: 'pointer' }} />
-          </div>
+            <img className='img_product' src={`../images/products/${product.proimg}`} alt={product.pronm} style={{ cursor: 'pointer' }} />
+          </div>                              
           <div className="text-container">
             <div className="product-info">
-              <div className="product-name">{product.name}</div>
+              <div className="product-name">{product.pronm}</div>
               <div className="product-price">
-                {product.price}
+                {product.propr}
                 <img
                   className="img_cart"
-                  src={cartImages.find(img => img.id === product.id).state === 'cart' ? cart : cartClick}
+                  src={cartImages.find(img => img.id === product.procd).state === 'cart' ? cart : cartClick}
                   alt="Cart"
                   onClick={(e) => {
                     e.stopPropagation(); // 이벤트 전파 중단
-                    toggleImage(product.id);
+                    toggleImage(product.procd);
                   }}
                   style={{ cursor: 'pointer' }}
                 />
@@ -80,7 +70,7 @@ const ItemDisplay = () => {
             </div>
           </div>
         </div>
-      ))}
+      )) : []}
       {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
     </div>
     </>
