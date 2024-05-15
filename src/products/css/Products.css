@@ -4,26 +4,38 @@
   font-family: 'TTLaundryGothicB';
   padding: 50px 26% 0; /* 위, 좌우, 아래 패딩을 한 줄로 설정 */
   font-size: 50px;
+  background-color: white;
+  margin-bottom: 0;
 }
 
 .products-container {
   font-family: 'omyu_pretty';
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
   padding: 50px 26% 30px; /* 위, 좌우, 아래 패딩을 한 줄로 설정 */
   place-items: center;
+  background-color: white;
 }
 
-.product {
-  /* border: 1px solid #ccc; */
-  text-align: center;
-  width: 90%;
+.product-image-container {
+  width: 250px; /* 원하는 고정된 너비 설정 */
+  height: 250px; /* 원하는 고정된 높이 설정 */
+  position: relative;
+  overflow: hidden;
 }
 
-.image-container {
-  overflow: hidden; /* 확대된 이미지가 컨테이너 밖으로 나가지 않도록 설정 */
+.img_product {
+  width: 100%; /* 이미지의 너비를 부모 요소에 맞게 설정 */
+  height: 100%; /* 이미지의 높이를 부모 요소에 맞게 설정 */
+  transition: transform 0.3s ease-in-out;
+  border-radius: 20px;
+  object-fit: cover;
 }
+
+.img_product:hover {
+  transform: scale(1.1);
+}
+
 
 .img_product {
   width: 100%;
@@ -37,17 +49,19 @@
 }
 
 .text-container {
-  margin-top: 10px; 
-  padding-bottom: 20%;
+  padding-bottom: 20px;
 }
+
+
 
 .product-name {
   font-family: 'omyu_pretty';
   color: hsl(0, 0%, 29%);
   font-size: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  text-align: left;
+  text-align: center;
+  width: 250px;
+  height: 50px;
+
 }
 
 .product-price {

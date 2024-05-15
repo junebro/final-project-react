@@ -8,10 +8,21 @@ import PopupDom from './popupDom';
 import PopupPostCode from './PopupPostCode';
 import { addressData } from './PopupPostCode';
 import Swal from 'sweetalert2';
-
-import { MemberProvider, useItem } from '../common/contexts/MemberContext';  // 경로 수정
+import axios from 'axios';
 
 function App() {
+
+  const handleSubmit = () => {
+    const data = { aauserInput: 'aaa' };
+    axios.post('/check/sendSMS', data)
+        .then(response => {
+            console.log('Server response:', response);
+            alert('Data sent successfully');
+        })
+        .catch(error => {
+            console.error('Error sending data:', error);
+        });
+};
 
   // 주소입력
     let inputAddress = '';
@@ -222,7 +233,7 @@ const verifyPhoneNumber = () => {
                           
 
                             <button
-                            id="sendPhoneNumber" onClick={sendSMS}
+                            id="sendPhoneNumber" onClick={handleSubmit} //onClick={sendSMS}
                             className="send-number"
                             type="button">인증번호</button>
 
