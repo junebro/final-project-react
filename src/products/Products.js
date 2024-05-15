@@ -18,7 +18,7 @@ const ItemDisplay = ({ selectedMenu }) => {
 
   const { tp } = useParams(); // URL에서 tp 파라미터를 추출합니다.
   const products = useItem().item; // 전체 제품 목록을 가져옵니다.
-
+  console.log(products);
   const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 제품 목록을 상태로 관리합니다.
 
   useEffect(() => {
