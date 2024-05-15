@@ -62,7 +62,7 @@ function App() {
   }, [window.location.href]); //  url 변화에 따라 렌더링
   return (
     <div className="top_css">
-      <div className="top_ment">너한텐 안파는 서비스</div>
+      <div className="top_ment">영양 진단 서비스</div>
       <ProgressBar variant="success" now={progress} />
       <p>{pageNumber}/14</p>
     </div>
