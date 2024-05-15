@@ -10,6 +10,9 @@ import { addressData } from './PopupPostCode';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 
+
+
+
 function App() {
 
   const handleSubmit = () => {
@@ -23,6 +26,7 @@ function App() {
             console.error('Error sending data:', error);
         });
 };
+
 
   // 주소입력
     let inputAddress = '';
@@ -43,6 +47,54 @@ function App() {
     const closePostCode = () => {
         setIsPopupOpen(false)
     }
+
+    // 이메일 중복 검사
+    const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = React.useState('');
+    const [emailAvailable, setEmailAvailable] = React.useState(true);
+
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+        setEmail(newEmail);
+
+        // 이메일 유효성 검사
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(newEmail)) {
+            setEmailError('올바른 이메일 주소를 입력하세요.');
+            setEmailAvailable('red');
+            return;
+        } else {
+            // setEmailError('사용 가능한 이메일입니다');
+            // setEmailAvailable('green');
+        }
+
+        // 서버로 이메일 중복 확인 요청 보내기
+        checkEmailAvailability(newEmail);
+    }
+
+    const checkEmailAvailability = (newEmail) => {
+        const encodedEmail = encodeURIComponent(newEmail);
+        fetch(`/check/email?newEmail=${encodedEmail}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.available) {
+                setEmailAvailable(true);
+                setEmailError('사용가능한 이메일입니다.');
+                setEmailAvailable('green');
+            } else {
+                setEmailAvailable(false);
+                setEmailError('이미 사용 중인 이메일 주소입니다.');
+                setEmailAvailable('red');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+//    const handleSubmit = (event) => {
+//        event.preventDefault();
+//         // 다른 필드들의 유효성 검사 및 서버로의 회원가입 요청 추가
+//     }
+
 
     // 비밀번호 유효성 검사
     const [memberPw, setMemberPw] = React.useState('');
@@ -104,6 +156,81 @@ function App() {
     }
   };
 
+
+  
+
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [certifiedNumber, setCertifiedNumber] = React.useState('');
+
+const handleSubmit = () => {
+    const data = { userInput: phoneNumber };
+    axios.post('/check/sendsms', data)
+        .then(response => {
+            setCertifiedNumber(response.data);
+            Swal.fire('인증번호 발송 완료!');
+        })
+        .catch(error => console.error('Error:', error));
+};
+  
+  
+//   const sendSMS = () => {
+//     // 서버로 전화번호를 보내는 AJAX 요청
+//     fetch('/check/sendsms', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({ phoneNumber: phoneNumber })
+//     })
+//         .then(response => response.text())
+//         .then(data => {
+//             setCertifiedNumber(data);
+//             Swal.fire('인증번호 발송 완료!');
+//         })
+//         .catch(error => console.error('Error:', error));
+//   };
+  
+  const verifyPhoneNumber = () => {
+    if (certifiedNumber === '') {
+        Swal.fire('인증번호를 먼저 받아주세요!');
+        return;
+    }
+  
+    if (certifiedNumber === document.getElementById('inputCertifiedNumber').value) {
+        Swal.fire(
+            '인증성공!',
+            '휴대폰 인증이 정상적으로 완료되었습니다.',
+            'success'
+        );
+  
+        // 서버로 전화번호 업데이트 요청
+        fetch(`/update/phone`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ phoneNumber: phoneNumber })
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.location.href = "/home";
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: '인증오류',
+            text: '인증번호가 올바르지 않습니다!',
+            footer: '<a href="/home">다음에 인증하기</a>'
+        });
+    }
+  };
+  
+  
+
 // 휴대폰 인증
 const [phoneNumber, setPhoneNumber] = React.useState('');
 const [certifiedNumber, setCertifiedNumber] = React.useState('');
@@ -164,6 +291,7 @@ const verifyPhoneNumber = () => {
   }
 };
   
+
     return (
 
         <div>
@@ -176,10 +304,12 @@ const verifyPhoneNumber = () => {
                         <hr />
 
                         <span className="sub-title">이메일</span>
-                        <span className="email-message">이미 존재하는 이메일 입니다!</span>
+                        <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span>
                         <input
                             type="email"
                             id="memberEmail"
+                            value={email}
+                            onChange={handleEmailChange}
                             className="input-signUp"
                             name="memberEmail"
                             placeholder="이메일을 입력해주세요!"
@@ -233,7 +363,9 @@ const verifyPhoneNumber = () => {
                           
 
                             <button
-                            id="sendPhoneNumber" onClick={handleSubmit} //onClick={sendSMS}
+
+                            id="sendPhoneNumber"
+                            onClick={sendSMS}
                             className="send-number"
                             type="button">인증번호</button>
 
@@ -242,7 +374,9 @@ const verifyPhoneNumber = () => {
                             type="text"
                             className="cert-number" placeholder="4자리 숫자" />
                             <button
-                            id="checkBtn" onClick={verifyPhoneNumber}
+
+                            id="checkBtn"
+                            onClick={verifyPhoneNumber}
                             className="complete-number" type="button">인증하기</button>
                         </div>
 

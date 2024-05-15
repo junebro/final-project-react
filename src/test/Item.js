@@ -13,7 +13,7 @@ function App() {
 function ItemDisplay() {
     const { item, error } = useItem();  // useItem에서 반환된 값을 구조 분해 할당
     const [inputData, setInputData] = useState('');
-
+ 
     const handleInputChange = (event) => {
         setInputData(event.target.value);
     };
