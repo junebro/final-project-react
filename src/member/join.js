@@ -74,10 +74,11 @@ function App() {
 
     const checkEmailAvailability = (newEmail) => {
         const encodedEmail = encodeURIComponent(newEmail);
-        fetch(`/check/email?newEmail=${encodedEmail}`)
+        fetch(`/join/check/email?newEmail=${encodedEmail}`)
         .then(response => response.json())
         .then(data => {
-            if (data.available) {
+            console.log(data);
+            if (data) {
                 setEmailAvailable(true);
                 setEmailError('사용가능한 이메일입니다.');
                 setEmailAvailable('green');
@@ -159,18 +160,18 @@ function App() {
 
   
 
-  const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [certifiedNumber, setCertifiedNumber] = React.useState('');
+//   const [phoneNumber, setPhoneNumber] = React.useState('');
+//   const [certifiedNumber, setCertifiedNumber] = React.useState('');
 
-const handleSubmit = () => {
-    const data = { userInput: phoneNumber };
-    axios.post('/check/sendsms', data)
-        .then(response => {
-            setCertifiedNumber(response.data);
-            Swal.fire('인증번호 발송 완료!');
-        })
-        .catch(error => console.error('Error:', error));
-};
+// const handleSubmit = () => {
+//     const data = { userInput: phoneNumber };
+//     axios.post('/check/sendsms', data)
+//         .then(response => {
+//             setCertifiedNumber(response.data);
+//             Swal.fire('인증번호 발송 완료!');
+//         })
+//         .catch(error => console.error('Error:', error));
+// };
   
   
 //   const sendSMS = () => {
@@ -190,44 +191,44 @@ const handleSubmit = () => {
 //         .catch(error => console.error('Error:', error));
 //   };
   
-  const verifyPhoneNumber = () => {
-    if (certifiedNumber === '') {
-        Swal.fire('인증번호를 먼저 받아주세요!');
-        return;
-    }
+//   const verifyPhoneNumber = () => {
+//     if (certifiedNumber === '') {
+//         Swal.fire('인증번호를 먼저 받아주세요!');
+//         return;
+//     }
   
-    if (certifiedNumber === document.getElementById('inputCertifiedNumber').value) {
-        Swal.fire(
-            '인증성공!',
-            '휴대폰 인증이 정상적으로 완료되었습니다.',
-            'success'
-        );
+//     if (certifiedNumber === document.getElementById('inputCertifiedNumber').value) {
+//         Swal.fire(
+//             '인증성공!',
+//             '휴대폰 인증이 정상적으로 완료되었습니다.',
+//             'success'
+//         );
   
-        // 서버로 전화번호 업데이트 요청
-        fetch(`/update/phone`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ phoneNumber: phoneNumber })
-        })
-            .then(response => {
-                if (response.ok) {
-                    document.location.href = "/home";
-                } else {
-                    throw new Error('Network response was not ok.');
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: '인증오류',
-            text: '인증번호가 올바르지 않습니다!',
-            footer: '<a href="/home">다음에 인증하기</a>'
-        });
-    }
-  };
+//         // 서버로 전화번호 업데이트 요청
+//         fetch(`/update/phone`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({ phoneNumber: phoneNumber })
+//         })
+//             .then(response => {
+//                 if (response.ok) {
+//                     document.location.href = "/home";
+//                 } else {
+//                     throw new Error('Network response was not ok.');
+//                 }
+//             })
+//             .catch(error => console.error('Error:', error));
+//     } else {
+//         Swal.fire({
+//             icon: 'error',
+//             title: '인증오류',
+//             text: '인증번호가 올바르지 않습니다!',
+//             footer: '<a href="/home">다음에 인증하기</a>'
+//         });
+//     }
+//   };
   
   
 
