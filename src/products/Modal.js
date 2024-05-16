@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "./css/Modal.css";
 const Modal = ({ product, onClose }) => {
   if (!product) return null;
 
@@ -15,11 +15,15 @@ const Modal = ({ product, onClose }) => {
 
   return (
     <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1000 }} onClick={handleBackgroundClick}>
-      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', backgroundColor: 'white', borderRadius: '10px', width: 'auto', maxWidth: '600px' }} onClick={handleContentClick}>
+      <div  className='modal-contents' style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', backgroundColor: 'white', borderRadius: '10px', maxWidth: '600px' }} onClick={handleContentClick}>
+        <button  className='modal-close-btn' onClick={onClose}><img src={require(`../images/member/xBtn.png`)}></img></button>
         <h1>{product.name}</h1>
         <p>{product.price}</p>
-        <img src={product.image} alt={product.name} style={{ width: '100%' }} />
-        <button onClick={onClose}>닫기</button>
+        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
+        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
+        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
+
+        {/* <img className='img_product' src={require(`../images/products/${product.proimg}.jpg`)} */}
       </div>
     </div>
   );
