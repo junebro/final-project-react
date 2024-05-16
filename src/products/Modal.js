@@ -1,29 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./css/Modal.css";
+
 const Modal = ({ product, onClose }) => {
+
+  useEffect(() => {
+    if (product) {
+      // 모달이 열릴 때 body 스크롤을 막음
+      document.body.style.overflow = 'hidden';
+    } else {
+      // 모달이 닫힐 때 body 스크롤을 다시 활성화
+      document.body.style.overflow = 'auto';
+    }
+    // 컴포넌트가 언마운트될 때 스크롤을 다시 활성화 (모달이 닫힐 때)
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [product]); // product 변화를 감지
+
   if (!product) return null;
 
-  // 백그라운드 클릭을 처리하는 함수
   const handleBackgroundClick = (e) => {
-    onClose(); // 모달 닫기
+    onClose();
   };
 
-  // 모달 콘텐츠 클릭 시 이벤트 전파 중지
   const handleContentClick = (e) => {
-    e.stopPropagation(); // 이벤트 버블링 중지
+    e.stopPropagation();
   };
 
   return (
-    <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1000 }} onClick={handleBackgroundClick}>
-      <div  className='modal-contents' style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', padding: '20px', backgroundColor: 'white', borderRadius: '10px', maxWidth: '600px' }} onClick={handleContentClick}>
-        <button  className='modal-close-btn' onClick={onClose}><img src={require(`../images/member/xBtn.png`)}></img></button>
-        <h1>{product.name}</h1>
-        <p>{product.price}</p>
-        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
-        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
-        <img className='modal-img'src={product.image} alt={product.name} style={{ width: '100%' }} />
-
-        {/* <img className='img_product' src={require(`../images/products/${product.proimg}.jpg`)} */}
+    <div className="pro-modal-background" onClick={handleBackgroundClick}>
+      <div className="pro-modal-container" onClick={handleContentClick}>
+        <div className="pro-modal-header">
+          <h1 style={{fontSize:'30px'}}>{product.pronm}</h1>
+          <div className='pro-modal-close-btn' onClick={onClose}>
+            <img src={require(`../images/member/xBtn.png`)} alt="Close" />
+          </div>
+        </div>
+        <div className="pro-modal-body">
+          {/* 나머지 모달 내용 */}
+          {/* <p>{product.propr}</p> */}
+          {/* <img className='pro-modal-img' src={require(`../images/products/detail/${product.pifimg1}`)} alt={product.name} /> */}
+          <img className='pro-modal-img' src={require(`../images/products/detail/${product.pifimg2}`)} alt={product.name} />
+          <br />
+          <br />
+          <br />
+          <br />
+          <img className='pro-modal-img' src={require(`../images/products/detail/${product.pifimg3}`)} alt={product.name} />
+        </div>
       </div>
     </div>
   );
