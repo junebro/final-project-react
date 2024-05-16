@@ -1,0 +1,16 @@
+.modal-close-btn {
+    position: absolute;
+    right: 20px;
+    background-color: white;
+    border: none;
+   
+
+}
+
+.modal-contents {
+    width: 540px;
+}
+
+.modal-img {
+    width: 500px;
+}
