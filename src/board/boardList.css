@@ -36,7 +36,7 @@ body{
 	border-top: 1px solid rgba(128, 128, 128, 0.3);
 }
 
-.board_main{
+.board_post{
 	display: flex;
     padding-block: 10px;
 }
