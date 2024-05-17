@@ -13,19 +13,20 @@ import axios from 'axios';
 
 
 
+
 function App() {
 
-  const handleSubmit = () => {
-    const data = { aauserInput: 'aaa' };
-    axios.post('/check/sendSMS', data)
-        .then(response => {
-            console.log('Server response:', response);
-            alert('Data sent successfully');
-        })
-        .catch(error => {
-            console.error('Error sending data:', error);
-        });
-};
+//   const handleSubmit = () => {
+//     const data = { aauserInput: 'aaa' };
+//     axios.post('/check/sendSMS', data)
+//         .then(response => {
+//             console.log('Server response:', response);
+//             alert('Data sent successfully');
+//         })
+//         .catch(error => {
+//             console.error('Error sending data:', error);
+//         });
+// };
 
 
   // 주소입력
@@ -157,80 +158,40 @@ function App() {
     }
   };
 
+     // 닉네임 중복 검사
+     const [nickname, setNick] = React.useState('');
+     const [nickError, setNickError] = React.useState('');
+     const [nickAvailable, setNickAvailable] = React.useState(true);
+ 
+     const handleNickChange = (event) => {
+         const newNick = event.target.value;
+         setNick(newNick);
+ 
+         // 서버로 이메일 중복 확인 요청 보내기
+         checkNickAvailability(newNick);
+     }
+ 
+     const checkNickAvailability = (newNick) => {
+        //  const inputNick = encodeURIComponent(newNick);
+         fetch(`/join/check/nick?newNick=${newNick}`)
+         .then(response => response.json())
+         .then(data => {
+             console.log(data);
+             if (data) {
+                setNickAvailable(true);
+                 setNickError('사용가능한 닉네임입니다.');
+                 setNickAvailable('green');
+             } else {
+                setNickAvailable(false);
+                 setNickError('이미 사용 중인 닉네임입니다.');
+                 setNickAvailable('red');
+             }
+         })
+         .catch(error => console.error('Error:', error));
+     }
+ 
 
-  
-
-//   const [phoneNumber, setPhoneNumber] = React.useState('');
-//   const [certifiedNumber, setCertifiedNumber] = React.useState('');
-
-// const handleSubmit = () => {
-//     const data = { userInput: phoneNumber };
-//     axios.post('/check/sendsms', data)
-//         .then(response => {
-//             setCertifiedNumber(response.data);
-//             Swal.fire('인증번호 발송 완료!');
-//         })
-//         .catch(error => console.error('Error:', error));
-// };
-  
-  
-//   const sendSMS = () => {
-//     // 서버로 전화번호를 보내는 AJAX 요청
-//     fetch('/check/sendsms', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({ phoneNumber: phoneNumber })
-//     })
-//         .then(response => response.text())
-//         .then(data => {
-//             setCertifiedNumber(data);
-//             Swal.fire('인증번호 발송 완료!');
-//         })
-//         .catch(error => console.error('Error:', error));
-//   };
-  
-//   const verifyPhoneNumber = () => {
-//     if (certifiedNumber === '') {
-//         Swal.fire('인증번호를 먼저 받아주세요!');
-//         return;
-//     }
-  
-//     if (certifiedNumber === document.getElementById('inputCertifiedNumber').value) {
-//         Swal.fire(
-//             '인증성공!',
-//             '휴대폰 인증이 정상적으로 완료되었습니다.',
-//             'success'
-//         );
-  
-//         // 서버로 전화번호 업데이트 요청
-//         fetch(`/update/phone`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({ phoneNumber: phoneNumber })
-//         })
-//             .then(response => {
-//                 if (response.ok) {
-//                     document.location.href = "/home";
-//                 } else {
-//                     throw new Error('Network response was not ok.');
-//                 }
-//             })
-//             .catch(error => console.error('Error:', error));
-//     } else {
-//         Swal.fire({
-//             icon: 'error',
-//             title: '인증오류',
-//             text: '인증번호가 올바르지 않습니다!',
-//             footer: '<a href="/home">다음에 인증하기</a>'
-//         });
-//     }
-//   };
-  
-  
+ 
 
 // 휴대폰 인증
 const [phoneNumber, setPhoneNumber] = React.useState('');
@@ -292,6 +253,38 @@ const verifyPhoneNumber = () => {
   }
 };
   
+ // 폼 제출 핸들러
+ const join_submit = async (event) => {
+    event.preventDefault(); // 폼 기본 제출 이벤트 방지
+
+    const joinData = {
+        memEmail: event.target.memberEmail.value,
+        memPw: event.target.memberPw.value,
+        memberNick: event.target.memberNickName.value,
+        memAddress: event.target.mainAddr.value
+    };
+
+    try {
+        // 백엔드로 POST 요청 전송
+        const response = await axios.post('/join/member/join', joinData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // 응답 처리
+        if (response.status === 200) {
+            alert('회원가입이 완료되었습니다.');
+            window.location.href = '/member/join'; // 성공 후 페이지 리디렉션
+        } else {
+            alert('회원가입 실패');
+        }
+    } catch (error) {
+        console.error('가입 에러', error);
+        alert('가입 중 오류 발생');
+    }
+};
+
 
     return (
 
@@ -299,7 +292,7 @@ const verifyPhoneNumber = () => {
             <Navi />
             <div className='join-section'>
                 <div className="signUp-box">
-                    <form className="signUp-form">
+                    <form onSubmit={join_submit} method='post' className="signUp-form">
                         <h1 className="signUp-title">회원가입</h1>
 
                         <hr />
@@ -342,10 +335,12 @@ const verifyPhoneNumber = () => {
                         />
 
                         <span className="sub-title">닉네임</span>
-                        <span className="email-message">이미 존재하는 닉네임입니다</span>
+                        <span className="email-message"style={{ color: nickAvailable }}>{nickError}</span>
                         <input
                             type="text"
                             id="memberNickName"
+                            value={nickname}
+                            onChange={handleNickChange}
                             className="input-signUp"
                             name="memberNickName"
                             placeholder="닉네임을 입력해주세요!"
@@ -360,11 +355,8 @@ const verifyPhoneNumber = () => {
                             placeholder="'-'을 제외하고 입력해주세요"
                             value={phoneNumber}
                             onChange={e => setPhoneNumber(e.target.value)} />
-                            
-                          
 
                             <button
-
                             id="sendPhoneNumber"
                             onClick={sendSMS}
                             className="send-number"
@@ -385,9 +377,6 @@ const verifyPhoneNumber = () => {
 
                         <div className="address-box">
 
-
-
-
                             <input id="post" className="post" placeholder="우편번호" value={inputAddress.zonecode} />
                             <button type="button" id="post-btn" className="post-btn"
                                 onClick={openPostCode}>우편번호 찾기</button>
@@ -402,7 +391,7 @@ const verifyPhoneNumber = () => {
                                 )}
                             </div>
 
-                            <input id="road-name" className="road-name" placeholder="도로명주소" value={inputAddress.address} />
+                            <input id="road-name" className="road-name" name="mainAddr"placeholder="도로명주소" value={inputAddress.address}/>
                             <input id="address-detail" className="address-detail" placeholder="상세주소" />
 
 
