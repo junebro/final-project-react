@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import "./css/Products.css";
 import Modal from './Modal'; 
-import cartClick from './../images/cart_click.png';
-import cart from './../images/cart.png';
-import { ItemProvider, useItem } from '../common/contexts/ItemContext';
+import cartClickImg from './../images/cart_click.png';
+import cartImg from './../images/cart.png';
+import { ItemProvider, useItem } from '../common/contexts/ProductsContext';
 import { useParams } from 'react-router-dom';
+import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
 
 function App({ selectedMenu }) {
   return (
@@ -16,10 +17,12 @@ function App({ selectedMenu }) {
 
 const ItemDisplay = ({ selectedMenu }) => {
 
+  const { user, logout } = useAuth(); // 현재 로그인한 사용자 정보와 로그아웃 함수를 가져옵니다
   const { tp } = useParams(); // URL에서 tp 파라미터를 추출합니다.
   const products = useItem().item; // 전체 제품 목록을 가져옵니다.
   const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 제품 목록을 상태로 관리합니다.
 
+  /* 상품 구분 */
   useEffect(() => {
     const targetTp = selectedMenu || tp; // selectedMenu가 주어지면 사용하고, 없으면 tp 값을 사용합니다.
     if (targetTp && products) {
@@ -30,21 +33,10 @@ const ItemDisplay = ({ selectedMenu }) => {
     }
   }, [selectedMenu, tp, products]); // 의존성 배열에 selectedMenu, tp, products를 포함시켜 상태 변화를 감지합니다.
 
-  // cartImages 상태는 제품과 그 제품의 카트 이미지 상태('cart' 또는 'cart_click')를 관리합니다.
-  const [cartImages, setCartImages] = useState(filteredProducts.map(product => ({
-    id: product.procd,  // 제품 ID
-    state: 'cart'       // 초기 카트 이미지 상태 설정
-  })));
 
+  /* 모달 */
   // selectedProduct 상태는 현재 선택된 제품 객체를 저장하며, 모달에 표시될 데이터를 관리합니다. 
   const [selectedProduct, setSelectedProduct] = useState(null);
-
-  // toggleImage 함수는 제품 ID를 인자로 받아 해당 제품의 카트 이미지 상태를 토글합니다.
-  const toggleImage = (productId) => {
-    setCartImages(cartImages.map(img => 
-      img.id === productId ? { ...img, state: img.state === 'cart' ? 'cart_click' : 'cart' } : img
-    ));
-  };
 
   // openModal 함수는 클릭된 제품 객체를 인자로 받아 selectedProduct 상태를 업데이트하여 모달에 표시합니다.
   const openModal = (products) => {
@@ -54,6 +46,57 @@ const ItemDisplay = ({ selectedMenu }) => {
   // closeModal 함수는 모달을 닫을 때 사용되며, selectedProduct 상태를 null로 설정하여 모달을 숨깁니다.
   const closeModal = () => {
     setSelectedProduct(null);
+  };
+
+  
+
+  /* 장바구니 */
+  // useRef 훅을 사용하여 각 상품 이미지의 ref를 생성
+  const imageRefs = useRef({});
+
+  const cartClick = (procd) => {
+    const imgRef = imageRefs.current[procd];
+    if (imgRef) {
+      imgRef.src = imgRef.src === cartImg ? cartClickImg : cartImg;
+
+      const cartData = {
+        mbrno: user.userId,
+        crtcd: procd,
+        crtqt: 1
+      };
+
+      if ( imgRef.src === cartClickImg ) {
+
+        fetch(`/cart/cartinsert/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cartData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
+
+      } else {
+        
+        fetch(`/cart/cartdelete/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(cartData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        })
+        .catch(error => console.error('Error:', error));
+
+      }
+    }
   };
 
   const tpTexts = {
@@ -76,16 +119,14 @@ const ItemDisplay = ({ selectedMenu }) => {
               <div className="product-name">{product.pronm}</div>
               <div className="product-price">
               ￦{product.propr.toLocaleString()}
-                <img
-                  className="img_cart"
-                  src={(cartImages.find(img => img.id === product.procd) || {}).state === 'cart' ? cart : cartClick}
-                  alt="Cart"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggleImage(product.procd);
-                  }}
-                  style={{ cursor: 'pointer' }}
-                />
+              <img
+                ref={(el) => (imageRefs.current[product.procd] = el)}
+                className="img_cart"
+                src={product.crtck === '1' ? cartClickImg : cartImg}
+                alt="Cart"
+                style={{ cursor: 'pointer' }}
+                onClick={() => cartClick(product.procd)}
+              />
               </div>
             </div>
           </div>
