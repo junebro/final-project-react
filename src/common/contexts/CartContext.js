@@ -1,14 +1,14 @@
-//itemContext.js
+//ProductsContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const ItemContext = createContext({ item: null, error: null });
+const ProductsContext = createContext({ item: null, error: null });
 
 export const ItemProvider = ({ children }) => {
     const [item, setItem] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8989/products/products')
+        fetch('http://localhost:8989/cart/cartselect/3')
             .then(response => {
                 if (!response.ok) {  // 응답 상태 확인
                     throw new Error('Network response was not ok');
@@ -20,10 +20,10 @@ export const ItemProvider = ({ children }) => {
     }, []);
 
     return (
-        <ItemContext.Provider value={{ item, error }}>
+        <ProductsContext.Provider value={{ item, error }}>
             {children}
-        </ItemContext.Provider>
+        </ProductsContext.Provider>
     );
 };
 
-export const useItem = () => useContext(ItemContext);
+export const useItem = () => useContext(ProductsContext);

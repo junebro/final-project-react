@@ -3,6 +3,8 @@ import "./css/Modal.css";
 
 const Modal = ({ product, onClose }) => {
 
+  console.log(product);
+
   useEffect(() => {
     if (product) {
       // 모달이 열릴 때 body 스크롤을 막음
