@@ -1,32 +1,115 @@
 import './../App.css';
 import './login.css';
-import React from 'react';
+import React, { useState } from 'react';
 import Navi from './../common/navigation';
 import Footer from './../common/footer';
+import axios from 'axios';
 
 function App() {
+
+// 로그인 시 토큰
+const [jwtToken, setJwtToken] = useState(null);
+
+// 폼 제출 핸들러
+ const login_submit = async (event) => {
+
+    event.preventDefault(); // 폼 기본 제출 이벤트 방지
+
+    const loginData = {
+        memEmail: event.target.memberEmail.value,
+        memPw: event.target.memberPw.value,
+    };
+    try {
+        // 백엔드로 POST 요청 전송
+        const response = await axios.post('/join/member/login', JSON.stringify(loginData), {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // 응답 처리
+        if (response.status === 200) {
+            alert('로그인이 완료되었습니다.');
+            const data = response.data;
+            console.log(data);
+            alert("123");
+            setJwtToken(data);
+            window.location.href = '/'; // 성공 후 페이지 리디렉션
+        } else {
+            alert('로그인 실패');
+        }
+    } catch (error) {
+        console.error('로그인 에러', error);
+        alert('로그인 중 오류 발생');
+    }
+};
+
+// 이메일 중복 검사
+const [email, setEmail] = React.useState('');
+const [emailError, setEmailError] = React.useState('');
+const [emailAvailable, setEmailAvailable] = React.useState(true);
+
+const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+
+    // 이메일 유효성 검사
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(newEmail)) {
+        setEmailError('올바른 이메일 주소를 입력하세요.');
+        setEmailAvailable('red');
+        return;
+    } else {
+        // setEmailError('사용 가능한 이메일입니다');
+        // setEmailAvailable('green');
+    }
+
+    // 서버로 이메일 중복 확인 요청 보내기
+    checkEmailAvailability(newEmail);
+}
+
+const checkEmailAvailability = (newEmail) => {
+    const encodedEmail = encodeURIComponent(newEmail);
+    fetch(`/join/check/email?newEmail=${encodedEmail}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        if (data) {
+            setEmailAvailable(true);
+            setEmailError('존재하지 않는 이메일입니다.');
+            setEmailAvailable('red');
+        } else {
+            setEmailAvailable(false);
+            setEmailError('존재하는 이메일입니다.');
+            setEmailAvailable('green');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
     return (
         <div>
             <Navi />
         <section>
             <div className="login-box">
-                <form login-form>
+                <form onSubmit={login_submit} method='post' login-form>
                     <h1 className="login-title">로그인</h1>
 
                     <hr />
 
                     <span className="sub-title">이메일</span>
-                    <span className="email-message">존재하지않는 이메일 입니다!</span>
+                    <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span>
                     <input
                         type="email"
                         id="memberEmail"
+                        value={email}
+                        onChange={handleEmailChange}
                         className="input-login"
                         name="memberEmail"
                         placeholder="이메일을 입력해주세요!"
                     />
 
                     <span className="sub-title">비밀번호</span>
-                    <span className="pw-message">비밀번호를 다시 입력해주세요!</span>
+                    <span className="pw-message"></span>
                     <input
                         type="password"
                         id="memberPw"
