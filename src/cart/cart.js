@@ -1,12 +1,22 @@
 import Navi from './../common/navigation';
 import Menu from './../common/menu';
 import Footer from './../common/footer';
+import { ItemProvider, useItem } from '../common/contexts/CartContext';
 
 import React, { useState } from 'react';
 import './cart.css'; // 스타일 시트 임포트
 
+function App() {
+  return (
+      <ItemProvider>
+          <Cart/>
+      </ItemProvider>
+  );
+}
+
 
 function CartItem({ item, onUpdateCart, onRemoveItem }) {
+
   const increment = () => onUpdateCart(item.id, item.quantity + 1);
   const decrement = () => {
     if (item.quantity > 1) {
@@ -48,6 +58,9 @@ function CartItem({ item, onUpdateCart, onRemoveItem }) {
 }
 
 function Cart() {
+
+  const cartList = useItem().item; // 전체 카트 목록을 가져옵니다.
+  console.log(cartList);
 
   const [items, setItems] = useState(
     Array.from({ length: 20 }, (v, i) => ({
@@ -104,4 +117,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default App;
