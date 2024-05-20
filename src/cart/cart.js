@@ -2,8 +2,10 @@ import Navi from './../common/navigation';
 import Menu from './../common/menu';
 import Footer from './../common/footer';
 import { ItemProvider, useItem } from '../common/contexts/CartContext';
+import Modal from '../products/Modal'; 
+import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './cart.css'; // 스타일 시트 임포트
 
 function App() {
@@ -14,45 +16,82 @@ function App() {
   );
 }
 
+function CartItem({ product, onUpdateCart, onRemoveItem }) {
 
-function CartItem({ item, onUpdateCart, onRemoveItem }) {
-
-  const increment = () => onUpdateCart(item.id, item.quantity + 1);
+  const { user, logout } = useAuth(); // 현재 로그인한 사용자 정보와 로그아웃 함수를 가져옵니다
+  const increment = () => onUpdateCart(product.crtcd, product.crtqt + 1);
   const decrement = () => {
-    if (item.quantity > 1) {
-      onUpdateCart(item.id, item.quantity - 1);
+    if (product.crtqt > 1) {
+      onUpdateCart(product.crtcd, product.crtqt - 1);
     } else {
       alert("수량은 1 이하로 설정할 수 없습니다.");
     }
   };
 
-  const removeItem = () => onRemoveItem(item.id);
+  const removeItem = (product) => {
+
+    const cartData = {
+      mbrno: user.userId,
+      crtcd: product.crtcd
+    };
+
+    fetch(`/cart/cartdelete/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cartData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
+
+    onRemoveItem(product.crtcd);
+  }
+
+  /* 모달 */
+  // selectedProduct 상태는 현재 선택된 제품 객체를 저장하며, 모달에 표시될 데이터를 관리합니다. 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // openModal 함수는 클릭된 제품 객체를 인자로 받아 selectedProduct 상태를 업데이트하여 모달에 표시합니다.
+  const openModal = (products) => {
+    setSelectedProduct(products);
+  };
+
+  // closeModal 함수는 모달을 닫을 때 사용되며, selectedProduct 상태를 null로 설정하여 모달을 숨깁니다.
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
+
 
   return (
-    <div>    
+    <div>
       <ul className="cart-item">
-        <li><img className='cart-product-image' src={item.image} alt={item.name} /></li>
+        <li><img className='cart-product-image' src={require(`../images/products/${product.proimg}.jpg`)} alt={product.proimg} onClick={() => openModal(product)}/></li>
         <li>  
           <div className='cart-item-name'>
-            <div className='cart-product-name'>{item.name}</div>
-            <div className='cart-product-price'>{item.price.toLocaleString()}원</div>
+            <div className='cart-product-name'>{product.pronm}</div>
+            <div className='cart-product-price'>{product.propr.toLocaleString()}원</div>
           </div>
         </li>
         <li>
           <div className='cart-button'>
             <div className='cart-minus-button' onClick={decrement}>-</div>
-            <span className='cart-count-button'>{item.quantity}</span>
+            <span className='cart-count-button'>{product.crtqt}</span>
             <div className='cart-plus-button' onClick={increment}>+</div>
           </div>
         </li>
         <li>
           <div className='cart-calculate'>
-            <div className='cart-item-price'>{(item.price * item.quantity).toLocaleString()}원</div>
-            <div className='cart-remove' onClick={removeItem} style={{ float: 'right' }}>X</div>
+            <div className='cart-item-price'>{(product.propr * product.crtqt).toLocaleString()}원</div>
+            <div className='cart-remove' onClick={() => removeItem(product)} style={{ float: 'right' }}>X</div>
           </div>
         </li>
       </ul>
       <div className='line'></div>
+      {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
     </div>
   );
 }
@@ -60,28 +99,39 @@ function CartItem({ item, onUpdateCart, onRemoveItem }) {
 function Cart() {
 
   const cartList = useItem().item; // 전체 카트 목록을 가져옵니다.
-  console.log(cartList);
 
-  const [items, setItems] = useState(
-    Array.from({ length: 20 }, (v, i) => ({
-      id: i + 1,
-      name: '올리브 리코타 샐러드&발사믹 글레이즈 드레싱',
-      price: '10500',
-      quantity: 1,
-      image: require(`./../images/products/product${(i % 3) + 1}.jpg`), // 상품 이미지 (경로는 예시이므로 실제 경로에 맞게 조정 필요)
-      cartState: 'cart' // 제품별 카트 상태 초기화
-    }))
-  );
+  const [cartItems, setCartItems] = useState([]);
 
-  const updateCart = (itemId, quantity) => {
-    setItems(items.map(item => item.id === itemId ? { ...item, quantity } : item));
+  useEffect(() => {
+    if (cartList) {
+      setCartItems(initializeCartItems(cartList));
+    }
+  }, [cartList]);
+
+  const initializeCartItems = (cartList) => {
+    return cartList.map(item => ({
+      crtcd: item.crtcd,
+      crtqt: item.crtqt, // 상품 수량
+      mbrno: item.mbrno,
+      pifimg1: item.pifimg1,
+      pifimg2: item.pifimg2,
+      pifimg3: item.pifimg3,
+      proimg: item.proimg,
+      pronm: item.pronm, // 상품 이름
+      propr: item.propr, // 상품 가격
+      prostp: item.prostp
+    }));
+  };
+
+  const updateCart = (itemId, crtqt) => {
+    setCartItems(cartItems.map(product => product.crtcd === itemId ? { ...product, crtqt } : product));
   };
 
   const removeItem = (itemId) => {
-    setItems(items.filter(item => item.id !== itemId));
+    setCartItems(cartItems.filter(product => product.crtcd !== itemId));
   };
 
-  const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalPrice = cartItems.reduce((acc, product) => acc + product.propr * product.crtqt, 0);
 
   return (
     <div>
@@ -100,9 +150,9 @@ function Cart() {
             <div className='line-bold'></div>
           </div>
          
-          {items.map(item => (
-            <CartItem key={item.id} item={item} onUpdateCart={updateCart} onRemoveItem={removeItem} />
-          ))}
+          {cartItems ? cartItems.map(product => (
+            <CartItem key={product.crtcd} product={product} onUpdateCart={updateCart} onRemoveItem={removeItem} />
+          )):[]}
           <div style={{marginTop:'20px'}} className='line-bold'></div>
           <div className='cart-total-area'>
             <div className='total-text'>총 합계금액</div> 
