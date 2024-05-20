@@ -45,6 +45,7 @@
 
 .cart-item-name {
   padding: 3px 30px;
+  width: 338.83px;
 }
 
 .cart-button {
@@ -133,6 +134,12 @@
 
     .cart-product-name {
       font-size: 20px;
+    }
+
+
+    .cart-item-name {
+      padding: 3px 30px;
+      width: 400px;
     }
 
     .cart-product-price {
