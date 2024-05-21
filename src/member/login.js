@@ -1,14 +1,19 @@
 import './../App.css';
 import './login.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navi from './../common/navigation';
 import Footer from './../common/footer';
 import axios from 'axios';
+
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
 
 function App() {
 
 // 로그인 시 토큰
 const [jwtToken, setJwtToken] = useState(null);
+const { login, logout, setAuthState } = useAuth(); // 컴포넌트 내에서 useAuth 호출
+const navigate = useNavigate();
 
 // 폼 제출 핸들러
  const login_submit = async (event) => {
@@ -30,11 +35,11 @@ const [jwtToken, setJwtToken] = useState(null);
         // 응답 처리
         if (response.status === 200) {
             alert('로그인이 완료되었습니다.');
-            const data = response.data;
-            console.log(data);
-            alert("123");
-            setJwtToken(data);
-            window.location.href = '/'; // 성공 후 페이지 리디렉션
+            const { accessToken } = response.data; // accessToken 추출
+            localStorage.setItem('authToken', accessToken); // 로컬 스토리지에 accessToken 저장
+            login(accessToken); // Context에 로그인 정보 업데이트
+            navigate('/'); // 페이지 리디렉션
+
         } else {
             alert('로그인 실패');
         }
@@ -43,6 +48,7 @@ const [jwtToken, setJwtToken] = useState(null);
         alert('로그인 중 오류 발생');
     }
 };
+
 
 // 이메일 중복 검사
 const [email, setEmail] = React.useState('');

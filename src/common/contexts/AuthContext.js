@@ -1,36 +1,43 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
-// Context 객체 생성, 초기값으로 null을 할당
+// Context 객체 생성
 const AuthContext = createContext(null);
 
-// 커스텀 훅을 생성하여 컴포넌트 내에서 쉽게 Context에 접근할 수 있도록 함
+// 커스텀 훅
 export function useAuth() {
   return useContext(AuthContext);
 }
+ 
+// 토큰 디코딩 함수
+function parseJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-// AuthProvider 컴포넌트는 로그인 상태를 관리하고, Context의 값을 제공하는 역할을 함
+    return JSON.parse(jsonPayload);
+}
+
+// AuthProvider 컴포넌트
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // 사용자 정보를 저장할 상태
+  const [authState, setAuthState] = useState({ user: null, token: null });
 
-  // 로그인 함수: 사용자 데이터를 받아서 user 상태를 업데이트함
-  const login = (userData) => {
-    setUser(userData);
+  // 로그인 함수 수정: 토큰에서 사용자 ID를 추출하고 상태 업데이트
+  const login = (token) => {
+    const decodedToken = parseJwt(token);
+    setAuthState({ user: decodedToken.sub, token: token });
   };
 
-  // 로그아웃 함수: user 상태를 null로 설정하여 로그아웃 처리
+  // 로그아웃 함수
   const logout = () => {
-    setUser(null);
+    localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 삭제
+    setAuthState({ user: null, token: null }); // 상태 초기화
   };
 
-  // 컴포넌트 마운트 시 자동 로그인 처리
-  useEffect(() => {
-    // 임의의 사용자 데이터로 자동 로그인 시뮬레이션
-    login({ username: "testuser", userId: 3 });
-  }, []);
-
-  // Context.Provider를 사용하여 하위 컴포넌트에 로그인 관련 데이터와 함수를 전달
+  // Context.Provider를 통해 로그인 관련 데이터와 함수 전달
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ ...authState, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
