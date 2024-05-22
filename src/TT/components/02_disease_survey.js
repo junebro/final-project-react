@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./../css/disease_survey_css.css";
 import "./../css/content_css.css";
+import { Link } from "react-router-dom";
+import { NutriContext } from "../Nutri_Context";
 
 function App() {
   // 체크박스 정보를 담은 배열
@@ -13,7 +15,6 @@ function App() {
     { id: 6, name: "콜레스테롤" },
     { id: 7, name: "고중성지방" },
     { id: 8, name: "지방간" },
-    { id: 9, name: "암" },
   ];
 
   const [selectedCheckbox, setSelectedCheckbox] = useState(1);
@@ -21,8 +22,34 @@ function App() {
   // 체크박스 상태 업데이트 함수
   const CheckOnlyOne = (id) => {
     setSelectedCheckbox(id);
+    setSelectedDisease(id);
   };
 
+  // 정보 저장 테스트
+  const {
+    selectedDisease,
+    setSelectedDisease,
+    nutriGenderState,
+    nutriAge,
+    nutriHeight,
+    nutriWeight,
+  } = useContext(NutriContext);
+
+  // 저장 정보 출력 테스트
+  const ContextCheck = () => {
+    console.log(
+      "저장된 정보\n나이 : " +
+        nutriAge +
+        "\n키 : " +
+        nutriHeight +
+        "\n몸무게 : " +
+        nutriWeight +
+        "\n성별 : " +
+        nutriGenderState +
+        "\n질병 코드 : " +
+        selectedDisease
+    );
+  };
   return (
     <>
       <div className="main_alert">
@@ -48,6 +75,16 @@ function App() {
             </div>
           ))}
         </div>
+      </div>
+      {/* 컨텍스트 저장 / 다음 링크로 넘어가는 버튼 */}
+      <div>
+        <Link
+          to="http://localhost:3000/nutri/nutri/content03"
+          onClick={ContextCheck()}
+          className="next_button"
+        >
+          <span>다음</span>
+        </Link>
       </div>
     </>
   );

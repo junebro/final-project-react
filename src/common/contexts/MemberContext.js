@@ -1,7 +1,7 @@
 //itemContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const ItemContext = createContext({ item: null, error: null });
+const MemberContext = createContext({ item: null, error: null });
 
 export const MemberProvider = ({ children }) => {
     const [item, setItem] = useState(null);
@@ -20,10 +20,10 @@ export const MemberProvider = ({ children }) => {
     }, []);
 
     return (
-        <ItemContext.Provider value={{ item, error }}>
+        <MemberContext.Provider value={{ item, error }}>
             {children}
-        </ItemContext.Provider>
+        </MemberContext.Provider>
     );
 };
 
-export const useItem = () => useContext(ItemContext);
+export const useItem = () => useContext(MemberContext);

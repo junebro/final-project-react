@@ -136,9 +136,13 @@ li {
 .icon {
     width: 40px;
     height: 40px;
-    margin-right: 20px;
-    background-color: black;
+    margin-right: 10px;
     border-radius: 100%;
+}
+
+.icon img {
+    width: 40px;
+    height: 40px;
 }
 
 .diary-contents {

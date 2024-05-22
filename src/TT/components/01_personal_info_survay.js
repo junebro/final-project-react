@@ -1,30 +1,61 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./../css/personal_survey_css.css";
 import "./../css/content_css.css";
+import { NutriContext } from "../Nutri_Context";
+import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function App() {
-  // 텍스트 입력 상자 정보를 담은 배열
+  // Context
+  const {
+    nutriGenderState,
+    setNutriGenderState,
+    nutriAge,
+    setNutriAge,
+    nutriHeight,
+    setNutriHeight,
+    nutriWeight,
+    setNutriWeight,
+  } = useContext(NutriContext);
 
+  const updateState = () => {
+    ("테스트 테스트!");
+  };
+
+  // 텍스트 입력 상자 정보를 담은 배열
   const checkboxes = [
     { id: "1", name: "남성" },
     { id: "2", name: "여성" },
   ];
 
-  const [selectedCheckbox, setSelectedCheckbox] = useState(1);
+  const [selectedCheckbox, setSelectedCheckbox] = useState("ㅇ");
 
   // 체크박스 상태 업데이트 함수
   const CheckOnlyOne = (id) => {
     setSelectedCheckbox(id);
+    setNutriGenderState(id);
   };
 
-  const [age, setAge] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
+  const [age, setAge] = useState(nutriAge);
+  const [height, setHeight] = useState(nutriHeight);
+  const [weight, setWeight] = useState(nutriWeight);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 여기서 폼 데이터를 처리하거나 API로 전송하는 등의 작업 수행
+  const ContextUpdate = () => {
+    setNutriAge(age);
+    setNutriHeight(height);
+    setNutriWeight(weight);
+    console.log(
+      "저장된 정보\n나이 : " +
+        nutriAge +
+        "\n키 : " +
+        nutriHeight +
+        "\n몸무게 : " +
+        nutriWeight +
+        "\n성별 : " +
+        nutriGenderState
+    );
   };
+
   return (
     <>
       <div className="main_alert">
@@ -87,6 +118,16 @@ function App() {
             />
           </div>
         </div>
+      </div>
+      {/* 컨텍스트 저장 / 다음 링크로 넘어가는 버튼 */}
+      <div>
+        <Link
+          to="http://localhost:3000/nutri/nutri/content02"
+          onClick={ContextUpdate()}
+          className="next_button"
+        >
+          <span>다음</span>
+        </Link>
       </div>
     </>
   );

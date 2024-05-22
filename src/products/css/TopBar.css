@@ -9,7 +9,7 @@
     background-color: white;
     position: sticky;
     z-index: 1000;
-    top: 69px;
+    top: 64px;
     border-bottom: 1px solid #ccc; /* 맨 아래에 1픽셀 높이의 실선 경계선 추가 */
   }
 
