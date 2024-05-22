@@ -52,7 +52,7 @@ function App() {
 
                     <div className="sticker-item-box">
                         <input type="radio" id="sticker1" className="sticker-item" name="status" value="1" />
-                        <label htmlFor="sticker1"><img src={require("./../images/member/status/1.png")} alt="sticker1" /></label>
+                        <label htmlFor="sticker1"><img src={require("./../images/member/status/weightloss.png")} alt="sticker1" /></label>
                         <p>살빠짐</p>
                     </div>
 
