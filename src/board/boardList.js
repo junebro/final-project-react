@@ -19,6 +19,8 @@ const BoardDisplay = () => {
     const [totalItemsCount, setTotalItemsCount] = useState(0); // 총 게시물 수
     const [page, setPage] = useState(1); // 현재 페이지 상태
 
+    console.log(posts);
+
     // 게시글 데이터를 불러오는 함수
     const fetchPosts = async (page) => { //category = 'all' 나중에 넣기
         const pageSize = 3; // 페이지당 게시물 수를 3으로 설정
@@ -88,6 +90,15 @@ const BoardDisplay = () => {
         fetchPosts(page);
     };
 
+    // 2일 이내 글 new 표시
+    const isNew = (dateString) => {
+        const postDate = new Date(dateString);
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate - postDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 차이를 일 단위로 변환
+        return diffDays <= 2; // 2일 이내인지 확인
+    };
+
     return (
         <>
             <Navi />
@@ -144,22 +155,27 @@ const BoardDisplay = () => {
                                         <Link to={`/board/boardDetail/${post.bono}`} className='link'>
                                             <div className='subject'>{post.botitle}</div>
                                         </Link>
-                                        <div className='comment'>[4]</div>
-                                        <div className='new'>
-                                            <span >NEW</span>
+                                        {/* 동적으로 댓글 수 표시 */}
+                                        <div className='comment-count'>[{post.commentCount}]</div>
+                                        {/* 게시판 이틀동안 NEW */}
+                                        {isNew(post.bo_CREATE_AT) && (
+                                            <div className='new'>
+                                                <span >NEW</span>
+                                            </div>
+                                        )}
+                                        <div className='board_date'>
+                                            {post.bo_CREATE_AT}
                                         </div>
-                                        <div className='board_date'>{new Date(post.BO_CREATE_AT).toLocaleString()}</div>
                                     </div>
                                     <br />
-                                    <Link to="/board/boardDetail" className='link'>
+                                    <Link to={`/board/boardDetail/${post.bono}`} className='link'>
                                         <div className='board_bottom_section'>
                                             <div className='description'>{post.bocontent}</div>
                                             <br />
                                             <div className='thumbnail'>
-                                                <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                                <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                                <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
-
+                                                {post.thumb_boimage01 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage01}`} alt='Thumbnail 1' />}
+                                                {post.thumb_boimage02 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage02}`} alt='Thumbnail 2' />}
+                                                {post.thumb_boimage03 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage03}`} alt='Thumbnail 3' />}
                                             </div>
                                         </div>
                                     </Link>
