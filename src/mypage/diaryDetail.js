@@ -58,19 +58,19 @@ function App() {
 
                     <div className="sticker-item-box">
                         <input type="radio" id="sticker2" className="sticker-item" name="status" value="2" />
-                        <label htmlFor="sticker2"><img src={require("./../images/member/status/2.png")} alt="sticker2" /></label>
+                        <label htmlFor="sticker2"><img src={require("./../images/member/status/weight_gain.png")} alt="sticker2" /></label>
                         <p>유지어터</p>
                     </div>
 
                     <div className="sticker-item-box">
                         <input type="radio" id="sticker3" className="sticker-item" name="status" value="3" />
-                        <label htmlFor="sticker3"><img src={require("./../images/member/status/3.png")} alt="sticker3" /></label>
+                        <label htmlFor="sticker3"><img src={require("./../images/member/status/flexitarian.png")} alt="sticker3" /></label>
                         <p>살쪘어</p>
                     </div>
 
                     <div className="sticker-item-box">
                         <input type="radio" id="sticker4" className="sticker-item" name="status" value="4" />
-                        <label htmlFor="sticker4"><img src={require("./../images/member/status/4.png")} alt="sticker4" /></label>
+                        <label htmlFor="sticker4"><img src={require("./../images/member/status/exercise.png")} alt="sticker4" /></label>
                         <p>오운완</p>
                     </div>
 

@@ -8,6 +8,7 @@ import PopupDom from '../member/popupDom';
 import PopupPostCode from '../member/PopupPostCode';
 import { addressData } from '../member/PopupPostCode';
 
+import PaymentModal from './PaymentModal';  
 function Order() {
 
     let [data, setData] = useState('');
@@ -122,11 +123,22 @@ function Order() {
         cursor: 'pointer',
         backgroundColor: '#4CAF50',
         color: 'white',
-        padding: '10px 120px',
+        padding: '10px 120px',  
         textAlign: 'center',
         borderRadius: '5px',
         margin: '20px 250px'
     };
+
+
+    /* 모달 */
+    const [orderDetails, setOrderDetails] = useState({
+        orderId: '4DkCejyErLUyfVJ8iCdRS',
+        amount: 100,
+        customerName: '김토스',
+        orderName: '테스트 결제'
+      });
+      const [showModal, setShowModal] = useState(false);
+
 
     return(
         <div style={{backgroundColor:'white'}}>
@@ -263,7 +275,7 @@ function Order() {
                     <label className='order-payament-label'>총 금액</label>
                     <a>19,000원</a>
                 </div>
-                <div className="form-payment-info">
+                {/* <div className="form-payment-info">
                     <label className='order-payament-choice'>결제 방법</label>
                     <div className='choice-button' onClick={() => handleClick(1)}>계좌 이체</div>
                     <div className='choice-button' onClick={() => handleClick(2)}>신용/체크카드</div>
@@ -273,11 +285,17 @@ function Order() {
                 {activeTextIndex === 1 && <div style={paymentStyle}>Text for Button 01</div>}
                 {activeTextIndex === 2 && <div style={paymentStyle}>Text for Button 02</div>}
                 {activeTextIndex === 3 && <div style={paymentStyle}>Text for Button 03</div>}
-                
+                 */}
                 <div className='payment-button-section'>
-                    <div className='payment-button'>결제 하기</div>
+                    <button className='payment-button' type="button" onClick={() => setShowModal(true)}>결제 하기1</button>
                 </div>
             </form>
+            {showModal && (
+                <PaymentModal
+                orderDetails={orderDetails}
+                closeModal={() => setShowModal(false)}
+                />
+            )}
             <Footer />
         </div>
     )

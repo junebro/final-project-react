@@ -17,7 +17,8 @@ function App({ selectedMenu }) {
 
 const ItemDisplay = ({ selectedMenu }) => {
 
-  const { user, logout } = useAuth(); // 현재 로그인한 사용자 정보와 로그아웃 함수를 가져옵니다
+  const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
+
   const { tp } = useParams(); // URL에서 tp 파라미터를 추출합니다.
   const products = useItem().item; // 전체 제품 목록을 가져옵니다.
   const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 제품 목록을 상태로 관리합니다.
@@ -58,9 +59,9 @@ const ItemDisplay = ({ selectedMenu }) => {
     const imgRef = imageRefs.current[procd];
     if (imgRef) {
       imgRef.src = imgRef.src === cartImg ? cartClickImg : cartImg;
-
+      
       const cartData = {
-        mbrno: user.userId,
+        mbrno: user,
         crtcd: procd,
         crtqt: 1
       };
