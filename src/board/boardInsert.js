@@ -13,16 +13,23 @@ function App() {
     const fn_submit = async (event) => {
         event.preventDefault(); // 폼 기본 제출 이벤트 방지
 
-        const postData = {
+        // FormData 객체를 사용하여 폼 데이터를 관리
+        const formData = new FormData(event.target); 
+
+        // 'board' 객체를 JSON 문자열로 변환하여 FormData에 추가
+        const boardData = JSON.stringify({
             botitle: event.target.botitle.value,
             bocontent: event.target.bocontent.value
-        };
+        });
+        formData.append('board', new Blob([boardData], {
+            type: 'application/json'
+        }));
 
         try {
             // 백엔드로 POST 요청 전송
-            const response = await axios.post('http://localhost:3000/board/boardInsert', postData, {
+            const response = await axios.post('http://localhost:3000/board/boardInsert', formData, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data' // 요청 헤더에 콘텐츠 타입을 multipart/form-data로 설정 // 'application/json' 를 수정함
                 }
             });
 
@@ -51,7 +58,7 @@ function App() {
             <Menu />
             <section className='section-binsert'>
                 <div className='write-box'>
-                    <form onSubmit={fn_submit} method='post' className='board-insert'>
+                    <form onSubmit={fn_submit} method='post' className='board-insert'  encType="multipart/form-data">
 
                         <div className='board-write'>
                             <input className='write-title' name='botitle'
@@ -63,7 +70,17 @@ function App() {
 
                         <div className='img-group'>
                             <div className='img-file'>
-                                <input type='file' name='img01' className='img-input' />
+                                <input type='file' name='file1' className='img-input' />
+                                <label className='img-label' placeholder='사진을 첨부하세요'></label>
+                            </div>
+                            <div className='board_line'></div>
+                            <div className='img-file'>
+                                <input type='file' name='file2' className='img-input' />
+                                <label className='img-label' placeholder='사진을 첨부하세요'></label>
+                            </div>
+                            <div className='board_line'></div>
+                            <div className='img-file'>
+                                <input type='file' name='file3' className='img-input' />
                                 <label className='img-label' placeholder='사진을 첨부하세요'></label>
                             </div>
                             <div className='board_line'></div>
