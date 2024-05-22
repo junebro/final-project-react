@@ -33,9 +33,9 @@ const Modal = ({ product, onClose }) => {
     <div className="pro-modal-background" onClick={handleBackgroundClick}>
       <div className="pro-modal-container" onClick={handleContentClick}>
         <div className="pro-modal-header">
-          <h1 style={{fontSize:'30px'}}>{product.pronm}</h1>
+          <h1 style={{fontSize:'26px', fontWeight:'700', lineHeight:'26px', marginTop:'10px'}}>{product.pronm}</h1>
           <div className='pro-modal-close-btn' onClick={onClose}>
-            <img src={require(`../images/member/xBtn.png`)} alt="Close" />
+            <img style={{cursor:'pointer'}}src={require(`../images/member/xBtn.png`)} alt="Close" />
           </div>
         </div>
         <div className="pro-modal-body">

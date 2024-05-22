@@ -8,6 +8,7 @@
   margin-bottom: 0;
 }
 
+
 .products-container {
   font-family: 'omyu_pretty';
   display: grid;
@@ -30,6 +31,7 @@
   transition: transform 0.3s ease-in-out;
   border-radius: 20px;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .img_product:hover {
@@ -50,6 +52,7 @@
 
 .text-container {
   padding-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 
@@ -60,8 +63,11 @@
   font-size: 20px;
   text-align: center;
   width: 250px;
-  height: 50px;
-
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .product-price {
@@ -80,8 +86,8 @@
 .img_cart {
   bottom: 10px; /* 아이콘을 이미지 아래로 내리기 */
   right: 10px; /* 아이콘을 이미지 오른쪽으로 옮기기 */
-  width: 35px; /* 이미지 크기 조절 */
-  height: 30px; /* 이미지 크기 조절 */
+  width: 30px; /* 이미지 크기 조절 */
+  height: 25px; /* 이미지 크기 조절 */
   margin-right: 5px;
   
 }

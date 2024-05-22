@@ -85,8 +85,8 @@ function CartItem({ product, onUpdateCart, onRemoveItem }) {
         </li>
         <li>
           <div className='cart-calculate'>
-            <div className='cart-item-price'>{(product.propr * product.crtqt).toLocaleString()}원</div>
-            <div className='cart-remove' onClick={() => removeItem(product)} style={{ float: 'right' }}>X</div>
+            <div className='cart-item-price'>{(product.propr * product.crtqt).toLocaleString()} 원</div>
+            <div className='cart-remove' onClick={() => removeItem(product)} style={{ float: 'right', cursor: 'pointer' }}>X</div>
           </div>
         </li>
       </ul>
@@ -144,7 +144,7 @@ function Cart() {
           <div className='cart-table-head'>
             <ul className='cart-container-ul'>
               <li style={{marginLeft:'250px'}}>제품정보</li>
-              <li style={{marginLeft:"200px"}}>수량</li>
+              <li style={{marginLeft:"185px"}}>수량</li>
               <li style={{marginLeft:"80px"}}>구매금액</li>
             </ul>
             <div className='line-bold'></div>
@@ -156,7 +156,7 @@ function Cart() {
           <div style={{marginTop:'20px'}} className='line-bold'></div>
           <div className='cart-total-area'>
             <div className='total-text'>총 합계금액</div> 
-            <div className='total-price'>{totalPrice.toLocaleString()}원</div>
+            <div className='total-price'>{totalPrice.toLocaleString()} 원</div>
             <div className="total-button">구 매 하 기</div>
           </div>
         </div>
