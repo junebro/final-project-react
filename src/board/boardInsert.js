@@ -37,6 +37,7 @@ function App() {
             if (response.status === 200) {
                 alert('게시글이 정상적으로 등록되었습니다.');
                 window.location.href = '/board/boardList'; // 성공 후 페이지 리디렉션
+                
             } else {
                 alert('등록 실패');
             }
