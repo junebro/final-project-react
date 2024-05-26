@@ -23,17 +23,30 @@ const ItemDisplay = ({ selectedMenu }) => {
   const products = useItem().item; // 전체 제품 목록을 가져옵니다.
   const [filteredProducts, setFilteredProducts] = useState([]); // 필터링된 제품 목록을 상태로 관리합니다.
 
+  const token = localStorage.getItem('authToken');
+  const targetTp = selectedMenu || tp;
   /* 상품 구분 */
   useEffect(() => {
-    const targetTp = selectedMenu || tp; // selectedMenu가 주어지면 사용하고, 없으면 tp 값을 사용합니다.
-    if (targetTp && products) {
-      const updatedProducts = products.filter(product => product.protp === targetTp);
-      setFilteredProducts(updatedProducts);
-    } else {
-      setFilteredProducts([]); // 조건에 맞는 제품이 없으면 빈 배열을 설정합니다.
-    }
-  }, [selectedMenu, tp, products]); // 의존성 배열에 selectedMenu, tp, products를 포함시켜 상태 변화를 감지합니다.
 
+    // 서버에서 상품 정보 가져오기
+    fetch(`http://localhost:8989/products/products/${user}?protp=${targetTp}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      setFilteredProducts(data); // 필터링된 제품 목록을 상태에 설정
+    });
+
+  }, [selectedMenu, tp, products]); // 의존성 배열에 selectedMenu, tp, products를 포함시켜 상태 변화를 감지합니다.
 
   /* 모달 */
   // selectedProduct 상태는 현재 선택된 제품 객체를 저장하며, 모달에 표시될 데이터를 관리합니다. 
@@ -50,7 +63,6 @@ const ItemDisplay = ({ selectedMenu }) => {
   };
 
   
-
   /* 장바구니 */
   // useRef 훅을 사용하여 각 상품 이미지의 ref를 생성
   const imageRefs = useRef({});
@@ -97,6 +109,7 @@ const ItemDisplay = ({ selectedMenu }) => {
         .catch(error => console.error('Error:', error));
 
       }
+
     }
   };
 

@@ -71,11 +71,11 @@ const PaymentModal = ({ orderDetails, closeModal }) => {
         }
       }}
     >
-      <h2>결제 준비 중...</h2> // 헤더 타이틀
+      <h2>결제 준비 중...</h2> 
       <button onClick={() => {
         closeModal(); // 모달 닫기 함수 호출
         document.body.style.overflow = 'auto'; // 스크롤 활성화
-      }}>닫기</button> // 닫기 버튼
+      }}>닫기</button> 
     </Modal>
   );
 };
