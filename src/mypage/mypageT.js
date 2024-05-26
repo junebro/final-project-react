@@ -10,7 +10,7 @@ function App() {
         <div>
             <Navi />
             <Menu />
-            <div class="section-p">
+            <div className="section-p">
             <section>
       <nav className="nav">
         <div className="nav-profile-img"></div>
@@ -27,7 +27,7 @@ function App() {
       </nav>
 
       <div className="contents">
-        <h1 class="title">내 정보 수정</h1>
+        <h1 className="title">내 정보 수정</h1>
         <hr className="title-line" />
       </div>
     </section>

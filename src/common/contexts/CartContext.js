@@ -9,7 +9,6 @@ export const ItemProvider = ({ children }) => {
     const [error, setError] = useState(null);
     const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
 
-      console.log(user);
     useEffect(() => {
         fetch(`http://localhost:8989/cart/cartselect/${user}`)
             .then(response => {

@@ -11,13 +11,13 @@ function App() {
         <div>
             <Navi />
             <Menu />
-            <div class="section-p">
+            <div className="section-p">
             <div className='order-section'>
             <nav className="mypage-nav">
     <div className="nav-profile-img"></div>
     <p className="nav-nickName">닉네임</p>
     <hr className="h1" />
-    <ul class="mypage-ul">
+    <ul className="mypage-ul">
       <li><a href="#">내 정보 수정</a></li>
       <li><Link to="/mypage/Nutrition" >영양 진단 결과</Link></li>
       <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>

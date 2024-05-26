@@ -40,7 +40,7 @@ function App() {
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
-        <ul class="mypage-ul">
+        <ul className="mypage-ul">
           <li><Link to="/mypage/EditProfile" className='mypage-menu-active'>내 정보 수정</Link></li>
           <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
           <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>

@@ -7,8 +7,6 @@ function App(){
 
     const { user, logout } = useAuth(); // useAuth 훅에서 user ID 가져오기
 
-    console.log(user);
-
     function fn_login(){
         alert("로그인");
     }

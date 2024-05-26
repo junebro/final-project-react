@@ -224,7 +224,7 @@ function Order() {
                     </div>
                 </div>          
 
-                <div class="phone-box">
+                <div className="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
                         <select className="order-phone-text" ref={(el) => infoBuyer.current.phoneFirst = el}>
@@ -283,7 +283,7 @@ function Order() {
                     </div>
                 </div>                      
 
-                <div class="phone-box">
+                <div className="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
                         <select className="order-phone-text" name="phone1" ref={(el) => infoReceiver.current.phoneFirst = el}>
