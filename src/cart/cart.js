@@ -4,6 +4,7 @@ import Footer from './../common/footer';
 import { ItemProvider, useItem } from '../common/contexts/CartContext';
 import Modal from '../products/Modal'; 
 import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
+import { useNavigate } from 'react-router-dom';
 
 import React, { useState, useEffect } from 'react';
 import './cart.css'; // 스타일 시트 임포트
@@ -99,7 +100,7 @@ function CartItem({ product, onUpdateCart, onRemoveItem }) {
 function Cart() {
 
   const cartList = useItem().item; // 전체 카트 목록을 가져옵니다.
-
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -133,6 +134,11 @@ function Cart() {
 
   const totalPrice = cartItems.reduce((acc, product) => acc + product.propr * product.crtqt, 0);
 
+  /* 결제 버튼 클릭 이벤트 */
+  const paymentClick = (product) => {
+    navigate('/order/orderApp', { state: { cartItems: product.cartItems } });
+  }
+
   return (
     <div>
       <Navi />
@@ -157,7 +163,7 @@ function Cart() {
           <div className='cart-total-area'>
             <div className='total-text'>총 합계금액</div> 
             <div className='total-price'>{totalPrice.toLocaleString()} 원</div>
-            <div className="total-button">구 매 하 기</div>
+            <div className="total-button" onClick={() => paymentClick({cartItems})}>구 매 하 기</div>
           </div>
         </div>
       </div>

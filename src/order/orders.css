@@ -178,6 +178,54 @@ select {
     display: flex;
 }
 
+
+/* 상품 */
+.order-product-item {
+    display: flex; /* 플렉스 박스 사용 */
+    margin-top: 10px; /* 위쪽 마진 설정 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    /* margin-left: 200px; */
+    text-align: center;
+}
+
+.order-product-image {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+  }
+
+.order-item-name {
+    padding: 3px 30px;
+    width: 438.83px;
+}
+
+.order-button {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin-left: 20px;
+}
+
+.order-count-button {
+    padding: 3px 10px;
+    width: 30px;
+}
+
+.order-calculate {
+    justify-content: center; /* 수평 중앙 정렬 */
+    display: flex;
+    width: 200px;
+  }
+
+.order-item-price {
+    width: 80%;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 40px;
+}
+  
+
+
+
 @media (max-width: 639px) {
 
     .order-form {
