@@ -8,7 +8,7 @@ export const ItemProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8989/diary/diaryList/27')
+        fetch('http://localhost:8989/diary/diaryList/28')
             .then(response => {
                 if (!response.ok) {  // 응답 상태 확인
                     throw new Error('Network response was not ok');

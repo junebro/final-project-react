@@ -258,10 +258,13 @@ const verifyPhoneNumber = () => {
     event.preventDefault(); // 폼 기본 제출 이벤트 방지
 
     const joinData = {
+        memtype: '02',
         memEmail: event.target.memberEmail.value,
         memPw: event.target.memberPw.value,
         memberNick: event.target.memberNickName.value,
-        memAddress: event.target.mainAddr.value
+        memAddress: event.target.mainAddr.value,
+        detailAddress: event.target.detailAddr.value,
+        zonecode: event.target.zonecode.value
     };
 
     try {
@@ -377,7 +380,7 @@ const verifyPhoneNumber = () => {
 
                         <div className="address-box">
 
-                            <input id="post" className="post" placeholder="우편번호" value={inputAddress.zonecode} />
+                            <input id="post" className="post" placeholder="우편번호" name="zonecode" value={inputAddress.zonecode} />
                             <button type="button" id="post-btn" className="post-btn"
                                 onClick={openPostCode}>우편번호 찾기</button>
 
@@ -391,8 +394,8 @@ const verifyPhoneNumber = () => {
                                 )}
                             </div>
 
-                            <input id="road-name" className="road-name" name="mainAddr"placeholder="도로명주소" value={inputAddress.address}/>
-                            <input id="address-detail" className="address-detail" placeholder="상세주소" />
+                            <input id="road-name" className="road-name" name="mainAddr" placeholder="도로명주소" value={inputAddress.address}/>
+                            <input id="address-detail" className="address-detail" name="detailAddr" placeholder="상세주소" />
 
 
                         </div>
