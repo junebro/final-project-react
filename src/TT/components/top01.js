@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./../css/top_css.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 function App() {
   const [progress, setProgress] = useState(40); // 초기 진행도 설정
   const [pageNumber, setPageNumber] = useState(1); // 초기 페이지 번호 설정
+  const location = useLocation();
 
   useEffect(() => {
     // URL이 변경될 때 실행되는 부분
-    // 예를 들어, URL에 따라 progress 상태를 업데이트하는 작업을 수행할 수 있습니다.
-    // 이 부분은 실제로 URL에 따라 어떤 동작을 수행할지에 따라 다릅니다.
-    // 여기에는 간단한 예시를 작성하겠습니다.
+    const currentURL = location.pathname;
 
-    // URL에서 필요한 정보를 추출하고 그에 따른 상태를 업데이트합니다.
-    const currentURL = window.location.href;
-    // 예시: URL에 "/example"이 포함되어 있으면 progress를 50으로 업데이트합니다.
     if (currentURL.includes("/content14")) {
       setProgress(100);
       setPageNumber(14);
@@ -59,7 +56,8 @@ function App() {
       setProgress(7);
       setPageNumber(1);
     }
-  }, [window.location.href]); //  url 변화에 따라 렌더링
+  }, [location.pathname]); // location.pathname의 변화에 따라 실행
+
   return (
     <div className="top_css">
       <div className="top_ment">영양 진단 서비스</div>

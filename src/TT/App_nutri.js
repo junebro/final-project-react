@@ -17,6 +17,7 @@ import Content11 from "./components/11_drag_foods_04.js";
 import Content12 from "./components/12_drag_foods_05.js";
 import Content13 from "./components/13_drag_foods_06.js";
 import Content14 from "./components/14_conclusion.js";
+import Nutrient from "./components/15_Nutrient.js";
 //  추가할 페이지 임포트 구간
 import { useState, useEffect } from "react";
 import { NutriProvider } from "./Nutri_Context.js";
@@ -37,6 +38,7 @@ const App = () => {
     Content12,
     Content13,
     Content14,
+    Nutrient,
   ];
   const paths = [
     "/nutri/nutri",
@@ -53,6 +55,7 @@ const App = () => {
     "/nutri/nutri/content12",
     "/nutri/nutri/content13",
     "/nutri/nutri/content14",
+    "/nutri/nutri/content15",
   ];
 
   return (
@@ -77,6 +80,7 @@ const App = () => {
           <Route path="/content12" element={<Content12 />} />
           <Route path="/content13" element={<Content13 />} />
           <Route path="/content14" element={<Content14 />} />
+          <Route path="/content15" element={<Nutrient />} />
         </Routes>
       </div>
     </NutriProvider>

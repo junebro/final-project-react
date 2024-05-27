@@ -1,0 +1,39 @@
+.center_container {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center;
+  justify-content: center; /* 수직으로 중앙에 정렬 */
+  height: 100vh;
+}
+
+.customerName {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin-bottom: 20px; /* 요소들 간의 간격을 위해 추가 */
+}
+
+.customerInfo {
+  width: 500px;
+  height: 150px;
+  background-color: #f5f4f4;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px; /* 요소들 간의 간격을 위해 추가 */
+}
+
+.pt_1 {
+  font-size: 14px;
+  color: #828282;
+}
+
+.chart_div {
+  height: 400px; /* 원하는 높이 설정 */
+  width: 100%; /* 원하는 너비 설정 */
+}
