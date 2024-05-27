@@ -110,13 +110,30 @@ li {
 }
 
 .diary-box {
+    position: relative;
     text-align: left;
     margin: 0 25px 75px;
-    padding: 45px;
+    padding: 35px 45px 45px;
     border-radius: 15px;
     background-color: #FAFAFA;
    
 }
+
+.edit-box{
+    position: absolute;
+    right: 30px;
+    top: 35px;
+}
+
+.edit-box button{
+    width: 50px;
+    border: none;
+    background-color: #FAFAFA;
+    color: #8b8b8b;
+    font-size: 14px;
+    font-weight: 700;
+}
+
 
 .diary-box span {
     font-size: 20px;
@@ -136,9 +153,13 @@ li {
 .icon {
     width: 40px;
     height: 40px;
-    margin-right: 20px;
-    background-color: black;
+    margin-right: 10px;
     border-radius: 100%;
+}
+
+.icon img {
+    width: 40px;
+    height: 40px;
 }
 
 .diary-contents {
@@ -168,6 +189,8 @@ li {
     background-color: white;
     outline: none;
     cursor: pointer;
+    margin: 0 25%;
+    
 }
 
 .write-btn:hover {
@@ -185,6 +208,10 @@ li {
     margin-inline-end: 5px !important; 
 } */
 
+.link {
+    width: 100%;
+    
+}
 @media (min-width: 640px) {
 
    
@@ -301,4 +328,9 @@ li {
 .diary-box {
     margin-bottom: 55px;
 }
+
+.edit-box-hidden {
+    display: none;
 }
+}
+

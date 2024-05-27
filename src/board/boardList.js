@@ -5,11 +5,50 @@ import Pagination from 'react-js-pagination';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
-
+import axios from 'axios';
 
 function App() {
+    return (
+        <BoardDisplay />
+    );
+}
+
+const BoardDisplay = () => {
+
+    const [posts, setPosts] = useState([]); // 게시글을 저장할 상태
+    const [totalItemsCount, setTotalItemsCount] = useState(0); // 총 게시물 수
+    const [page, setPage] = useState(1); // 현재 페이지 상태
+
+    console.log(posts);
+
+    // 게시글 데이터를 불러오는 함수
+    const fetchPosts = async (page) => { //category = 'all' 나중에 넣기
+        const pageSize = 3; // 페이지당 게시물 수를 3으로 설정
+        const url = `http://localhost:8989/board/boardList/paged?page=${page}&size=${pageSize}`; // 뒤에 pageSize 지워
+        console.log(`Fetching posts for page: ${page}, size: ${pageSize}`); // 현재 페이지 확인 로그
+        // 'category' 파라미터를 활용하는 로직이 백엔드에 구현되어 있어야 함 
+
+        try {
+            const response = await axios.get(url);
+            // console.log("응답 데이터:", response.data); //로그 추가ㅠㅠ 지워
+            if (response.data && Array.isArray(response.data.posts)) {
+                setPosts(response.data.posts);  // 페이지 정보가 포함된 경우 .posts 사용
+                setTotalItemsCount(response.data.totalCount); // 전체 게시물 수 업데이트
+            } else {
+                setPosts([]); // 데이터 구조가 예상과 다르면 빈 배열로 초기화
+            }
+
+        } catch (error) {
+            console.error('게시글 로딩 실패', error);
+            setPosts([]); // 오류 처리
+        }
+
+    }
+
     const ChangeCategory = (event) => {
-        console.log()
+        const newCategory = event.target.value;
+        fetchPosts(1, newCategory);
+        setPage(1); // 카테고리 변경 시 페이지를 1로 리셋
     }
 
     // 팝업 열기
@@ -39,11 +78,25 @@ function App() {
         };
     }, []);
 
-    // 페이징
-    const [page, setPage] = useState(1);
+    // 컴포넌트 마운트 시 게시글 데이터 불러오기
+    useEffect(() => {
+        fetchPosts(page);
+    }, [page]); // 페이지가 변경될 때마다 데이터를 다시 불러오기
+
 
     const handlePageChange = (page) => {
+        console.log("페이지 업데이트 중:", page);
         setPage(page);
+        fetchPosts(page);
+    };
+
+    // 2일 이내 글 new 표시
+    const isNew = (dateString) => {
+        const postDate = new Date(dateString);
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate - postDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // 차이를 일 단위로 변환
+        return diffDays <= 2; // 2일 이내인지 확인
     };
 
     return (
@@ -51,8 +104,8 @@ function App() {
             <Navi />
             <Menu />
             <section className='section-blist'>
-                <div className='board'>
 
+                <div className='board'>
                     <div className='board_top'>
                         <div className='selectbox'>
                             <select onChange={ChangeCategory} id="sel_range" name="sel_range">
@@ -94,154 +147,67 @@ function App() {
 
                     <div className="board_main_wrapper">
                         <div className='board_line'></div>
-                        <div className='board_main'>
-                            <div className='board_left'>
-                                <div className='board_top_section'>
-                                    <Link to="/board/boardDetail" className='link'>
-                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
-                                    </Link>
-                                    <div className='comment'>[4]</div>
-                                    <div className='new'>
-                                        <span >NEW</span>
-                                    </div>
-                                    <div className='board_date'>2024-04-28 00:00:00</div>
-                                </div>
-                                <br />
-                                <Link to="/board/boardDetail" className='link'>
-                                    <div className='board_bottom_section'>
-                                        <div className='description'>비타민이 부족해서 어쩌구</div>
-                                        <br />
-                                        <div className='thumbnail'>
-                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
 
+                        {posts && posts.map(post => (
+                            <div className='board_post' key={post.bono}>
+                                <div className='board_left'>
+                                    <div className='board_top_section'>
+                                        <Link to={`/board/boardDetail/${post.bono}`} className='link'>
+                                            <div className='subject'>{post.botitle}</div>
+                                        </Link>
+                                        {/* 동적으로 댓글 수 표시 */}
+                                        <div className='comment-count'>[{post.commentCount}]</div>
+                                        {/* 게시판 이틀동안 NEW */}
+                                        {isNew(post.bo_CREATE_AT) && (
+                                            <div className='new'>
+                                                <span >NEW</span>
+                                            </div>
+                                        )}
+                                        <div className='board_date'>
+                                            {post.bo_CREATE_AT}
                                         </div>
                                     </div>
-                                </Link>
-                            </div>
-                            <div className='view_center'></div>
-                            <div className='board_right'>
-                                <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
-                                        {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup-list' data-role="popup" id="memberPopup">
-                                            <ul data-role="listview" data-inset="true">
-                                                <li><a href="#">게시글 보기</a></li>
-                                                <li><a href="#">1:1 채팅</a></li>
-                                                <li><a href="#">친구 추가</a></li>
-                                                <li><a href="#">신고하기</a></li>
-                                            </ul>
-                                        </div></span></div>
-                                    <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
-                                    <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
+                                    <br />
+                                    <Link to={`/board/boardDetail/${post.bono}`} className='link'>
+                                        <div className='board_bottom_section'>
+                                            <div className='description'>{post.bocontent}</div>
+                                            <br />
+                                            <div className='thumbnail'>
+                                                {post.thumb_boimage01 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage01}`} alt='Thumbnail 1' />}
+                                                {post.thumb_boimage02 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage02}`} alt='Thumbnail 2' />}
+                                                {post.thumb_boimage03 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage03}`} alt='Thumbnail 3' />}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div className='view_center'></div>
+                                <div className='board_right'>
+                                    <div className='board_info'>
+                                        <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
+                                            {/* 닉네임 클릭시 리스트 팝업 */}
+                                            <div className='popup-list' data-role="popup" id="memberPopup">
+                                                <ul data-role="listview" data-inset="true">
+                                                    <li><a href="#">게시글 보기</a></li>
+                                                    <li><a href="#">1:1 채팅</a></li>
+                                                    <li><a href="#">친구 추가</a></li>
+                                                    <li><a href="#">신고하기</a></li>
+                                                </ul>
+                                            </div></span></div>
+                                        <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
+                                        <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        ))}
                         <div className='board_line'></div>
-
-                        <div className='board_main'>
-                            <div className='board_left'>
-                                <div className='board_top_section'>
-                                    <Link to="/board/boardDetail" className='link'>
-                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
-                                    </Link>
-                                    <div className='comment'>[4]</div>
-                                    <div className='new'>
-                                        <span >NEW</span>
-                                    </div>
-                                    <div className='board_date'>2024-04-28 00:00:00</div>
-                                </div>
-                                <br />
-                                <Link to="/board/boardDetail" className='link'>
-                                    <div className='board_bottom_section'>
-                                        <div className='description'>비타민이 부족해서 어쩌구</div>
-                                        <br />
-                                        <div className='thumbnail'>
-                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
-
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-                            <div className='view_center'></div>
-                            <div className='board_right'>
-                                <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
-                                        {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup-list' data-role="popup" id="memberPopup">
-                                            <ul data-role="listview" data-inset="true">
-                                                <li><a href="#">게시글 보기</a></li>
-                                                <li><a href="#">1:1 채팅</a></li>
-                                                <li><a href="#">친구 추가</a></li>
-                                                <li><a href="#">신고하기</a></li>
-                                            </ul>
-                                        </div></span></div>
-                                    <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
-                                    <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className='board_line'></div>
-
-                        <div className='board_main'>
-                            <div className='board_left'>
-                                <div className='board_top_section'>
-                                    <Link to="/board/boardDetail" className='link'>
-                                        <div className='subject'>이번에 진단받은 식단이에요!</div>
-                                    </Link>
-                                    <div className='comment'>[4]</div>
-                                    <div className='new'>
-                                        <span >NEW</span>
-                                    </div>
-                                    <div className='board_date'>2024-04-28 00:00:00</div>
-                                </div>
-                                <br />
-                                <Link to="/board/boardDetail" className='link'>
-                                    <div className='board_bottom_section'>
-                                        <div className='description'>비타민이 부족해서 어쩌구</div>
-                                        <br />
-                                        <div className='thumbnail'>
-                                            <img src={require('./../images/board/board_test01.png')} alt='test01' />
-                                            <img src={require('./../images/board/board_test02.png')} alt='test02'></img>
-                                            <img src={require('./../images/board/board_test03.png')} alt='test03'></img>
-
-                                        </div>
-                                    </div>
-                                </Link>
-                            </div>
-
-                            <div className='view_center'></div>
-
-                            <div className='board_right'>
-                                <div className='board_info'>
-                                    <div className='board_member_nickname'>닉네임 <span className="board_member_nickname2" onClick={openPopup}>    ss
-                                        {/* 닉네임 클릭시 리스트 팝업 */}
-                                        <div className='popup-list' data-role="popup" id="memberPopup">
-                                            <ul data-role="listview" data-inset="true">
-                                                <li><a href="#">게시글 보기</a></li>
-                                                <li><a href="#">1:1 채팅</a></li>
-                                                <li><a href="#">친구 추가</a></li>
-                                                <li><a href="#">신고하기</a></li>
-                                            </ul>
-                                        </div></span></div>
-                                    <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
-                                    <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
                 <div className='paging'>
                     <Pagination
                         activePage={page} // 현재 페이지
-                        itemsCountPerPage={10} // 한 페이지랑 보여줄 아이템 갯수
-                        totalItemsCount={450} // 총 아이템 갯수
+                        itemsCountPerPage={3} // 한 페이지랑 보여줄 아이템 갯수
+                        totalItemsCount={totalItemsCount} // 총 아이템 갯수
                         pageRangeDisplayed={5} // paginator의 페이지 범위
                         prevPageText={"‹"} // "이전"을 나타낼 텍스트
                         nextPageText={"›"} // "다음"을 나타낼 텍스트
@@ -252,6 +218,5 @@ function App() {
             <Footer />
         </>
     );
-}
-
+};
 export default App;

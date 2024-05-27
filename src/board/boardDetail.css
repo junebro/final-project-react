@@ -235,8 +235,12 @@
 .comments{
     overflow-y: auto;
     max-height: 170px; /* 원하는 최대 높이 설정 */
-
 }
+
+.mycomment-btn{
+    margin-left: 10px;
+}
+
 /* ----------------------------------------------------- */
 
 .input-comments{

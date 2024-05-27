@@ -1,23 +1,149 @@
 import './../App.css';
 import './diaryDetail.css';
 import './diary.css';
-import React from 'react';
-import { Link } from "react-router-dom";
-import { useState } from 'react';
+import axios from 'axios';
+import { Link, useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect, createRef  } from 'react';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
 
-
-
-
-
 function App() {
+   
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const date = searchParams.get('date');
+    const [selectedValue, setSelectedValue] = useState('');
     
-    const [value, onChange] = useState(new Date());
+    const originalDate = new Date(date);
 
-    console.log(value); // value 값 확인
+    const year = originalDate.getFullYear();
+    const month = String(originalDate.getMonth() + 1).padStart(2, '0');
+    const day = String(originalDate.getDate()).padStart(2, '0');
 
+    const formattedDate = `${year}-${month}-${day}`;
+
+    // 다이어리 번호
+    const location2 = useLocation();
+    const searchParams2 = new URLSearchParams(location2.search);
+    const nourl = searchParams2.get('diaryno');
+    // String으로 넘어와서 형변환 해줌
+    const diaryno = parseInt(nourl, 10); // 10진수로 파싱
+
+    
+    const diaryDetailRef = useRef(null);
+    const moodCodeRef = useRef(null);
+
+    const { updateItems } = location.state || {}; // state가 undefined일 경우를 대비한 기본값 설정
+
+    /* 동적 라디오 버튼 */
+    const radioButtons = [
+        { id: 1, label: 'Option 1', imgSrc: require("./../images/member/status/weightloss.png"), value: "weightloss"},
+        { id: 2, label: 'Option 2', imgSrc: require("./../images/member/status/weight_gain.png"), value: "weight_gain" },
+        { id: 3, label: 'Option 3', imgSrc: require("./../images/member/status/flexitarian.png"), value: "flexitarian" },
+        { id: 4, label: 'Option 4', imgSrc: require("./../images/member/status/exercise.png"), value: "exercise" },
+        { id: 5, label: 'Option 5', imgSrc: require("./../images/member/status/5.png"), value: "5" },
+        { id: 6, label: 'Option 6', imgSrc: require("./../images/member/status/6.png"), value: "6" },
+        { id: 7, label: 'Option 7', imgSrc: require("./../images/member/status/7.png"), value: "7" },
+        { id: 8, label: 'Option 8', imgSrc: require("./../images/member/status/8.png"), value: "8" },
+    ];
+
+    // 라디오 버튼의 ref 배열 생성
+    const moodCodeRefs = useRef(radioButtons.map(() => createRef()));
+
+    useEffect(() => {
+        if (updateItems) {
+            moodCodeRefs.current.forEach((ref) => {
+                if (updateItems.moodRef === ref.current.value) {
+                    ref.current.checked = true; // 선택된 라디오 버튼을 체크
+                } else {
+                    ref.current.checked = false; // 선택되지 않은 라디오 버튼을 언체크
+                }
+            });
+        
+            diaryDetailRef.current.innerText = updateItems.detailRef;
+            //moodCodeRef.current.value = updateItems.moodRef;
+        }
+    }, [updateItems]); // updateItems가 변경될 때만 실행됨
+
+// 폼 제출 핸들러
+const fn_submit = async (event) => {
+   
+};
+
+const handleChange = (event) => {
+    setSelectedValue(event.target.id);
+    console.log(event.target.id);
+};
+
+const updateItem = async (event) => {
+
+    if (!selectedValue){
+        alert("아이콘 눌러라");
+        return;
+    } 
+    
+
+    event.preventDefault(); // 기본 제출 이벤트 방지
+
+    const diarydetail = diaryDetailRef.current.value; // ref를 사용하여 입력값 가져오기
+    
+    if (updateItems) {
+
+        let moodcode = "";
+        
+        if (selectedValue === "") {
+            moodcode = updateItems.moodRef;
+        } else {
+            moodcode = selectedValue;
+        }
+
+        try {
+            const postData = {
+                diaryno: updateItems.diaryno,
+                diarydetail: diarydetail,
+                moodcode: moodcode
+            };
+
+            console.log(postData)
+
+            const response = await axios.post('http://localhost:8989/diary/diaryUpdate', postData);
+            window.location.href = '/mypage/healthDiary'; // 업데이트 후 페이지 이동
+        } catch (error) {
+            console.error('Update error:', error);
+            alert('업데이트 중 오류 발생');
+        }
+
+    } else {
+
+        const postData = {
+            memno : 28,
+            diarydetail: diarydetail,
+            moodcode: selectedValue,
+            diarydate: formattedDate
+        };
+        console.log(postData);
+        try {
+            // 백엔드로 POST 요청 전송
+            const response = await axios.post('http://localhost:3000/diary/diaryInsert', postData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            // 응답 처리
+            if (response.status === 200) {
+                alert('게시글이 정상적으로 등록되었습니다.');
+                window.location.href = '/mypage/healthDiary'; // 성공 후 페이지 리디렉션
+            } else {
+                alert('등록 실패');
+            }
+        } catch (error) {
+            console.error('등록 에러', error);
+            alert('등록 중 오류 발생');
+        }
+    }
+};
 
     return (
         <div>
@@ -29,7 +155,7 @@ function App() {
         <div className="nav-profile-img"></div>
         <p className="nav-nickName">닉네임</p>
         <hr className="h1" />
-        <ul class="mypage-ul">
+        <ul className="mypage-ul">
         <li><Link to="/mypage/EditProfile">내 정보 수정</Link></li>
           <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
           <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
@@ -47,64 +173,35 @@ function App() {
             <p className="sticker-title">하루를 표현해 보세요!</p>
             </div>
             {/* 상태 스티커 박스 */}
-            <form className="diary-form">
+            <form onSubmit={fn_submit} method='post' className="diary-form">
                 <div className="status-box scrollbar">
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker1" className="sticker-item" name="status" value="1" />
-                        <label htmlFor="sticker1"><img src={require("./../images/member/status/1.png")} alt="sticker1" /></label>
-                        <p>살빠짐</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker2" className="sticker-item" name="status" value="2" />
-                        <label htmlFor="sticker2"><img src={require("./../images/member/status/2.png")} alt="sticker2" /></label>
-                        <p>유지어터</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker3" className="sticker-item" name="status" value="3" />
-                        <label htmlFor="sticker3"><img src={require("./../images/member/status/3.png")} alt="sticker3" /></label>
-                        <p>살쪘어</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker4" className="sticker-item" name="status" value="4" />
-                        <label htmlFor="sticker4"><img src={require("./../images/member/status/4.png")} alt="sticker4" /></label>
-                        <p>오운완</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker5" className="sticker-item" name="status" value="5" />
-                        <label htmlFor="sticker5"><img src={require("./../images/member/status/5.png")} alt="sticker5" /></label>
-                        <p>목표달성</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker6" className="sticker-item" name="status" value="6" />
-                        <label htmlFor="sticker6"><img src={require("./../images/member/status/6.png")} alt="sticker6" /></label>
-                        <p>단식성공</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker7" className="sticker-item" name="status" value="7" />
-                        <label htmlFor="sticker7"><img src={require("./../images/member/status/7.png")} alt="sticker7" /></label>
-                        <p>치팅데이</p>
-                    </div>
-
-                    <div className="sticker-item-box">
-                        <input type="radio" id="sticker8" className="sticker-item" name="status" value="8" />
-                        <label htmlFor="sticker8"><img src={require("./../images/member/status/8.png")} alt="sticker8" /></label>
-                        <p>폭식함</p>
-                    </div>
+                    
+                        {/* 동적으로 생성된 라디오 버튼 */}
+                        {radioButtons.map((button, index) => (
+                            <div key={button.id} className="sticker-item-box">
+                                <input
+                                    type="radio"
+                                    id={button.id}
+                                    className="sticker-item"
+                                    name="moodcode"
+                                    ref={moodCodeRefs.current[index]} // ref 설정 
+                                    checked={selectedValue == button.id}
+                                    value={button.value}
+                                    onChange={handleChange}
+                                />
+                                <label htmlFor={button.id}><img src={button.imgSrc} alt={`sticker${button.id}`} /></label>
+                                <p>{button.label}</p>
+                            </div>
+                        ))}
+                    
                 </div>
 
                 <p className="sticker-title">조금 더 자세히 기록해 볼까요?</p>
-                <textarea className="diary-detail" placeholder="내용 입력(최대 1000자)" />
+                <textarea className="diary-detail" placeholder="내용 입력(최대 1000자)" name='diarydetail' ref={diaryDetailRef}/>
 
                 <div className="diaryBtn-box">
                 <Link to="/HealthDiary"><button type="button" className="date-select">날짜 다시 선택</button></Link>
-                    <button type="submit" className="diary-submit">작성완료</button>
+                    <button type="button" className="diary-submit"  onClick={updateItem}>작성완료</button>
                 </div>
             </form>
         </div>

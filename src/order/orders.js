@@ -7,9 +7,17 @@ import Footer from '../common/footer';
 import PopupDom from '../member/popupDom';
 import PopupPostCode from '../member/PopupPostCode';
 import { addressData } from '../member/PopupPostCode';
+import { useLocation } from 'react-router-dom';
+import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
+
+import PaymentModal from './PaymentModal';  
 
 function Order() {
 
+    const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
+    const location = useLocation();
+    const { cartItems } = location.state || {}; // state가 undefined일 경우를 대비한 기본값 설정
+    console.log(cartItems);
     let [data, setData] = useState('');
     let [data1, setData1] = useState('');
 
@@ -104,6 +112,49 @@ function Order() {
 
 
     /* 결제 방법 버튼 이벤트 */
+    
+    /* 모달 */
+    const [orderDetails, setOrderDetails] = useState({
+        memno: 25300000000,     // 고객 ID (고객 테이블과의 Foreign Key)
+        ordpr: {user},          // 주문 총액
+        ordst: '01'             // 주문 상태 (예: 주문 완료", "배송 중", "배송 완료")
+
+      });
+
+      const [orderData, setorderData] = useState({
+        memno: 25300000000,     // 고객 ID (고객 테이블과의 Foreign Key)
+        ordpr: {user},          // 주문 총액
+        ordst: '01'             // 주문 상태 (예: 주문 완료", "배송 중", "배송 완료")
+
+      });
+
+      const [showModal, setShowModal] = useState(false);
+
+
+    // 결제 버튼 클릭시 주문 테이블에 컬럼 생성
+    const handlePaymentClick = () => {
+
+        fetch('/orders/isertorder', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(orderData)
+          }).then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('Failed to create order');
+            }
+          }).then(order => {
+            // 주문 생성이 완료되면 결제 시도
+            //setOrderDetails(order);
+            setShowModal(true);
+          }).catch(error => {
+            console.error('Error creating order:', error);
+          });
+
+    }
 
     // 표시할 텍스트의 인덱스를 저장하는 state
     const [activeTextIndex, setActiveTextIndex] = useState(null);
@@ -122,11 +173,14 @@ function Order() {
         cursor: 'pointer',
         backgroundColor: '#4CAF50',
         color: 'white',
-        padding: '10px 120px',
+        padding: '10px 120px',  
         textAlign: 'center',
         borderRadius: '5px',
         margin: '20px 250px'
     };
+
+
+
 
     return(
         <div style={{backgroundColor:'white'}}>
@@ -170,7 +224,7 @@ function Order() {
                     </div>
                 </div>          
 
-                <div class="phone-box">
+                <div className="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
                         <select className="order-phone-text" ref={(el) => infoBuyer.current.phoneFirst = el}>
@@ -229,7 +283,7 @@ function Order() {
                     </div>
                 </div>                      
 
-                <div class="phone-box">
+                <div className="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
                     <div>
                         <select className="order-phone-text" name="phone1" ref={(el) => infoReceiver.current.phoneFirst = el}>
@@ -246,8 +300,43 @@ function Order() {
                 <div style={{marginTop:'30px'}} className='line-bold'></div>
                 <h2 className="order-top-h2">상품 정보</h2>
                 <div className='line' style={{marginTop:'10px', marginBottom:'30px'}}/>
-
-
+                
+                {cartItems.map(product =>(
+                    <div style={{textAlign:'center'}}>
+                    <ul className="order-product-item">
+                      <li><img className='order-product-image' src={require(`../images/products/${product.proimg}.jpg`)} alt={product.proimg}/></li>
+                      <li>  
+                        <div className='order-item-name'>
+                          <div className='order-product-name'>{product.pronm}</div>
+                          <div className='order-product-price'>{product.propr.toLocaleString()}원</div>
+                        </div>
+                      </li>
+                      <li>
+                        <div className='order-button'>
+                          <span className='order-count-button'>{product.crtqt}</span>
+                        </div>
+                      </li>
+                      <li>
+                        <div className='order-calculate'>
+                          <div className=''>{(product.propr * product.crtqt).toLocaleString()} 원</div>
+                        </div>
+                      </li>
+                    </ul>
+                    <div className='line'></div>
+                  </div>
+                    
+                    // <div className='ord-products-container'>
+                    //     <div>
+                    //         <img className='ord-img-product' src={require(`../images/products/${product.proimg}.jpg`)} alt={product.proimg}/>
+                    //     </div>
+                    //     <div>{product.crtcd}</div>
+                    //     <div>{product.crtqt}</div>
+                    //     <div>{product.pronm}</div>
+                    //     <div>{product.propr}</div>
+                        
+                    // </div>
+                ))}
+                
                 <div style={{marginTop:'30px'}} className='line-bold'></div>
                 <h2 className="order-top-h2">결제 정보</h2>
                 <div className='line' style={{marginTop:'10px', marginBottom:'30px'}}/>
@@ -263,7 +352,7 @@ function Order() {
                     <label className='order-payament-label'>총 금액</label>
                     <a>19,000원</a>
                 </div>
-                <div className="form-payment-info">
+                {/* <div className="form-payment-info">
                     <label className='order-payament-choice'>결제 방법</label>
                     <div className='choice-button' onClick={() => handleClick(1)}>계좌 이체</div>
                     <div className='choice-button' onClick={() => handleClick(2)}>신용/체크카드</div>
@@ -273,11 +362,17 @@ function Order() {
                 {activeTextIndex === 1 && <div style={paymentStyle}>Text for Button 01</div>}
                 {activeTextIndex === 2 && <div style={paymentStyle}>Text for Button 02</div>}
                 {activeTextIndex === 3 && <div style={paymentStyle}>Text for Button 03</div>}
-                
+                 */}
                 <div className='payment-button-section'>
-                    <div className='payment-button'>결제 하기</div>
+                    <button className='payment-button' type="button" onClick={handlePaymentClick}>결제 하기1</button>
                 </div>
             </form>
+            {showModal && (
+                <PaymentModal
+                orderDetails={orderDetails}
+                closeModal={() => setShowModal(false)}
+                />
+            )}
             <Footer />
         </div>
     )

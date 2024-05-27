@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "@nivo/core": "^0.87.0",
     "@nivo/pie": "^0.87.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,6 +24,7 @@
     "react-dom": "^18.3.1",
     "react-input-emoji": "^5.9.0",
     "react-js-pagination": "^3.0.3",
+    "react-modal": "^3.16.1",
     "react-redux": "^9.1.2",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.23.0",

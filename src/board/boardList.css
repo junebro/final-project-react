@@ -1,87 +1,89 @@
-body{
+body {
     background-color: #FAFAFA;
 }
 
 /* 게시판 전체 */
 .section-blist {
-	width: 100vw;
-	height: 100vh;
+    width: 100vw;
+    height: 100vh;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.board{
-    max-width: 1500px; /* 고정 너비 대신 최대 너비 설정 */
+.board {
+    max-width: 1500px;
+    /* 고정 너비 대신 최대 너비 설정 */
     min-width: 640px;
-    width: 100%; /* 뷰포트의 너비에 맞추기 */
+    width: 100%;
+    /* 뷰포트의 너비에 맞추기 */
     height: auto;
-	border-radius: 15px;
+    border-radius: 15px;
     background-color: #ffffff;
     padding: 50px 80px;
 
     color: #6A6A6A;
 }
 
-.board_top{
-	display: flex;  
+.board_top {
+    display: flex;
     align-items: center;
-	justify-content: space-between;
+    justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.board_line{
-	border-top: 1px solid rgba(128, 128, 128, 0.3);
+.board_line {
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
 }
 
-.board_main{
-	display: flex;
+.board_post {
+    display: flex;
     padding-block: 10px;
 }
 
-.board_left{
-	width: 80%;
-	display: flex;
-	flex-direction: column; 
+.board_left {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
 }
 
 .view_center {
-	border-right: 1px solid rgba(128, 128, 128, 0.3); 
+    border-right: 1px solid rgba(128, 128, 128, 0.3);
 }
 
-.board_right{
-	display: flex;
+.board_right {
+    display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; 
+    flex-direction: column;
 }
 
 /* 셀렉트 박스 */
-.selectbox{
+.selectbox {
     margin-right: auto;
 }
 
 .selectbox select {
     font-size: 20px;
     color: #6A6A6A;
-    border: none; 
+    border: none;
 }
 
 .selectbox select:hover {
-    color: #005A4E; 
+    color: #005A4E;
 }
 
-.selectbox select:focus{
+.selectbox select:focus {
     outline: none;
 }
 
 /* 글쓰기 버튼 */
 .btn.btn-primary {
-    border: none; 
-    background-color: transparent; 
-    color: #005A4E; 
+    border: none;
+    background-color: transparent;
+    color: #005A4E;
 
     display: flex;
     align-items: center;
@@ -94,11 +96,11 @@ body{
 }
 
 .btn.btn-primary:hover {
-    text-decoration: underline; 
+    text-decoration: underline;
 }
 
 /* 검색창 */
-.search-box{
+.search-box {
     border: 1px solid #6A6A6A;
     border-radius: 5px;
     padding: 10px;
@@ -110,43 +112,43 @@ body{
 }
 
 /* 검색(돋보기) 버튼 */
-.search-btn{
-	margin-right: 31px;
-	background-color: transparent;
-	border: none;
+.search-btn {
+    margin-right: 31px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-	
-	position: relative;
+
+    position: relative;
 }
 
-.search-btn-on{
-	position: absolute;
-	top: 1px;
-	left: 6px;
-	display: none;
+.search-btn-on {
+    position: absolute;
+    top: 1px;
+    left: 6px;
+    display: none;
 }
 
-.search-btn:hover .search-btn-on{
-	display: block;
+.search-btn:hover .search-btn-on {
+    display: block;
 }
 
 
 /* 게시판 */
 
-.board_top_section{
-	display: flex;
-	justify-content: space-between;
+.board_top_section {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     padding-right: 20px;
-} 
+}
 
-.subject{
+.subject {
     font-size: 20px;
     margin-right: 20px;
     cursor: pointer;
 }
 
-.comment{
+.comment-count {
     color: #005A4E;
     font-weight: bold;
     margin-right: 20px;
@@ -167,17 +169,24 @@ body{
     font-size: 13px;
 }
 
-.board_date{
+.board_date {
     margin-left: auto;
 }
 
-.description{
+.description {
     cursor: pointer;
 }
 
-.thumbnail img{
+.thumbnail img {
     margin-right: 15px;
     cursor: pointer;
+    border-radius: 10px;
+
+    
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    /* 이미지가 비율에 맞게 잘리거나 조정되도록 설정 */
 }
 
 .board_info {
@@ -190,57 +199,65 @@ body{
     margin-bottom: 10px;
 }
 
-.board_member_nickname2{
+.board_member_nickname2 {
     cursor: pointer;
 }
 
 .popup-list {
-    display: none; /* 팝업은 기본적으로 숨겨져 있음 */
+    display: none;
+    /* 팝업은 기본적으로 숨겨져 있음 */
     position: fixed;
-    z-index: 9999; /* 다른 요소보다 위에 표시되도록 z-index 설정 */
+    z-index: 9999;
+    /* 다른 요소보다 위에 표시되도록 z-index 설정 */
     background-color: #ffffff;
-    border: 1px solid #ccc; /* 팝업 테두리 설정 */
-    border-radius: 5px; /* 팝업 모서리 둥글게 설정 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
-  }
+    border: 1px solid #ccc;
+    /* 팝업 테두리 설정 */
+    border-radius: 5px;
+    /* 팝업 모서리 둥글게 설정 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 그림자 효과 추가 */
+}
 
-.popup-list ul{
+.popup-list ul {
     list-style-type: none;
     padding: 10px;
     margin: 10px;
 }
 
-.popup-list li{
+.popup-list li {
     padding: 5px;
 }
 
-.popup-list ul li:hover{
+.popup-list ul li:hover {
     color: #005A4E;
     font-weight: bold;
 }
 
 .popup-list ul li a {
-    text-decoration: none; /* 링크의 밑줄 제거 */
-    color: inherit; /* 링크의 색상을 상위 요소의 색상으로 상속 */
+    text-decoration: none;
+    /* 링크의 밑줄 제거 */
+    color: inherit;
+    /* 링크의 색상을 상위 요소의 색상으로 상속 */
 }
 
 .popup-list ul li a:visited {
     color: #000000;
     font-weight: bold;
-    text-decoration: none; /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
+    text-decoration: none;
+    /* 방문한 상태에서도 밑줄이 나타나지 않도록 */
 }
 
 
-.board_member_nickname2:hover{
-    text-decoration: underline; 
+.board_member_nickname2:hover {
+    text-decoration: underline;
 }
 
 /* 페이징 */
 
 .paging {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     margin-top: 20px;
 }
 
@@ -264,7 +281,7 @@ body{
 .pagination li.active a {
     color: #005A4E;
     border-color: #005A4E;
-	font-weight: bold; 
+    font-weight: bold;
 }
 
 .pagination li.disabled a {
@@ -276,8 +293,10 @@ body{
 }
 
 .pagination li a:hover {
-    color: #005A4E; /* hover 시 글자색 변경 */
-    font-weight: bold; /* hover 시 bold체 적용 */
+    color: #005A4E;
+    /* hover 시 글자색 변경 */
+    font-weight: bold;
+    /* hover 시 bold체 적용 */
 }
 
 /* 미디어 쿼리 */
@@ -288,39 +307,49 @@ body{
     }
 
     .board_info {
-        order: 1; /* board_info를 위로 */
+        order: 1;
+        /* board_info를 위로 */
         width: 100%;
     }
 
     .board_date {
-        order: 2; /* board_date를 board_info 아래로 */
+        order: 2;
+        /* board_date를 board_info 아래로 */
     }
 
-    .board_left, .board_right {
-        width: 100%; /* board_left와 board_right를 꽉 채우도록 */
+    .board_left,
+    .board_right {
+        width: 100%;
+        /* board_left와 board_right를 꽉 채우도록 */
     }
 }
 
 @media (max-width: 700px) {
-    .board_top_section > div {
-        margin: 10px; /* 모든 자식 div에 마진 10px 적용 */
+    .board_top_section>div {
+        margin: 10px;
+        /* 모든 자식 div에 마진 10px 적용 */
     }
 
-    .thumbnail{
+    .thumbnail {
         display: flex;
         justify-content: center;
     }
 
     .board_info {
-        display: flex; /* Flexbox 레이아웃 활성화 */
+        display: flex;
+        /* Flexbox 레이아웃 활성화 */
         flex-direction: row;
         margin-top: 10px;
     }
 
     .subject {
-        max-width: 220px; /* 최대 너비 설정 */
-        overflow: hidden; /* 내용이 넘칠 경우 숨김 */
-        text-overflow: ellipsis; /* 넘친 텍스트를 ...으로 표시 */
-        white-space: nowrap; /* 텍스트를 한 줄에 표시 */
+        max-width: 220px;
+        /* 최대 너비 설정 */
+        overflow: hidden;
+        /* 내용이 넘칠 경우 숨김 */
+        text-overflow: ellipsis;
+        /* 넘친 텍스트를 ...으로 표시 */
+        white-space: nowrap;
+        /* 텍스트를 한 줄에 표시 */
     }
 }

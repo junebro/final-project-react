@@ -6,7 +6,7 @@ import Order from "../order/orders";
 const MainRoutes = () => {
   return (
     <Routes> {/* Route 컴포넌트를 Routes 컴포넌트로 감싸주어야 합니다 */}
-        <Route path="/Order" element={<Order />} />
+        <Route path="/orderApp" element={<Order />} />
     </Routes>
   );
 };

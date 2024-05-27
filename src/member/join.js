@@ -8,10 +8,26 @@ import PopupDom from './popupDom';
 import PopupPostCode from './PopupPostCode';
 import { addressData } from './PopupPostCode';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
-import { MemberProvider, useItem } from '../common/contexts/MemberContext';  // 경로 수정
+
+
+
 
 function App() {
+
+//   const handleSubmit = () => {
+//     const data = { aauserInput: 'aaa' };
+//     axios.post('/check/sendSMS', data)
+//         .then(response => {
+//             console.log('Server response:', response);
+//             alert('Data sent successfully');
+//         })
+//         .catch(error => {
+//             console.error('Error sending data:', error);
+//         });
+// };
+
 
   // 주소입력
     let inputAddress = '';
@@ -32,6 +48,55 @@ function App() {
     const closePostCode = () => {
         setIsPopupOpen(false)
     }
+
+    // 이메일 중복 검사
+    const [email, setEmail] = React.useState('');
+    const [emailError, setEmailError] = React.useState('');
+    const [emailAvailable, setEmailAvailable] = React.useState(true);
+
+    const handleEmailChange = (event) => {
+        const newEmail = event.target.value;
+        setEmail(newEmail);
+
+        // 이메일 유효성 검사
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(newEmail)) {
+            setEmailError('올바른 이메일 주소를 입력하세요.');
+            setEmailAvailable('red');
+            return;
+        } else {
+            // setEmailError('사용 가능한 이메일입니다');
+            // setEmailAvailable('green');
+        }
+
+        // 서버로 이메일 중복 확인 요청 보내기
+        checkEmailAvailability(newEmail);
+    }
+
+    const checkEmailAvailability = (newEmail) => {
+        const encodedEmail = encodeURIComponent(newEmail);
+        fetch(`/join/check/email?newEmail=${encodedEmail}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data) {
+                setEmailAvailable(true);
+                setEmailError('사용가능한 이메일입니다.');
+                setEmailAvailable('green');
+            } else {
+                setEmailAvailable(false);
+                setEmailError('이미 사용 중인 이메일 주소입니다.');
+                setEmailAvailable('red');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+//    const handleSubmit = (event) => {
+//        event.preventDefault();
+//         // 다른 필드들의 유효성 검사 및 서버로의 회원가입 요청 추가
+//     }
+
 
     // 비밀번호 유효성 검사
     const [memberPw, setMemberPw] = React.useState('');
@@ -93,6 +158,41 @@ function App() {
     }
   };
 
+     // 닉네임 중복 검사
+     const [nickname, setNick] = React.useState('');
+     const [nickError, setNickError] = React.useState('');
+     const [nickAvailable, setNickAvailable] = React.useState(true);
+ 
+     const handleNickChange = (event) => {
+         const newNick = event.target.value;
+         setNick(newNick);
+ 
+         // 서버로 이메일 중복 확인 요청 보내기
+         checkNickAvailability(newNick);
+     }
+ 
+     const checkNickAvailability = (newNick) => {
+        //  const inputNick = encodeURIComponent(newNick);
+         fetch(`/join/check/nick?newNick=${newNick}`)
+         .then(response => response.json())
+         .then(data => {
+             console.log(data);
+             if (data) {
+                setNickAvailable(true);
+                 setNickError('사용가능한 닉네임입니다.');
+                 setNickAvailable('green');
+             } else {
+                setNickAvailable(false);
+                 setNickError('이미 사용 중인 닉네임입니다.');
+                 setNickAvailable('red');
+             }
+         })
+         .catch(error => console.error('Error:', error));
+     }
+ 
+
+ 
+
 // 휴대폰 인증
 const [phoneNumber, setPhoneNumber] = React.useState('');
 const [certifiedNumber, setCertifiedNumber] = React.useState('');
@@ -153,22 +253,60 @@ const verifyPhoneNumber = () => {
   }
 };
   
+ // 폼 제출 핸들러
+ const join_submit = async (event) => {
+    event.preventDefault(); // 폼 기본 제출 이벤트 방지
+
+    const joinData = {
+        memtype: '02',
+        memEmail: event.target.memberEmail.value,
+        memPw: event.target.memberPw.value,
+        memberNick: event.target.memberNickName.value,
+        memAddress: event.target.mainAddr.value,
+        detailAddress: event.target.detailAddr.value,
+        zonecode: event.target.zonecode.value
+    };
+
+    try {
+        // 백엔드로 POST 요청 전송
+        const response = await axios.post('/join/member/join', joinData, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // 응답 처리
+        if (response.status === 200) {
+            alert('회원가입이 완료되었습니다.');
+            window.location.href = '/member/join'; // 성공 후 페이지 리디렉션
+        } else {
+            alert('회원가입 실패');
+        }
+    } catch (error) {
+        console.error('가입 에러', error);
+        alert('가입 중 오류 발생');
+    }
+};
+
+
     return (
 
         <div>
             <Navi />
             <div className='join-section'>
                 <div className="signUp-box">
-                    <form className="signUp-form">
+                    <form onSubmit={join_submit} method='post' className="signUp-form">
                         <h1 className="signUp-title">회원가입</h1>
 
                         <hr />
 
                         <span className="sub-title">이메일</span>
-                        <span className="email-message">이미 존재하는 이메일 입니다!</span>
+                        <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span>
                         <input
                             type="email"
                             id="memberEmail"
+                            value={email}
+                            onChange={handleEmailChange}
                             className="input-signUp"
                             name="memberEmail"
                             placeholder="이메일을 입력해주세요!"
@@ -200,10 +338,12 @@ const verifyPhoneNumber = () => {
                         />
 
                         <span className="sub-title">닉네임</span>
-                        <span className="email-message">이미 존재하는 닉네임입니다</span>
+                        <span className="email-message"style={{ color: nickAvailable }}>{nickError}</span>
                         <input
                             type="text"
                             id="memberNickName"
+                            value={nickname}
+                            onChange={handleNickChange}
                             className="input-signUp"
                             name="memberNickName"
                             placeholder="닉네임을 입력해주세요!"
@@ -218,11 +358,10 @@ const verifyPhoneNumber = () => {
                             placeholder="'-'을 제외하고 입력해주세요"
                             value={phoneNumber}
                             onChange={e => setPhoneNumber(e.target.value)} />
-                            
-                          
 
                             <button
-                            id="sendPhoneNumber" onClick={sendSMS}
+                            id="sendPhoneNumber"
+                            onClick={sendSMS}
                             className="send-number"
                             type="button">인증번호</button>
 
@@ -231,7 +370,9 @@ const verifyPhoneNumber = () => {
                             type="text"
                             className="cert-number" placeholder="4자리 숫자" />
                             <button
-                            id="checkBtn" onClick={verifyPhoneNumber}
+
+                            id="checkBtn"
+                            onClick={verifyPhoneNumber}
                             className="complete-number" type="button">인증하기</button>
                         </div>
 
@@ -239,10 +380,7 @@ const verifyPhoneNumber = () => {
 
                         <div className="address-box">
 
-
-
-
-                            <input id="post" className="post" placeholder="우편번호" value={inputAddress.zonecode} />
+                            <input id="post" className="post" placeholder="우편번호" name="zonecode" value={inputAddress.zonecode} />
                             <button type="button" id="post-btn" className="post-btn"
                                 onClick={openPostCode}>우편번호 찾기</button>
 
@@ -256,8 +394,8 @@ const verifyPhoneNumber = () => {
                                 )}
                             </div>
 
-                            <input id="road-name" className="road-name" placeholder="도로명주소" value={inputAddress.address} />
-                            <input id="address-detail" className="address-detail" placeholder="상세주소" />
+                            <input id="road-name" className="road-name" name="mainAddr" placeholder="도로명주소" value={inputAddress.address}/>
+                            <input id="address-detail" className="address-detail" name="detailAddr" placeholder="상세주소" />
 
 
                         </div>
