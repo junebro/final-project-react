@@ -105,7 +105,7 @@ function App() {
   const [pwMessage2, setPwMessage2] = React.useState('');
   const [pwMessage1Color, setPwMessage1Color] = React.useState(''); 
   const [pwMessage2Color, setPwMessage2Color] = React.useState('');
-  
+
   const handlePwChange = (event) => {
     const { value } = event.target;
     setMemberPw(value);
@@ -264,8 +264,13 @@ const verifyPhoneNumber = () => {
         memberNick: event.target.memberNickName.value,
         memAddress: event.target.mainAddr.value,
         detailAddress: event.target.detailAddr.value,
-        zonecode: event.target.zonecode.value
+        zonecode: event.target.zonecode.value,
+        gender: event.target.gender.value,
+        memheight: event.target.memheight.value,
+        memweight: event.target.memweight.value,
+        memage: event.target.memage.value
     };
+
 
     try {
         // 백엔드로 POST 요청 전송
@@ -300,7 +305,7 @@ const verifyPhoneNumber = () => {
 
                         <hr />
 
-                        <span className="sub-title">이메일</span>
+                        <span className="sub-title">이메일 <span className='star'>*</span></span>
                         <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span>
                         <input
                             type="email"
@@ -312,7 +317,7 @@ const verifyPhoneNumber = () => {
                             placeholder="이메일을 입력해주세요!"
                         />
 
-                        <span className="sub-title">비밀번호</span>
+                        <span className="sub-title">비밀번호 <span className='star'>*</span></span>
                         <span className="pw-message" style={{ color: pwMessage1Color }}>{pwMessage1}</span>
                         <input
                             ref={test}
@@ -325,7 +330,7 @@ const verifyPhoneNumber = () => {
                             placeholder="비밀번호를 입력해주세요!"
                         />
 
-                        <span className="sub-title">비밀번호 확인</span>
+                        <span className="sub-title">비밀번호 확인 <span className='star'>*</span></span>
                         <span className="pwCheck-message"style={{ color: pwMessage2Color }}>{pwMessage2}</span>
                         <input
                             type="password"
@@ -337,7 +342,7 @@ const verifyPhoneNumber = () => {
                             placeholder="비밀번호를 한번 더 입력해주세요!"
                         />
 
-                        <span className="sub-title">닉네임</span>
+                        <span className="sub-title">닉네임 <span className='star'>*</span></span>
                         <span className="email-message"style={{ color: nickAvailable }}>{nickError}</span>
                         <input
                             type="text"
@@ -349,7 +354,7 @@ const verifyPhoneNumber = () => {
                             placeholder="닉네임을 입력해주세요!"
                         />
 
-                        <span className="sub-title">휴대폰 번호</span>
+                        <span className="sub-title">휴대폰 번호 <span className='star'>*</span></span>
                         <div className="phone">
                             <input 
                             id="inputPhoneNumber" 
@@ -376,7 +381,7 @@ const verifyPhoneNumber = () => {
                             className="complete-number" type="button">인증하기</button>
                         </div>
 
-                        <span className="sub-title">주소</span>
+                        <span className="sub-title">주소 <span className='star'>*</span></span>
 
                         <div className="address-box">
 
@@ -399,6 +404,33 @@ const verifyPhoneNumber = () => {
 
 
                         </div>
+
+                        
+                          <hr/>
+                          
+                          
+                        <div className='non-essential'>
+                        <div className='gender'>
+                            <span className="sub-title">성별</span>
+                            <input type="radio" className="gender-radio" name="gender" value="m" />남&nbsp;&nbsp;
+                            <input type="radio" className="gender-radio" name="gender" value="f" />여
+                        </div>
+                        <div className='age'>
+                            <span className="sub-title">나이</span>
+                            <input id="memage" className="join-age" placeholder='20'></input> 세
+                        </div>
+                        <div className='height'>
+                            <span className="sub-title">키</span>
+                            <input id='memheight' className="join-height" name="memberHeight" placeholder="170.0" /> cm
+                        </div>
+                        <div className='weight'>
+                            <span className="sub-title">몸무게</span>
+                            <input id='memweight' className="join-weight" name="memberWeight" placeholder="65.0" /> kg
+                        </div>
+                        </div>
+                            
+
+                           
                         <div className="btn-box">
                             <button type="submit" className="signUp-submit">가입완료</button>
                         </div>
