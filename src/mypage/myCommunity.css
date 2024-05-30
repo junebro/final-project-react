@@ -129,6 +129,7 @@ li {
 /* 작성한글, 좋아요 목록 눌렀을 때 */
 .contents-active {
    color:#005A4E;
+   font-weight: 700;
 }
 
 .list-one {

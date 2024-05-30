@@ -10,6 +10,7 @@ import Calendar from 'react-calendar';
 
 import { ItemProvider, useItem } from '../common/contexts/DiaryContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../common/contexts/AuthContext';
 
 function App() {
     return (
@@ -50,7 +51,8 @@ function ItemDisplay() {
     const [selectedDate, setSelectedDate] = useState(null);
 
     const [diary, setDiary] = useState({ diarydate: '', dayOfWeek: '', diarydetail: '', moodimg: '', mood: '' });
-   
+    const { user, logout } = useAuth(); 
+
      // 날짜 변경 핸들러 함수
     const handleDateChange = (date) => {
         const date_1 = date;
@@ -59,12 +61,11 @@ function ItemDisplay() {
         const day = String(date_1.getDate()).padStart(2, '0');
 
         const formattedDate = `${year}-${month}-${day}`;
-
+        
         /* 날짜 클릭 시 데이터 조회 */
         const cartData = {
             diarydate: formattedDate,
-            memno: 28,
-            
+            memno: user
         };
 
         fetch(`/diary/diaryselect/`, {
