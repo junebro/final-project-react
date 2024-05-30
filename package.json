@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@nivo/bar": "^0.87.0",
+>>>>>>> ee7ae760f9aa8afe5a4cd56c4e919e6770185900
     "@nivo/core": "^0.87.0",
     "@nivo/pie": "^0.87.0",
     "@stomp/stompjs": "^7.0.0",

@@ -14,11 +14,11 @@ export const NutriProvider = ({ children }) => {
   // 알레르기 페이지
   const [selectedAllergies, setSelectedAllergies] = useState([]);
   // 운동 정도
-  const [exerciseRate, setExerciseRate] = useState("");
+  const [exerciseRate, setExerciseRate] = useState("1");
   // 국물 여부
-  const [soup, setSoup] = useState("");
+  const [soup, setSoup] = useState("1");
   // 음주 정도
-  const [alcoholRate, setAlcoholRate] = useState("");
+  const [alcoholRate, setAlcoholRate] = useState("1");
   // 드래그 첫번째 : 볶음밥류  / 밥류 / 대체식품류
   const [drag1Items, setDrag1Items] = useState({
     drop1: [],
@@ -80,6 +80,10 @@ export const NutriProvider = ({ children }) => {
     drop7: [],
   });
 
+  const [responseData, setResponseData] = useState(null); // fetch로 받아온 response data 저장용
+
+  const [userName, setUserName] = useState("null"); // fetch로 받아온 response data 저장용
+
   return (
     <NutriContext.Provider
       value={{
@@ -113,6 +117,10 @@ export const NutriProvider = ({ children }) => {
         setDrag5Items,
         drag6Items,
         setDrag6Items,
+        responseData,
+        setResponseData,
+        userName,
+        setUserName,
       }}
     >
       {children}
