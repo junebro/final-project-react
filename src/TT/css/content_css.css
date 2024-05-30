@@ -3,7 +3,7 @@
 /* 메인화면 가득 채우기 */
 .full-screen-container {
   align-items: center;
-  height: 100vh;
+  height: 100%;
   background-color: #fafafa;
 }
 /* 버튼 css */
