@@ -193,7 +193,10 @@ const BoardDisplay = () => {
                                                     <li><a href="#">신고하기</a></li>
                                                 </ul>
                                             </div></span></div>
-                                        <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
+                                        <div className='board_member_views'>
+                                            조회수  &nbsp; 
+                                            <span>{post.viewCount}</span>
+                                            </div>
                                         <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
                                     </div>
                                 </div>
