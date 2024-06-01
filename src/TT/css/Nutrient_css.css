@@ -1,0 +1,164 @@
+.center_container_1 {
+  display: flex;
+  flex-direction: column; /* 세로로 정렬 */
+  align-items: center;
+  justify-content: center; /* 수직으로 중앙에 정렬 */
+  height: 100%;
+}
+
+.customerName {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin-bottom: 20px; /* 요소들 간의 간격을 위해 추가 */
+}
+
+.customerInfo {
+  width: 500px;
+  height: 150px;
+  background-color: #f5f4f4;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px; /* 요소들 간의 간격을 위해 추가 */
+}
+
+.pt_1 {
+  font-size: 14px;
+  color: #828282;
+}
+
+.chart_div {
+  height: 400px;
+  width: 100%;
+}
+
+/* bar 관련 세팅 */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  position: relative;
+}
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 200px;
+}
+
+.wrapper-1 {
+  display: flex;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.left {
+  width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  padding: 20px; /* 문구와 경계선 사이에 여유 공간 추가 */
+  font-size: 26px;
+}
+
+.right {
+  width: 80%;
+  padding-left: 20px;
+  box-sizing: border-box;
+  position: relative; /* bar_info와 bar_container의 부모 요소를 기준으로 위치를 설정 */
+}
+
+.bar_info {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  position: absolute;
+  top: -30px; /* bar_container 위에 위치하도록 조정 */
+  left: 0;
+  right: 0;
+  z-index: 1; /* bar_container 위에 나타나도록 설정 */
+}
+
+.bar_container {
+  height: 70px;
+  width: 500px;
+  border: 1px solid black;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+.yellow {
+  background-color: #f0f08e;
+  width: 20%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.green {
+  background-color: #aeed77;
+  width: 30%; /* 예시로 30% 설정 */
+  border-right: 1px dashed black;
+  border-left: 1px dashed black;
+}
+
+.red {
+  background-color: #eb8a74;
+  width: 50%; /* 예시로 50% 설정 */
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+.bar_indicator {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid black; /* 화살표 색상 */
+  position: absolute;
+  top: -5px; /* bar_container 하단에 배치 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+}
+
+.bar_text {
+  position: absolute;
+  bottom: -30px; /* bar_container 하단에서 살짝 아래로 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px; /* 글자 크기 조정 가능 */
+}
+
+.nutri_guide {
+  margin-left: 20%;
+  margin-top: 50px;
+  width: 60%;
+}
+
+.nutri_guide_1 {
+  margin-top: 50px;
+  width: 40%;
+}
+/* 콜레스테롤은 충분섭취량이 없음 안먹으면좋음 */
+.cholesterol {
+  background-color: #aeed77;
+  width: 50%;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}

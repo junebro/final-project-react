@@ -117,7 +117,7 @@ const BoardDisplay = () => {
                         </div>
 
                         {/* 글쓰기 버튼 */}
-                        <Link to="/board/boardInsert" className='link'>
+                        <Link to="/board/boardInsert">
                             <button type='submit' className='btn btn-primary'>
 
                                 <img src={require('./../images/board/plus_icon.png')} className='plus_icon' />
@@ -152,7 +152,7 @@ const BoardDisplay = () => {
                             <div className='board_post' key={post.bono}>
                                 <div className='board_left'>
                                     <div className='board_top_section'>
-                                        <Link to={`/board/boardDetail/${post.bono}`} className='link'>
+                                        <Link to={`/board/boardDetail/${post.bono}`} >
                                             <div className='subject'>{post.botitle}</div>
                                         </Link>
                                         {/* 동적으로 댓글 수 표시 */}
@@ -168,7 +168,7 @@ const BoardDisplay = () => {
                                         </div>
                                     </div>
                                     <br />
-                                    <Link to={`/board/boardDetail/${post.bono}`} className='link'>
+                                    <Link to={`/board/boardDetail/${post.bono}`}>
                                         <div className='board_bottom_section'>
                                             <div className='description'>{post.bocontent}</div>
                                             <br />
@@ -193,8 +193,14 @@ const BoardDisplay = () => {
                                                     <li><a href="#">신고하기</a></li>
                                                 </ul>
                                             </div></span></div>
-                                        <div className='board_member_views'>조회수 <span className="font_pro">22</span></div>
-                                        <div className='board_member_likes'>좋아요 <span className="font_pro">9</span></div>
+                                        <div className='board_member_views'>
+                                            조회수  &nbsp; 
+                                            <span>{post.viewCount}</span>
+                                            </div>
+                                        <div className='board_member_likes'>
+                                            좋아요  &nbsp;
+                                            <span>{post.likeCount}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

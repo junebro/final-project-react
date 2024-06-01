@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./../css/personal_survey_css.css";
 import "./../css/content_css.css";
 import { NutriContext } from "../Nutri_Context";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../common/contexts/AuthContext";
 
 function App() {
+  const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
+  console.log("로그인한새끼" + user);
   // Context
   const {
     nutriGenderState,
@@ -18,17 +20,19 @@ function App() {
     setNutriWeight,
   } = useContext(NutriContext);
 
-  const updateState = () => {
-    ("테스트 테스트!");
-  };
-
   // 텍스트 입력 상자 정보를 담은 배열
   const checkboxes = [
     { id: "1", name: "남성" },
     { id: "2", name: "여성" },
   ];
 
-  const [selectedCheckbox, setSelectedCheckbox] = useState("ㅇ");
+  const [selectedCheckbox, setSelectedCheckbox] = useState(
+    nutriGenderState || null
+  );
+  const [age, setAge] = useState(nutriAge || "");
+  const [height, setHeight] = useState(nutriHeight || "");
+  const [weight, setWeight] = useState(nutriWeight || "");
+  const [isValid, setIsValid] = useState(false);
 
   // 체크박스 상태 업데이트 함수
   const CheckOnlyOne = (id) => {
@@ -36,25 +40,41 @@ function App() {
     setNutriGenderState(id);
   };
 
-  const [age, setAge] = useState(nutriAge);
-  const [height, setHeight] = useState(nutriHeight);
-  const [weight, setWeight] = useState(nutriWeight);
-
   const ContextUpdate = () => {
     setNutriAge(age);
     setNutriHeight(height);
     setNutriWeight(weight);
     console.log(
       "저장된 정보\n나이 : " +
-        nutriAge +
+        age +
         "\n키 : " +
-        nutriHeight +
+        height +
         "\n몸무게 : " +
-        nutriWeight +
+        weight +
         "\n성별 : " +
-        nutriGenderState
+        selectedCheckbox
     );
   };
+
+  useEffect(() => {
+    const validateForm = () => {
+      if (
+        selectedCheckbox !== null &&
+        age.length >= 2 &&
+        age.length <= 3 &&
+        height.length >= 2 &&
+        height.length <= 3 &&
+        weight.length >= 2 &&
+        weight.length <= 3
+      ) {
+        setIsValid(true);
+      } else {
+        setIsValid(false);
+      }
+    };
+
+    validateForm();
+  }, [selectedCheckbox, age, height, weight]);
 
   return (
     <>
@@ -65,7 +85,6 @@ function App() {
       <div className="center_container">
         <div className="input_container">
           <div className="gender_container">
-            {/* 각 체크박스 렌더링 */}
             {checkboxes.map((checkbox) => (
               <div key={checkbox.id}>
                 <input
@@ -119,15 +138,20 @@ function App() {
           </div>
         </div>
       </div>
-      {/* 컨텍스트 저장 / 다음 링크로 넘어가는 버튼 */}
       <div>
-        <Link
-          to="http://localhost:3000/nutri/nutri/content02"
-          onClick={ContextUpdate()}
-          className="next_button"
-        >
-          <span>다음</span>
-        </Link>
+        {isValid ? (
+          <Link
+            to="http://localhost:3000/nutri/nutri/content02"
+            onClick={ContextUpdate}
+            className="next_button"
+          >
+            <span>다음</span>
+          </Link>
+        ) : (
+          <button className="button_none">
+            <span>항목을 입력해주세요</span>
+          </button>
+        )}
       </div>
     </>
   );

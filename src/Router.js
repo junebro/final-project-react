@@ -16,6 +16,9 @@ import OrderRoutes from "./routes/OrderRoutes";
 
 import Test from "./routes/TestRoutes";
 
+import AdminRoutes from "./routes/AdminRoutes";
+
+
 function App() {
   return (
     <Routes>
@@ -32,6 +35,9 @@ function App() {
       <Route path="/nutri/*" element={<NutriRoutes />} />
 
       <Route path="/Test/*" element={<Test />} />
+
+      <Route path="/admin/*" element={<AdminRoutes />} />
+
     </Routes>
   );
 }

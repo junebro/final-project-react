@@ -106,6 +106,8 @@ const App = () => {
     }
   };
 
+  const validButton = firstDroppableItems.length > 0;
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <p className="main_alert">
@@ -320,12 +322,20 @@ const App = () => {
       </div>
       {/* 컨텍스트 저장 / 다음 링크로 넘어가는 버튼 */}
       <div>
-        <Link
-          to="http://localhost:3000/nutri/nutri/content12"
-          className="next_button"
-        >
-          <span>다음</span>
-        </Link>
+        {!validButton ? (
+          <div>
+            <Link
+              to="http://localhost:3000/nutri/nutri/content12"
+              className="next_button"
+            >
+              <span>다음</span>
+            </Link>
+          </div>
+        ) : (
+          <button className="button_none">
+            <span>항목을 입력해주세요</span>
+          </button>
+        )}
       </div>
     </DragDropContext>
   );
