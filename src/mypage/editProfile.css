@@ -80,8 +80,10 @@ li {
 
 .profile-contents {
     min-height: 1000px;
-        padding: 30px;
+    padding: 30px;
     background-color: white;
+
+   
 }
 
 .mypage-title {
@@ -307,7 +309,25 @@ li {
     
 }
 
+.submit-box {
+    width: 100%;
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+}
+.edit-submit {
+    width: 90px;
+    height: 40px;
+    
+    
 
+    border-radius: 5px;
+    border: 1px solid #005A4E;
+    color: white;
+    background-color: #005A4E;
+    outline: none;
+    cursor: pointer;
+}
 @media (min-width: 640px) {
 
    
@@ -382,6 +402,7 @@ li {
     width: 80%;
     padding: 50px;
     margin-top: 90px;
+
 
     border-radius: 15px;
     background-color: white;
