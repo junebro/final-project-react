@@ -3,6 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+
+
+
+
+    "@nivo/bar": "^0.87.0",
+
+
     "@nivo/core": "^0.87.0",
     "@nivo/pie": "^0.87.0",
     "@stomp/stompjs": "^7.0.0",
@@ -31,6 +38,7 @@
     "react-scripts": "^5.0.1",
     "react-spring": "^9.7.3",
     "redux": "^5.0.1",
+    "sockjs-client": "^1.6.1",
     "sweetalert2": "^11.11.0",
     "swiper": "^11.1.1",
     "web-vitals": "^2.1.4"

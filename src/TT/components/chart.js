@@ -12,13 +12,23 @@ import { ResponsivePie } from "@nivo/pie";
 
 const Chart = () => {
   const { responseData } = useContext(NutriContext);
+  const calc =
+    responseData.carbohydrateRate +
+    responseData.proteinRate +
+    responseData.fatRate;
 
   return (
     <ResponsivePie
       data={[
-        { id: "탄수화물", value: Math.floor(responseData.carbohydrateRate) },
-        { id: "단백질", value: Math.floor(responseData.proteinRate) },
-        { id: "지방", value: Math.floor(responseData.fatRate) },
+        {
+          id: "탄수화물",
+          value: Math.floor((responseData.carbohydrateRate / calc) * 100),
+        },
+        {
+          id: "단백질",
+          value: Math.floor((responseData.proteinRate / calc) * 100),
+        },
+        { id: "지방", value: Math.floor((responseData.fatRate / calc) * 100) },
       ]}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
       innerRadius={0.5}
