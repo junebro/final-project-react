@@ -36,7 +36,9 @@ function App({ }) { // currentUser
         axios.get(`http://localhost:8989/board/boardDetail/${bono}`) // API 호출
             .then(response => {
                 console.log("Data fetched:", response.data);  // 콘솔 로그 추가
-                setPost(response.data); // 상태 업데이트
+                setPost({...response.data,
+                    liked: false // 초기 좋아요 상태를 false로 설정
+            }); // 상태 업데이트
 
                 // 이미지 배열을 생성하고 상태에 설정
                 const postImages = [];
@@ -100,7 +102,16 @@ function App({ }) { // currentUser
 
     // 좋아요 버튼 클릭 이벤트 핸들러
     const handleLikeClick = () => {
-        setLiked(!liked); // 상태를 토글합니다.
+        const newLikedState = !post.liked;
+        axios.post(`http://localhost:8989/board/likes/${bono}`, { liked: newLikedState })
+            .then(response => {
+                if(response.status === 200) {
+                    setPost({...post, liked: newLikedState, likeCount: post.likeCount + (newLikedState ? 1 : -1)});
+                }
+            })
+            .catch(error => {
+                console.error('Error updating like', error);
+            });
     };
 
     // 댓글 작성 모드인지 여부를 나타내는 상태
@@ -289,7 +300,7 @@ function App({ }) { // currentUser
                                                 {/* 좋아요 버튼 */}
                                                 <button className='like-button' onClick={handleLikeClick}>
                                                     <img
-                                                        src={liked ? likeButtonOn : likeButtonDefault}
+                                                        src={post.liked ? likeButtonOn : likeButtonDefault}
                                                         alt="Like Button"
                                                         className="like-btn"
                                                     />
@@ -380,7 +391,7 @@ function App({ }) { // currentUser
                     )}
 
                 </div>
-                <Link to="/board/boardList" className='link'>
+                <Link to="/board/boardList">
                     <div className='submit-btn'>
                         <button className='out'>나가기</button>
                     </div>

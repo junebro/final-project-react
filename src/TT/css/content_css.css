@@ -121,3 +121,42 @@
     border-radius: 15px;
   }
 }
+/* 항목 미기입시 버튼 */
+.button_none {
+  text-decoration: none;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  border: none;
+  background-color: beige;
+  width: 100vw;
+  height: 50px;
+  font-size: 30px;
+  font-weight: bolder;
+  color: green;
+  margin-top: 3%;
+}
+
+/* 마지막 페이지 버튼 */
+.button_name {
+  width: 100%;
+}
+
+/* 마지막 페이지 인풋 박스 */
+
+.input_name {
+  margin-top: 100px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid green;
+  width: 200px;
+  font-size: 24px;
+}
+
+/*  안내문구 스타일 */
+
+.span_enlarge {
+  font-size: 16px;
+  font-weight: bolder;
+  color: green;
+}

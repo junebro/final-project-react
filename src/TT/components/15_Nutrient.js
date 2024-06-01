@@ -17,6 +17,28 @@ function App() {
     responseData,
     userName,
   } = useContext(NutriContext);
+
+  let disease = "";
+
+  switch (selectedDisease) {
+    case 1:
+      disease = "해당없음";
+    case 2:
+      disease = "비만";
+    case 3:
+      disease = "당뇨";
+    case 4:
+      disease = "고혈압";
+    case 5:
+      disease = "골다공증";
+    case 6:
+      disease = "콜레스테롤";
+    case 7:
+      disease = "고중성지방";
+    case 8:
+      disease = "지방간";
+  }
+
   var gender = "";
   if (!responseData) {
     return <div className="customerInfo">Loading...</div>;
@@ -46,6 +68,32 @@ function App() {
   );
   const proteinRate = Math.floor((responseData.proteinRate / calc) * 100);
   const fatRate = Math.floor((responseData.fatRate / calc) * 100);
+
+  // 칼로리 계산 구역
+  const calcorie_calc = () => {
+    const result =
+      (responseData.calories / (responseData.requiredCalories * 2)) * 100;
+    return result;
+  };
+
+  const calcorie_message = () => {
+    let message = "";
+    let html = "";
+    const cl = responseData.calories;
+    const rcl = responseData.requiredCalories;
+
+    if (cl > rcl) {
+      message =
+        "칼로리 과다 섭취는 건강에 해를 끼칠 수 있습니다. 지나친 섭취는 체중 증가와 다양한 질병의 위험을 높일 수 있으니 주의가 필요합니다. 식사를 할 때 음식의 양과 종류를 신중하게 선택하여 건강한 식습관을 유지하는 것이 중요합니다. 균형 잡힌 식단과 적절한 운동을 통해 건강을 유지하세요.!";
+      html = <div style={{ fontSize: "24px", color: "red" }}>&nbsp;과다</div>;
+    } else if (cl < rcl) {
+      message =
+        "칼로리를 적정하게 유지하고 있는 당신을 칭찬합니다! 건강한 식습관을 유지하면서 몸과 마음을 케어하는 당신의 노력은 대단합니다. 적절한 칼로리 섭취는 건강한 생활의 중요한 요소이며, 당신의 노력은 당신의 건강을 지키는 데 큰 도움이 됩니다. 계속해서 이렇게 건강한 습관을 유지해 나가면서 더욱 좋은 결과를 얻을 수 있을 것입니다. 축하합니다!";
+      html = <div style={{ fontSize: "24px", color: "Green" }}>&nbsp;적정</div>;
+    }
+
+    return { message, html };
+  };
   // 나트륨 비율 계산
   const Sodium_calc = () => {
     let sodium_indicator = (responseData.sodium / 5) * 100;
@@ -71,7 +119,9 @@ function App() {
     } else if (sl < 1.5) {
       message =
         "나트륨 부족은 신체의 전해질 균형을 무너뜨려 어지럼증, 피로, 근육 경련, 저혈압 등의 증상을 초래할 수 있습니다. 심할 경우, 혼란, 발작 등의 심각한 문제를 유발할 수 있습니다. 균형 잡힌 식단으로 적절한 나트륨을 섭취하여 건강을 유지하세요.";
-      html = <div style={{ fontSize: "24px", color: "Green" }}>&nbsp;부족</div>;
+      html = (
+        <div style={{ fontSize: "24px", color: "#FFC939" }}>&nbsp;부족</div>
+      );
     }
 
     return { message, html };
@@ -81,9 +131,9 @@ function App() {
   const dietaryFiber_calc = () => {
     let dietaryFiber_indicator = 0;
     if (nutriGenderState == 1) {
-      dietaryFiber_indicator = ((responseData.dietaryFiber * 1) / 55) * 100;
+      dietaryFiber_indicator = ((responseData.dietaryFiber * 1) / 110) * 100;
     } else if (nutriGenderState == 2) {
-      dietaryFiber_indicator = ((responseData.dietaryFiber * 1) / 50) * 100;
+      dietaryFiber_indicator = ((responseData.dietaryFiber * 1) / 100) * 100;
     }
     return dietaryFiber_indicator;
   };
@@ -93,7 +143,7 @@ function App() {
     let html = "";
     let dl = responseData.dietaryFiber;
 
-    if (dl > 55) {
+    if (dl >= 55) {
       message =
         "식이섬유를 과다하게 섭취하면 소화 문제를 유발할 수 있습니다. 소화기 건강을 유지하기 위해 매일 권장 섭취량을 초과하지 않도록 주의하세요. 과다한 섬유는 변비, 복통, 가스 등을 유발할 수 있습니다. 균형 잡힌 식단을 유지하고 적당량의 섬유를 섭취하세요.";
       html = <div style={{ fontSize: "24px", color: "red" }}>&nbsp;과다</div>;
@@ -104,7 +154,9 @@ function App() {
     } else if (dl < 20) {
       message =
         "식이섬유가 부족하면 소화 문제가 발생할 수 있으며 변비, 소화불량, 체중증가 등의 위험이 증가할 수 있습니다. 부족한 식이섬유는 심장 질환, 당뇨병, 대장암 등의 만성질환 발병 위험도 증가시킬 수 있습니다. 채소, 과일, 곡물 등 다양한 식품을 섭취하여 하루에 적어도 25g 이상의 식이섬유를 섭취하도록 노력하세요. 건강한 식단으로 소화 건강을 유지하고 심장과 전반적인 건강을 지키세요.";
-      html = <div style={{ fontSize: "24px", color: "Green" }}>&nbsp;부족</div>;
+      html = (
+        <div style={{ fontSize: "24px", color: "#FFC939" }}>&nbsp;부족</div>
+      );
     }
 
     return { message, html };
@@ -158,7 +210,7 @@ function App() {
       message =
         "적정 단백질 섭취로 건강을 지키는 당신, 정말 멋져요! 계속 유지하세요!";
       html = (
-        <div style={{ fontSize: "24px", color: "yellow" }}>&nbsp;부족</div>
+        <div style={{ fontSize: "24px", color: "#FFC939" }}>&nbsp;부족</div>
       );
     }
     return { message, html };
@@ -184,7 +236,7 @@ function App() {
         </div>
         <div>
           <p className="pt_1">질병</p>
-          <p>{selectedDisease}</p>
+          <p>{disease}</p>
         </div>
         <div>
           <p className="pt_1">고객 정보</p>
@@ -202,16 +254,68 @@ function App() {
         추천 섭취 비율 : 탄수화물 55~65% , 단백질 7~20% , 지방 20~30%
       </div>
       <br />
-      <div>
-        {userName} 님의 섭취 비율은 탄수화물 {carbohydrateRate}% , 단백질{" "}
-        {proteinRate}%, 지방 {fatRate}% 입니다.
+      <div className="nutri_guide_1">
+        <span className="span_enlarge">{userName}</span> 님의 섭취 비율은
+        탄수화물 <span className="span_enlarge">{carbohydrateRate}%</span> ,
+        단백질 <span className="span_enlarge">{proteinRate}%</span>, 지방{" "}
+        <span className="span_enlarge">{fatRate}% </span>입니다.
+        <br />
+        <br />
+        올바른 영양 섭취는 건강한 생활의 핵심입니다. 균형 잡힌 식단을 위해
+        탄수화물, 단백질, 지방의 적절한 비율을 유지하는 것이 중요합니다.
+        탄수화물은 에너지의 주요 원천으로, 식사 중 &nbsp;
+        <span className="span_enlarge">55~65%</span>의 섭취가 권장됩니다.
+        단백질은 근육 유지와 성장에 중요하며, 식사 중
+        <span className="span_enlarge">7~20%</span>% 정도를 섭취해야 합니다.
+        지방은 에너지와 영양소 흡수에 필요하지만, 과도한 섭취는 건강에 해를 끼칠
+        수 있으므로 <span className="span_enlarge">20~30%</span>
+        %로 제한하는 것이 좋습니다. 이 비율을 유지하면서 식단을 다양하게
+        구성하여 영양소를 균형 있게 섭취하는 것이 좋습니다. 건강한 식습관을
+        유지하고 몸과 마음을 케어하세요.
       </div>
       <br />
       <br />
-      <br />
-      <div style={{ fontSize: "30px" }}>{userName}님의 영양소 섭취 상태</div>
+      <div style={{ fontSize: "30px" }}>{userName}님의 영양 섭취 상태</div>
       <div style={{ marginLeft: "10%" }}>
         <ul>
+          <li>
+            <div className="wrapper">
+              <div className="left">칼로리 {calcorie_message().html}</div>
+              <div className="right">
+                <div className="bar_info">
+                  <div style={{ height: "100%", width: "15%" }}></div>
+                  <div
+                    style={{ height: "100%", width: "20%", textAlign: "right" }}
+                  >
+                    {Math.floor(responseData.requiredCalories)}kcal
+                  </div>
+                  <div
+                    style={{ height: "100%", width: "65%", textAlign: "left" }}
+                  ></div>
+                </div>
+                <div className="bar_container">
+                  <div className="bar yellow cholesterol">적정</div>
+                  <div className="bar red">과다</div>
+                  <div
+                    className="bar_indicator"
+                    style={{
+                      left: `${calcorie_calc()}%`,
+                    }}
+                  ></div>
+                  <div className="bar_text">칼로리 적정 섭취량</div>
+                </div>
+              </div>
+            </div>
+            <div className="nutri_guide">
+              {userName}님의 칼로리 섭취량은 일일 권장량의&nbsp;
+              {Math.floor(
+                (responseData.calories / responseData.requiredCalories) * 100
+              )}
+              % 입니다.
+              <br />
+              {calcorie_message().message}
+            </div>
+          </li>
           <li>
             <div className="wrapper-1">
               <div className="left">나트륨 {Sodium_message().html} </div>
@@ -245,8 +349,8 @@ function App() {
             </div>
             <div className="nutri_guide">
               {userName}님의 나트륨 섭취량은{" "}
-              {Math.floor(responseData.sodium * 1000)}g, 일일 최대 섭취 권장량의{" "}
-              {sodium_indicator}% 입니다.
+              {Math.floor(responseData.sodium * 1000)}mg, 일일 최대 섭취
+              권장량의 {sodium_indicator}% 입니다.
               <br />
               {Sodium_message().message}
             </div>
@@ -316,7 +420,7 @@ function App() {
             </div>
             <div className="nutri_guide">
               {userName}님의 콜레스테롤 섭취량은 일일 권장량의{" "}
-              {cholesterol_indicator}% 입니다.
+              {Math.floor((responseData.cholesterol / 0.6) * 100)}% 입니다.
               <br />
               {cholesterol_message().message}
             </div>

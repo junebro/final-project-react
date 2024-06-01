@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 
 // Modal 컴포넌트에 대한 접근성 설정
 // React Modal 라이브러리를 사용할 때는 앱의 Root 요소를 설정해야 함
 Modal.setAppElement('#root');
 
-const PaymentModal = ({ orderDetails, closeModal }) => {
+const PaymentModal = ({ closeModal }) => {
+
   useEffect(() => {
     // 토스페이먼츠 SDK 스크립트를 동적으로 페이지에 추가하는 부분
     const script = document.createElement('script');
@@ -32,17 +33,27 @@ const PaymentModal = ({ orderDetails, closeModal }) => {
     const clientKey = 'test_ck_D5GePWvyJnrK0W0k6q8gLzN97Eoq';
     const tossPayments = new window.TossPayments(clientKey);
 
+    const loadedCartDetails = localStorage.getItem('cartDetails');
+    const loadedOrderDetails = localStorage.getItem('orderDetails');
+
+    const orderDetails = JSON.parse(loadedOrderDetails);
+    const CartDetails = JSON.parse(loadedCartDetails);
+    const successUrl = new URL('http://localhost:3000/order/success');
+    // successUrl.searchParams.append('cartDetails', JSON.stringify(loadedCartDetails));
+    // successUrl.searchParams.append('orderDetails', JSON.stringify(loadedOrderDetails));
+
+
     // 토스페이먼츠 결제창을 요청하는 함수
     tossPayments.requestPayment('카드', {
-      amount: orderDetails.amount, // 결제 금액
-      orderId: orderDetails.orderId, // 주문 ID
-      orderName: orderDetails.orderName, // 주문명
-      customerName: orderDetails.customerName, // 고객 이름
-      successUrl: 'https://docs.tosspayments.com/guides/payment/test-success', // 결제 성공 시 이동할 URL
-      failUrl: 'https://docs.tosspayments.com/guides/payment/test-fail', // 결제 실패 시 이동할 URL
-    }).catch(function (error) {
+      //amount: orderDetails.ordpr,
+      amount: 100,
+      orderId: orderDetails.ordno,
+      orderName: "orderName",
+      successUrl: successUrl.toString(),
+      failUrl: 'http://localhost:3000/fail',
+    }).catch(error => {
       console.error(error);
-      closeModal(); // 에러 발생 시 모달 닫기 함수 호출
+      closeModal();
     });
   };
 

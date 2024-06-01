@@ -48,11 +48,6 @@ function App() {
     };
 
 
-    function fn_out() {
-        // 나가기
-    }
-
-
     return (
         <>
             <Navi />
@@ -88,7 +83,7 @@ function App() {
                         </div>
 
                         <div className='submit-btn'>
-                            <Link to="/board/boardList" className='link'>
+                            <Link to="/board/boardList">
                                 <button className='out' type='button'>나가기</button>
                             </Link>
                             <button className='submit' type='submit' id='submit' >등록하기</button>

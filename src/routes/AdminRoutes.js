@@ -1,11 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Main from "../main/main";
+import AdminProduct from "../admin/adminProduct";
+
 
 const MainRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/*" element={<AdminProduct />} />
     </Routes>
   );
 };
