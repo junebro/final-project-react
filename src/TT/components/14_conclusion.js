@@ -5,9 +5,6 @@ import { NutriContext } from "../Nutri_Context";
 
 function App() {
   const [error, setError] = useState(null); // 에러상태
-
-  const [userName, setUserNameInput] = useState(""); // 입력 필드의 상태를 관리하는 상태 변수
-
   const {
     nutriGenderState,
     nutriAge,
@@ -25,13 +22,14 @@ function App() {
     drag5Items,
     drag6Items,
     setResponseData,
+    userName,
     setUserName,
   } = useContext(NutriContext);
 
   const maps = new Map();
 
   const handleInputChange = (event) => {
-    setUserNameInput(event.target.value); // 입력 필드 값이 변경될 때 상태 업데이트
+    setUserName(event.target.value); // 입력 필드 값이 변경될 때 상태 업데이트
   };
 
   const sendDataToServer = () => {
@@ -54,8 +52,6 @@ function App() {
       drag5Items,
       drag6Items,
     };
-
-    setUserName(userName);
 
     Object.keys(data02).forEach((dragKey) => {
       const dropItems = data02[dragKey];
@@ -136,14 +132,19 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="center_container_1">
       <div>설문이 끝났습니다</div>
       <div>고객님의 이름 또는 닉네임을 적어주세요!</div>
-      <input type="text" value={userName} onChange={handleInputChange}></input>
-      <div>
+      <input
+        className="input_name"
+        type="text"
+        value={userName}
+        onChange={handleInputChange}
+      ></input>
+      <div className="button_name">
         <Link
           to="/nutri/nutri/content15"
-          className="next_button"
+          className="next_button "
           onClick={sendDataToServer}
         >
           <span>제출</span>
