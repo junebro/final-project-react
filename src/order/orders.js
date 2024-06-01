@@ -5,19 +5,37 @@ import Navi from '../common/navigation';
 import Footer from '../common/footer';
 
 import PopupDom from '../member/popupDom';
-import PopupPostCode from '../member/PopupPostCode';
+import PopupDom01 from '../member/popupDom';
+
+import PopupPostCode from '../member/PopupPostCode'; 
+import PopupPostCode01 from '../member/PopupPostCode'; 
+
 import { addressData } from '../member/PopupPostCode';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
+import { ItemProvider, useItem } from '../common/contexts/OrderContext';
 
 import PaymentModal from './PaymentModal';  
 
+
+function App() {
+    return (
+        <ItemProvider>
+            <Order/>
+        </ItemProvider>
+    );
+  }
+
 function Order() {
 
+    const memberItem = useItem().item; // 전체 카트 목록을 가져옵니다.
     const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
     const location = useLocation();
     const { cartItems } = location.state || {}; // state가 undefined일 경우를 대비한 기본값 설정
-    console.log(cartItems);
+    // propr 값 합계 계산
+    const totalPropr = cartItems ? cartItems.reduce((total, item) => total + item.propr, 0) : 0;
+    // 총 금액에 3000원 추가
+    const finalAmount = totalPropr + 3000;
     let [data, setData] = useState('');
     let [data1, setData1] = useState('');
 
@@ -28,19 +46,17 @@ function Order() {
     };
 
     const handleClic2k = () => {
-        setData('333');
         setData1('444');
     };
 
     useEffect(() => {
+        console.log(addressData);
         if (data == '111' && data1 == '222') {
             setData(addressData);
-        } else if (data == '333' && data1 == '444') {
+        } else if (data1 == '444') {
             setData1(addressData);
         }
     }, [addressData]);
-
-
 
     // 팝업창 상태 관리
     const [isBuyerPopupOpen, setBuyerIsPopupOpen] = React.useState(false)
@@ -72,7 +88,6 @@ function Order() {
     /* 체크 박스 클릭시 데이터 이동 */
 
     const checkboxRef = useRef();
-
     const infoBuyer = useRef({
         name: '',
         address: '',
@@ -82,7 +97,7 @@ function Order() {
         phoneSecond: '',
         phoneThird: ''
     });
-
+    
     const infoReceiver = useRef({
         name: '',
         address: '',
@@ -91,7 +106,17 @@ function Order() {
         phoneFirst: '010',
         phoneSecond: '',
         phoneThird: ''
-    });
+    });  
+    
+
+    useEffect(() => {
+        
+        if (infoBuyer.current) {
+          infoBuyer.current.address.value = memberItem?.memAddress || "";
+          infoBuyer.current.addressDetail.value = memberItem?.detailAddress || "";
+        }
+      }, [memberItem]); // memberItem.memAddress가 변경될 때마다 실행
+
     const handleCopyInfo = () => {
         
         if (checkboxRef.current.checked) {
@@ -109,79 +134,88 @@ function Order() {
         }
     };
     
-
-
     /* 결제 방법 버튼 이벤트 */
-    
     /* 모달 */
     const [orderDetails, setOrderDetails] = useState({
-        memno: 25300000000,     // 고객 ID (고객 테이블과의 Foreign Key)
-        ordpr: {user},          // 주문 총액
-        ordst: '01'             // 주문 상태 (예: 주문 완료", "배송 중", "배송 완료")
+        memno: user,    // 고객 ID (고객 테이블과의 Foreign Key)
+        totalAmount: finalAmount,   // 주문 총액
+    });
+    
+    // 상품 정보를 모달에 보내기 위해
+    const [cartDetails, setCartDetails] = useState(cartItems);
+    const [orderData, setorderData] = useState({
+        memno: user,            // 고객 ID (고객 테이블과의 Foreign Key)
+        ordpr: finalAmount,     // 주문 총액
+        ordst: '01'             // 주문 상태 01 : 결제 전, 02 : 결제 완료
+    });
 
-      });
-
-      const [orderData, setorderData] = useState({
-        memno: 25300000000,     // 고객 ID (고객 테이블과의 Foreign Key)
-        ordpr: {user},          // 주문 총액
-        ordst: '01'             // 주문 상태 (예: 주문 완료", "배송 중", "배송 완료")
-
-      });
-
-      const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const token = localStorage.getItem('authToken');
 
 
     // 결제 버튼 클릭시 주문 테이블에 컬럼 생성
     const handlePaymentClick = () => {
 
-        fetch('/orders/isertorder', {
+        // if ( infoBuyer.current.name.value == "" || infoBuyer.current.addressPost.value == "" || infoBuyer.current.address.value == "" || infoBuyer.current.addressDetail.value == "" ) {
+        //     alert("구매자 정보를 입력해 주세요.");
+        //     return;
+        // }
+
+        // if ( infoReceiver.current.name.value == "" || infoReceiver.current.addressPost.value == "" || infoReceiver.current.address.value == "" || infoReceiver.current.addressDetail.value == "" ) {
+        //     alert("받는사람 정보를 입력해 주세요.");
+        //     return;
+        // }
+        
+        // if (infoReceiver.current.phoneSecond.value == "" || infoReceiver.current.phoneThird.value == "") {
+        //     alert("받는사람 핸드폰 번호를 입력해 주세요.")
+        //     return;
+        // }
+           
+        setorderData({
+            ...orderData, // 이전 상태를 먼저 spread 연산자로 가져옵니다.
+            ordnm: infoBuyer.current.name.value,
+            ordzc: infoBuyer.current.addressPost.value,
+            ordar: infoBuyer.current.address.value,
+            orddar: infoBuyer.current.addressDetail.value,
+            ordph: infoBuyer.current.phoneFirst.value + infoBuyer.current.phoneSecond.value + infoBuyer.current.phoneThird.value,
+            ordbynm: infoReceiver.current.name.value,
+            ordbyzc: infoReceiver.current.addressPost.value,
+            ordbyar: infoReceiver.current.address.value,
+            ordbydar: infoReceiver.current.addressDetail.value,
+            ordbyph: infoReceiver.current.phoneFirst.value + infoReceiver.current.phoneSecond.value + infoReceiver.current.phoneThird.value
+        });
+       
+        fetch('/orders/insertorder', {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                },
             body: JSON.stringify(orderData)
-          }).then(response => {
+            }).then(response => {
             if (response.ok) {
-              return response.json();
+                return response.json();
             } else {
-              throw new Error('Failed to create order');
+                throw new Error('Failed to create order');
             }
-          }).then(order => {
-            // 주문 생성이 완료되면 결제 시도
-            //setOrderDetails(order);
-            setShowModal(true);
-          }).catch(error => {
+            }).then(order => {
+                const loadedCartDetails = JSON.parse(localStorage.getItem('cartDetails'));
+                //const loadedOrderDetails = JSON.parse(localStorage.getItem(order));
+                localStorage.setItem('orderDetails', JSON.stringify(order)); 
+                localStorage.setItem('cartDetails', JSON.stringify(cartDetails)); 
+
+
+                
+                // localStorage.setItem('cartDetails', JSON.stringify(cartDetails));
+                // localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+                // 주문 생성이 완료되면 결제 시도
+                setCartDetails(loadedCartDetails);
+                setOrderDetails(order);
+                setShowModal(true);
+            }).catch(error => {
             console.error('Error creating order:', error);
-          });
-
+        });
     }
-
-    // 표시할 텍스트의 인덱스를 저장하는 state
-    const [activeTextIndex, setActiveTextIndex] = useState(null);
-
-    // 공통 클릭 핸들러: 인덱스에 따라 상태를 업데이트
-    const handleClick = (index) => {
-        // 이미 활성화된 버튼을 다시 클릭하면 모든 텍스트 숨기기
-        if (activeTextIndex === index) {
-            setActiveTextIndex(null);
-        } else {
-            setActiveTextIndex(index);
-        }
-    };
-
-    const paymentStyle = {
-        cursor: 'pointer',
-        backgroundColor: '#4CAF50',
-        color: 'white',
-        padding: '10px 120px',  
-        textAlign: 'center',
-        borderRadius: '5px',
-        margin: '20px 250px'
-    };
-
-
-
-
     return(
         <div style={{backgroundColor:'white'}}>
             <Navi />
@@ -198,7 +232,7 @@ function Order() {
                 <div className="form-group">
                     <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoBuyer.current.addressPost = el} value={data.zonecode} />
+                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoBuyer.current.addressPost = el} value={data?.zonecode ?? memberItem?.zonecode ?? null} />
                         <button type="button" id="post-btn" className="post-btn"
                             onClick={openByerPostCode}>우편번호 찾기</button>
                         {/* // 팝업 생성 기준 div */}
@@ -219,7 +253,7 @@ function Order() {
                             <input id="road-name" className="order-adress-text" ref={(el) => infoBuyer.current.address = el} placeholder="도로명주소" value={data.address} />
                         </div>
                         <div style={{marginBottom:'10px'}}>
-                            <input id="address-detail" className="order-adress-text" ref={(el) => infoBuyer.current.addressDetail = el} placeholder="상세주소"  /> 
+                            <input id="address-detail" className="order-adress-text" ref={(el) => infoBuyer.current.addressDetail = el} placeholder="상세주소" /> 
                         </div>
                     </div>
                 </div>          
@@ -257,15 +291,15 @@ function Order() {
                 <div className="form-group">
                     <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoReceiver.current.addressPost = el} value={data1.zonecode} />
+                        <input className="order-test-text-test" placeholder="우편번호" ref={(el1) => infoReceiver.current.addressPost = el1} value={data1.zonecode} />
                         <button type="button" id="post-btn" className="post-btn"
                             onClick={openPostCode}>우편번호 찾기</button>
                         {/* // 팝업 생성 기준 div */}
-                        <div id='popupDom' className='order-bottom-popupDom'>
+                        <div id='PopupDom01' className='order-bottom-popupDom01'>
                             {isPopupOpen && (
-                                <PopupDom>
-                                    <PopupPostCode onClose={closePostCode} />
-                                </PopupDom>
+                                <PopupDom01>
+                                    <PopupPostCode01 onClose={closePostCode} />
+                                </PopupDom01>
                             )}
                         </div>
                     </div>
@@ -281,7 +315,7 @@ function Order() {
                             <input id="address-detail" className="order-adress-text" ref={(el) => infoReceiver.current.addressDetail = el}  placeholder="상세주소" /> 
                         </div>
                     </div>
-                </div>                      
+                </div>
 
                 <div className="phone-box">
                     <label className='order-customer-label'>핸드폰 번호:</label>
@@ -290,7 +324,7 @@ function Order() {
                             <option value="010">010</option>
                             <option value="011">011</option>
                             <option value="016">016</option> 
-                        </select>
+                        </select> 
                         -    
                         <input className="order-phone-text" type="text" name="phone2" ref={(el) => infoReceiver.current.phoneSecond = el}/>
                         -
@@ -324,17 +358,6 @@ function Order() {
                     </ul>
                     <div className='line'></div>
                   </div>
-                    
-                    // <div className='ord-products-container'>
-                    //     <div>
-                    //         <img className='ord-img-product' src={require(`../images/products/${product.proimg}.jpg`)} alt={product.proimg}/>
-                    //     </div>
-                    //     <div>{product.crtcd}</div>
-                    //     <div>{product.crtqt}</div>
-                    //     <div>{product.pronm}</div>
-                    //     <div>{product.propr}</div>
-                        
-                    // </div>
                 ))}
                 
                 <div style={{marginTop:'30px'}} className='line-bold'></div>
@@ -342,7 +365,7 @@ function Order() {
                 <div className='line' style={{marginTop:'10px', marginBottom:'30px'}}/>
                 <div className="form-group-bottom">
                     <label className='order-payament-label'>상품 금액</label>
-                    <a>187,000원</a>
+                    <a>{totalPropr.toLocaleString()}원</a>
                 </div>
                 <div className="form-group-bottom">
                     <label className='order-payament-label'>배송비</label>
@@ -350,32 +373,23 @@ function Order() {
                 </div>
                 <div className="form-group-bottom">
                     <label className='order-payament-label'>총 금액</label>
-                    <a>19,000원</a>
+                    <a>{finalAmount.toLocaleString()}원</a>
                 </div>
-                {/* <div className="form-payment-info">
-                    <label className='order-payament-choice'>결제 방법</label>
-                    <div className='choice-button' onClick={() => handleClick(1)}>계좌 이체</div>
-                    <div className='choice-button' onClick={() => handleClick(2)}>신용/체크카드</div>
-                    <div className='choice-button' onClick={() => handleClick(3)}>무통장 입금</div>
-                </div>
-
-                {activeTextIndex === 1 && <div style={paymentStyle}>Text for Button 01</div>}
-                {activeTextIndex === 2 && <div style={paymentStyle}>Text for Button 02</div>}
-                {activeTextIndex === 3 && <div style={paymentStyle}>Text for Button 03</div>}
-                 */}
+              
+                 <div style={{marginTop:'30px'}} className='line-bold'></div>
                 <div className='payment-button-section'>
-                    <button className='payment-button' type="button" onClick={handlePaymentClick}>결제 하기1</button>
+                    <button className='payment-button' type="button" onClick={handlePaymentClick}>결제 하기</button>
                 </div>
             </form>
             {showModal && (
                 <PaymentModal
-                orderDetails={orderDetails}
+                // orderDetails={orderDetails} cartDetails={cartDetails}
                 closeModal={() => setShowModal(false)}
-                />
+              />
             )}
             <Footer />
         </div>
     )
 }
 
-export default Order;
+export default App;

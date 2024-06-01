@@ -79,7 +79,6 @@ const checkEmailAvailability = (newEmail) => {
     fetch(`/join/check/email?newEmail=${encodedEmail}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data) {
             setEmailAvailable(true);
             setEmailError('존재하지 않는 이메일입니다.');
