@@ -2,6 +2,10 @@ body {
     background-color: #FAFAFA;
 }
 
+.search-container{
+    display: flex;
+}
+
 /* 게시판 전체 */
 .section-blist {
     width: 100vw;
