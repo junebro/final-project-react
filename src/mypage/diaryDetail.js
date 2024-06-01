@@ -7,9 +7,11 @@ import React, { useState, useRef, useEffect, createRef  } from 'react';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
+import { useAuth } from '../common/contexts/AuthContext';
 
 function App() {
-   
+
+    const { user, logout } = useAuth(); 
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const date = searchParams.get('date');
@@ -38,14 +40,14 @@ function App() {
 
     /* 동적 라디오 버튼 */
     const radioButtons = [
-        { id: 1, label: 'Option 1', imgSrc: require("./../images/member/status/weightloss.png"), value: "weightloss"},
-        { id: 2, label: 'Option 2', imgSrc: require("./../images/member/status/weight_gain.png"), value: "weight_gain" },
-        { id: 3, label: 'Option 3', imgSrc: require("./../images/member/status/flexitarian.png"), value: "flexitarian" },
-        { id: 4, label: 'Option 4', imgSrc: require("./../images/member/status/exercise.png"), value: "exercise" },
-        { id: 5, label: 'Option 5', imgSrc: require("./../images/member/status/5.png"), value: "5" },
-        { id: 6, label: 'Option 6', imgSrc: require("./../images/member/status/6.png"), value: "6" },
-        { id: 7, label: 'Option 7', imgSrc: require("./../images/member/status/7.png"), value: "7" },
-        { id: 8, label: 'Option 8', imgSrc: require("./../images/member/status/8.png"), value: "8" },
+        { id: 1, label: '살빠짐', imgSrc: require("./../images/member/status/weightloss.png"), value: "weightloss"},
+        { id: 2, label: '유지어터', imgSrc: require("./../images/member/status/flexitarian.png"), value: "weight_gain" },
+        { id: 3, label: '살쪘어', imgSrc: require("./../images/member/status/weight_gain.png"), value: "flexitarian" },
+        { id: 4, label: '오운완', imgSrc: require("./../images/member/status/exercise.png"), value: "exercise" },
+        { id: 5, label: '목표달성', imgSrc: require("./../images/member/status/goal.png"), value: "5" },
+        { id: 6, label: '단식성공', imgSrc: require("./../images/member/status/Fasting.png"), value: "6" },
+        { id: 7, label: '치팅데이', imgSrc: require("./../images/member/status/cheat_day.png"), value: "7" },
+        { id: 8, label: '폭식함', imgSrc: require("./../images/member/status/voracity.png"), value: "8" },
     ];
 
     // 라디오 버튼의 ref 배열 생성
@@ -117,7 +119,7 @@ const updateItem = async (event) => {
     } else {
 
         const postData = {
-            memno : 28,
+            memno : user,
             diarydetail: diarydetail,
             moodcode: selectedValue,
             diarydate: formattedDate
