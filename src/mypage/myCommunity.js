@@ -1,12 +1,59 @@
 import './../App.css';
 import './myCommunity.css';
-import React from 'react';
+// import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
-
+import { ItemProvider } from '../common/contexts/myCommuContext';
+import { useAuth } from '../common/contexts/AuthContext';
 function App() {
+    return (
+        <ItemProvider>
+            <ItemDisplay/>
+        </ItemProvider>
+    );
+  }
+
+ 
+  function ItemDisplay() {
+    const [items, setItems] = useState([]);
+    const { user } = useAuth();
+    const token = localStorage.getItem('authToken');
+
+    useEffect(() => {
+        // API 호출 함수
+        const fetchItems = async () => {
+            try {
+                const response = await fetch(`http://localhost:8989/mypage/writeList/${user}`, { // user.id가 userNo라 가정
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                 // 날짜 부분만 추출하여 새로운 배열에 저장
+                 const formattedData = data.writeList.map(item => ({
+                    ...item,
+                    bo_create_at: item.bo_create_at.split(' ')[0] // '2024-05-27 14:40:37' -> '2024-05-27'
+                }));
+                setItems(formattedData); // 받아온 데이터를 상태에 저장
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchItems();
+    }, [user, token]);
+
+    
     
      return (
         <div>
@@ -32,8 +79,8 @@ function App() {
                 <h1 className='mypage-title'>커뮤니티 활동</h1>
                 <hr className="title-line" />
                 <div className="community-category">
-                    <div className="write contents-active">
-                        <p>3</p>
+                    <div className="write">
+                        <p className='writeCount'>3</p>
                         <p>작성한 글</p>
                     </div>
                     <div className="like">
@@ -42,28 +89,14 @@ function App() {
                     </div>
                 </div>
                 <div className="contents-list">
+                {items.map((item, index) => (
                     <div className="list-one">
-                        <p>제목제목제목</p>
-                        <span>작성자</span>
-                        <span>2024.04.25</span>
-                        <span>조회수 135</span>
+                        <p>{item.botitle}</p>
+                        <span>{item.memberNick}</span>
+                        <span>{item.bo_create_at}</span>
+                        <span>조회수 {item.viewCount}</span>
                     </div>
-                </div>
-                <div className="contents-list">
-                    <div className="list-one">
-                        <p>제목제목제목</p>
-                        <span>작성자</span>
-                        <span>2024.04.25</span>
-                        <span>조회수 135</span>
-                    </div>
-                </div>
-                <div className="contents-list">
-                    <div className="list-one">
-                        <p>제목제목제목</p>
-                        <span>작성자</span>
-                        <span>2024.04.25</span>
-                        <span>조회수 135</span>
-                    </div>
+                     ))}
                 </div>
             </div>
         </div>

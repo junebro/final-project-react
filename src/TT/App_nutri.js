@@ -60,7 +60,7 @@ const App = () => {
 
   return (
     <NutriProvider>
-      <div className="full-screen-container">
+      <div>
         <br />
         <Top />
         <Routes>
