@@ -81,7 +81,7 @@ const handleChange = (event) => {
 const updateItem = async (event) => {
 
     if (!selectedValue){
-        alert("아이콘 눌러라");
+        alert("스티커를 선택해주세요");
         return;
     } 
     
