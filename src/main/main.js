@@ -11,10 +11,14 @@ import main_bottom_button_4 from "./../images/main/main_bottom_button_4.png";
 import test_image from "./../images/main/test_image.png";
 import bottom_image from "./../images/main/bottom_image.webp";
 
+import { useNavigate } from 'react-router-dom';
 import { useSpring, animated } from "react-spring";
 import { Link } from "react-router-dom";
 
 function App() {
+
+  const navigate = useNavigate();
+
   // 첫 번째 요소의 애니메이션 설정
   const firstProps = useSpring({
     from: { opacity: 0 },
@@ -53,6 +57,11 @@ function App() {
     config: { duration: 1000 }, // 애니메이션 지속 시간 1000ms (1초)
     delay: 1500, // 첫 번째 애니메이션이 거의 끝나갈 때 시작
   });
+
+  const productTypeClick = (type) =>{
+    navigate(`/products/products/${type}`);
+  }
+
 
   return (
     <div className="main-form">
@@ -103,6 +112,7 @@ function App() {
                   className="main_bottom_button main_bottom_button_1"
                   src={main_bottom_button_1}
                   alt="버튼1"
+                  onClick={() => productTypeClick("1")}
                 ></img>
               </div>
               <div style={{ margin: "1%" }}></div>
@@ -111,6 +121,7 @@ function App() {
                   className="main_bottom_button main_bottom_button_2"
                   src={main_bottom_button_2}
                   alt="버튼1"
+                  onClick={() => productTypeClick("2")}
                 ></img>
               </div>
             </div>
@@ -121,6 +132,7 @@ function App() {
                   className="main_bottom_button main_bottom_button_3"
                   src={main_bottom_button_3}
                   alt="버튼3"
+                  onClick={() => productTypeClick("3")}
                 ></img>
               </div>
               <div style={{ margin: "1%" }}></div>
@@ -128,6 +140,7 @@ function App() {
                 <img
                   className="main_bottom_button main_bottom_button_4"
                   src={main_bottom_button_4}
+                  onClick={() => productTypeClick("4")}
                   alt="버튼4"
                 ></img>
               </div>

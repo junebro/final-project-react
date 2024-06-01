@@ -32,7 +32,7 @@ function CartItem({ product, onUpdateCart, onRemoveItem }) {
   const removeItem = (product) => {
 
     const cartData = {
-      mbrno: user.userId,
+      mbrno: user,
       crtcd: product.crtcd
     };
 

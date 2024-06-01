@@ -1,8 +1,8 @@
-//ProductsContext.js
+//OrderContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext'; // 로그인 
 
-const ProductsContext = createContext({ item: null, error: null });
+const OrderContext = createContext({ item: null, error: null });
 
 export const ItemProvider = ({ children }) => {
     const [item, setItem] = useState(null);
@@ -10,8 +10,10 @@ export const ItemProvider = ({ children }) => {
     const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
 
     useEffect(() => {
+    
         const token = localStorage.getItem('authToken');
-        fetch(`http://localhost:8989/products/products/${user}?protp=1`, {
+
+        fetch(`http://localhost:8989/orders/selectorder/${user}`, {
             method: 'GET', // HTTP 메소드 지정
             headers: {
                 'Content-Type': 'application/json', // 콘텐츠 타입 지정
@@ -29,10 +31,10 @@ export const ItemProvider = ({ children }) => {
     }, []);
 
     return (
-        <ProductsContext.Provider value={{ item, error }}>
+        <OrderContext.Provider value={{ item, error }}>
             {children}
-        </ProductsContext.Provider>
+        </OrderContext.Provider>
     );
 };
 
-export const useItem = () => useContext(ProductsContext);
+export const useItem = () => useContext(OrderContext);

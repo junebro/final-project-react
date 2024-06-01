@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext'; // 로그인 
 
-const ProductsContext = createContext({ item: null, error: null });
+const CartContext = createContext({ item: null, error: null });
 
 export const ItemProvider = ({ children }) => {
     const [item, setItem] = useState(null);
@@ -22,10 +22,10 @@ export const ItemProvider = ({ children }) => {
     }, []);
 
     return (
-        <ProductsContext.Provider value={{ item, error }}>
+        <CartContext.Provider value={{ item, error }}>
             {children}
-        </ProductsContext.Provider>
+        </CartContext.Provider>
     );
 };
 
-export const useItem = () => useContext(ProductsContext);
+export const useItem = () => useContext(CartContext);

@@ -19,7 +19,6 @@ import Test from "./routes/TestRoutes";
 function App() {
   return (
     <Routes>
-      <Route path="/nutri/*" element={<NutriRoutes />} />
       <Route path="/" element={<MainRoutes />} />
       <Route path="/board/*" element={<BoardRoutes />} />
       <Route path="/mypage/*" element={<MyPageRoutes />} />
