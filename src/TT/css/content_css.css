@@ -78,6 +78,22 @@
   text-align: center;
 }
 
+/* 마지막 페이지 버튼 */
+
+.link_div {
+  width: 40%;
+  display: flex;
+  justify-content: space-evenly;
+}
+.Links {
+  background-color: none;
+  color: var(--green-color);
+  font-size: 30px;
+  padding: 10px;
+  margin-bottom: 100px;
+  font-weight: bolder;
+}
+
 @media (max-width: 880px) {
   /* 메인화면 가득 채우기 */
   .full-screen-container {
@@ -151,6 +167,7 @@
   border-bottom: 2px solid green;
   width: 200px;
   font-size: 24px;
+  text-align: center;
 }
 
 /*  안내문구 스타일 */

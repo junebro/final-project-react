@@ -36,7 +36,7 @@ function App() {
             onChange={() => CheckOnlyOne(1)}
           />
           <label htmlFor="checkbox1">
-            <span className="checkbox_span">난 술을 안먹어</span>
+            <span className="checkbox_span">술을 거의 먹지 않습니다</span>
           </label>
 
           {/* 체크박스 2 */}
@@ -48,7 +48,7 @@ function App() {
             onChange={() => CheckOnlyOne(2)}
           />
           <label htmlFor="checkbox2">
-            <span className="checkbox_span">두 세달에 한번?</span>
+            <span className="checkbox_span">두 세달에 한번 먹습니다</span>
           </label>
 
           {/* 체크박스 3*/}
@@ -60,7 +60,7 @@ function App() {
             onChange={() => CheckOnlyOne(3)}
           />
           <label htmlFor="checkbox3">
-            <span className="checkbox_span">1달에한번</span>
+            <span className="checkbox_span">한달에 한번 정도 먹습니다</span>
           </label>
 
           {/* 체크박스 4*/}
@@ -72,7 +72,7 @@ function App() {
             onChange={() => CheckOnlyOne(4)}
           />
           <label htmlFor="checkbox4">
-            <span className="checkbox_span">한달에서너번</span>
+            <span className="checkbox_span">한달에 3~4회 먹습니다</span>
           </label>
 
           {/* 체크박스 5*/}
@@ -84,7 +84,7 @@ function App() {
             onChange={() => CheckOnlyOne(5)}
           />
           <label htmlFor="checkbox5">
-            <span className="checkbox_span">일주일에 두세번</span>
+            <span className="checkbox_span">일주일에 2~3회 먹습니다</span>
           </label>
 
           {/* 체크박스 6*/}
@@ -96,7 +96,7 @@ function App() {
             onChange={() => CheckOnlyOne(6)}
           />
           <label htmlFor="checkbox6">
-            <span className="checkbox_span">거의 항상 만취상태</span>
+            <span className="checkbox_span">거의 매일 술을 마십니다</span>
           </label>
         </div>
       </div>

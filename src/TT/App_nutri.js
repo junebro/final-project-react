@@ -21,6 +21,7 @@ import Nutrient from "./components/15_Nutrient.js";
 //  추가할 페이지 임포트 구간
 import { useState, useEffect } from "react";
 import { NutriProvider } from "./Nutri_Context.js";
+import Nav from "./../common/navigation.js";
 
 const App = () => {
   const components = [
