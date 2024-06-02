@@ -74,7 +74,6 @@ const navigate = useNavigate();
 //     checkEmailAvailability(newEmail);
 // }
 
-<<<<<<< HEAD
 // const checkEmailAvailability = (newEmail) => {
 //     const encodedEmail = encodeURIComponent(newEmail);
 //     fetch(`/join/check/email?newEmail=${encodedEmail}`)
@@ -93,25 +92,6 @@ const navigate = useNavigate();
 //     })
 //     .catch(error => console.error('Error:', error));
 // }
-=======
-const checkEmailAvailability = (newEmail) => {
-    const encodedEmail = encodeURIComponent(newEmail);
-    fetch(`/join/check/email?newEmail=${encodedEmail}`)
-    .then(response => response.json())
-    .then(data => {
-        if (data) {
-            setEmailAvailable(true);
-            setEmailError('존재하지 않는 이메일입니다.');
-            setEmailAvailable('red');
-        } else {
-            setEmailAvailable(false);
-            setEmailError('존재하는 이메일입니다.');
-            setEmailAvailable('green');
-        }
-    })
-    .catch(error => console.error('Error:', error));
-}
->>>>>>> c2c2e2932823cd22238a6440274c7c9b1bdfe87e
     return (
         <div>
             <Navi />
