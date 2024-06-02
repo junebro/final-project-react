@@ -93,6 +93,7 @@ function App() {
                   value={checkbox.id}
                   checked={selectedCheckbox === checkbox.id}
                   onChange={() => CheckOnlyOne(checkbox.id)}
+                  autocomplete="off"
                 />
                 <label htmlFor={`checkbox${checkbox.id}`}>
                   <span className="checkbox_span">{checkbox.name}</span>
@@ -101,7 +102,9 @@ function App() {
             ))}
           </div>
           <div className="input_group">
-            <label htmlFor="age">나이</label>
+            <label htmlFor="age" className="label_input">
+              나이
+            </label>
             <input
               type="text"
               id="age"
@@ -110,10 +113,13 @@ function App() {
               required
               minLength={2}
               maxLength={3}
+              autocomplete="off"
             />
           </div>
           <div className="input_group">
-            <label htmlFor="height">키(cm)</label>
+            <label htmlFor="height" className="label_input">
+              키(cm)
+            </label>
             <input
               type="text"
               id="height"
@@ -122,10 +128,13 @@ function App() {
               required
               minLength={2}
               maxLength={3}
+              autocomplete="off"
             />
           </div>
           <div className="input_group">
-            <label htmlFor="weight">몸무게(kg)</label>
+            <label htmlFor="weight" className="label_input">
+              몸무게(kg)
+            </label>
             <input
               type="text"
               id="weight"
@@ -134,6 +143,7 @@ function App() {
               required
               minLength={2}
               maxLength={3}
+              autocomplete="off"
             />
           </div>
         </div>

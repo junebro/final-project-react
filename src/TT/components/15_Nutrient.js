@@ -1,7 +1,9 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { NutriContext } from "../Nutri_Context";
 import "./../css/Nutrient_css.css";
 import Chart from "./chart.js";
+import { Link } from "react-router-dom";
+import { useAuth } from "./../../common/contexts/AuthContext";
 
 function App() {
   const {
@@ -19,6 +21,48 @@ function App() {
   } = useContext(NutriContext);
 
   let disease = "";
+  const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
+  // 데이터베이스 업데이트
+  const sendData02 = () => {
+    const sendData = {
+      calories: responseData.calories,
+      carbohydrate: responseData.carbohydrateRate,
+      protein: responseData.protein,
+      fat: responseData.fat,
+      sodium: responseData.sodium,
+      sugar: responseData.sugar,
+      cholesterol: responseData.cholesterol,
+      dietaryFiber: responseData.dietaryFiber,
+      requiredCalories: responseData.requiredCalories,
+      requiredProtein: responseData.requiredProtein,
+      minProtein: responseData.minProtein,
+      requiredDietaryFiber: responseData.requiredDietaryFiber,
+      carbohydrateRate: responseData.carbohydrateRate,
+      proteinRate: responseData.proteinRate,
+      fatRate: responseData.fatRate,
+
+      memno: user,
+    };
+    console.log(sendData);
+    fetch("/nutri/sendData02", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(sendData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok " + response.statusText);
+        }
+        return response.json();
+      })
+      .then((data) => {})
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   switch (selectedDisease) {
     case 1:
@@ -476,6 +520,16 @@ function App() {
       <br />
       <br />
       <br />
+      <div className="link_div">
+        <div className="Links">
+          <Link to="/">홈페이지로 가기</Link>
+        </div>
+        <div className="Links">
+          <Link to="/" onClick={sendData02}>
+            저장하기
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
