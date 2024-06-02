@@ -3,21 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@nivo/bar": "^0.87.0",
-=======
-
-<<<<<<< HEAD
     "@nivo/bar": "^0.87.0",
-=======
-
-
-
     "@nivo/bar": "^0.87.0",
-
-
->>>>>>> c2c2e2932823cd22238a6440274c7c9b1bdfe87e
->>>>>>> 385aef5932ae3fb70e5b253152e763c7942d3282
     "@nivo/core": "^0.87.0",
     "@nivo/pie": "^0.87.0",
     "@stomp/stompjs": "^7.0.0",
