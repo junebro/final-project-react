@@ -1,4 +1,9 @@
-@import './../css/App.css';
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 
 
 /* css 초기화 */
@@ -41,13 +46,12 @@ li {
 
 
 /* 작은 화면에서 숨김처리 */
-.nav-profile-img,
 .nav-nickName,
 .h1 {
     display: none;
 }
 
-.diaryDetail-section {
+.adminProduct-section {
     background-color: white;
 }
 .mypage-ul li{
@@ -78,16 +82,18 @@ li {
     font-size: 14px;
 }
 
-.diaryDetail-contents {
-    min-height: 1000px;
+.contents {
+    
     padding: 30px;
 }
+
 .mypage-title {
     font-size: 24px;
     font-weight: 700;
     margin-left: 10px;
     color: #005A4E;
 }
+
 .title-line {
     width: 100%;
     border: 1px solid #005A4E;
@@ -95,100 +101,41 @@ li {
 }
 
 /* 템플릿 이후 */
-.status-box {
+.changePw-box {
     width: 100%;
-    margin: 20px 0 50px 0;
+    margin-top: 50px 
+}
+
+.changePw-form {
     display: flex;
-    
-     /* 가로 스크롤 */
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.sticker-item-box {
-    width: 63px;
-    margin-right: 20px;
-    text-align: center;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    
-}
-
-.sticker-item-box input[type=radio]{
-    display: none;
-}
-
-.sticker-item-box img{
-    width: 50px;
-}
-
-
-.sticker-item-box label {
-    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    background-color: #F9F9F9;
-    border-radius: 10px;
+    padding: 20px;
     margin: 0 auto;
-    text-align: center;
-    width: 63px;
-    height: 63px;
-    
-    
-    cursor: pointer;
+
+    max-width: 500px;
 }
 
-.sticker-item-box input[type="radio"]:checked + label {
-    border:2px solid #005A4E;
+.changePw-form p {
+    font-weight: 700;
 }
 
-.sticker-title {
-    font-size: 24px;
-    margin:  5px 0;
-}
+.changePw-form input {
+    height: 50px;
+    border-radius: 10px;
+    margin: 10px 0 20px;
 
-.title-margin {
-    margin: 30px 0;
-}
-
-.diary-detail {
-    width: 100%;
-    min-height: 300px;
-    padding: 40px;
-    margin: 20px 0;
-    background-color: #F9F9F9;
-    border: none;
-    border-radius: 15px;
-    resize: none;
-
-    /* 다예쁨체 적용 */
-    font-family: 'omyu_pretty';
-}
-
-.date-select {
-    height: 45px;
-    margin-right: 20px;
-    border-radius: 5px;
-    border: 1px solid #005A4E;
-    color: #005A4E;
-    background-color: white;
+    border: 1px solid #D9D9D9;
     outline: none;
-    cursor: pointer;
+
+    text-indent: 15px;
 }
 
-.date-select:hover {
-    background-color: #F1FFF2;
-}
-
-.diaryBtn-box {
-    margin: 30px 0;
-    display: flex;
-    justify-content: center;
-}
-
-.diary-submit {
+.changePw-btn {
+    width: 120px;
     height: 45px;
     padding: 0 20px;
+    margin: 20px auto;
     border-radius: 5px;
     border: none;
 
@@ -200,29 +147,28 @@ li {
 
     cursor: pointer;
 }
-/* 날짜에 마진값 주는거 */
-/* .react-calendar__month-view__days button{
-    margin: 5px;
-    margin-inline-end: 5px !important; 
-} */
+
+.changePw-btn:hover {
+    opacity: 0.7;
+}
 
 @media (min-width: 640px) {
 
    
 
-    .diaryDetail-section {
+    .adminProduct-section {
         padding: 0 250px 100px;
         width: 100%;
         display: flex;
-        background-color: #FAFAFA;background-color: #FAFAFA;
+        background-color: #FAFAFA;
         
     }
 
-    .mypage-nav {
+    .nav {
         display: flex;
         flex-direction: column;
         position: sticky;
-        top: 216px;
+        top: 200px;
 
         align-items: center;
         width: 250px;
@@ -233,27 +179,10 @@ li {
         background-color: white;
     }    
 
-
-    .nav-profile-img{
-        display: block;
-        width: 150px;
-        height: 150px;
-        margin-bottom: 20px;
-        border-radius: 100%;
-        background-color: black;
-    }
-
     .nav-nickName {
         font-size: 20px;
         display: block;
     }
-
-    .react-calendarmonth-viewdays button {
-        margin: 50px;
-        margin-inline-end: 10px !important; 
-    }
-
-    
 
     .h1 {
         width: 60%;
@@ -282,30 +211,16 @@ li {
         font-size: 20px;
     }
     
- 
-
     /* 컨텐츠 영역 */
-.diaryDetail-contents{
+.contents{
     width: 80%;
     padding: 50px;
     margin-top: 90px;
-    
+
     border-radius: 15px;
     background-color: white;
 }
 
-
 /* 템플릿 이후 */
-.title {
-    margin-left: 10px;
-    color: #005A4E;
-}
-
-.title-line {
-    width: 100%;
-    border: 1px solid #005A4E;
-    margin: 10px 0;
-}
-
 
 }

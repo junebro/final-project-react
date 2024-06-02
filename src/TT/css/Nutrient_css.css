@@ -146,9 +146,14 @@ li {
 }
 
 .nutri_guide {
-  margin-left: 10%;
+  margin-left: 20%;
   margin-top: 50px;
   width: 60%;
+}
+
+.nutri_guide_1 {
+  margin-top: 50px;
+  width: 40%;
 }
 /* 콜레스테롤은 충분섭취량이 없음 안먹으면좋음 */
 .cholesterol {

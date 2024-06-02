@@ -16,14 +16,14 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <AuthProvider>
-      <ItemProvider>
+      
         <MemberProvider>
           <BoardProvider>
             <App />
             <ChatComponents /> {/* 모든 페이지에서 접근 가능하도록 추가 */}
           </BoardProvider>
         </MemberProvider>
-      </ItemProvider>
+     
     </AuthProvider>
   </BrowserRouter>
 );

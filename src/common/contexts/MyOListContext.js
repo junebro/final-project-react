@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext'; // 로그인 
 
-const MyCommuContext = createContext({ item: null, error: null });
+const MyOListContext = createContext({ item: null, error: null });
 
 export const ItemProvider = ({ children }) => {
     const [item, setItem] = useState(null);
@@ -12,9 +12,10 @@ export const ItemProvider = ({ children }) => {
     useEffect(() => {
 
         const token = localStorage.getItem('authToken');
-        console.log(user);
-        console.log('작성글 조회 로그인멤버 : ' + user);
-        fetch(`http://localhost:8989/mypage/writeList/${user}`, {
+
+        console.log('주문내역 조회 로그인멤버 : ' + user);
+        console.log(item);
+        fetch(`http://localhost:8989/mypage/myOrderList/${user}`, {
             
             method: 'GET', // HTTP 메소드 지정
             headers: {
@@ -33,10 +34,10 @@ export const ItemProvider = ({ children }) => {
     }, []);
 
     return (
-        <MyCommuContext.Provider value={{ item, error }}>
+        <MyOListContext.Provider value={{ item, error }}>
             {children}
-        </MyCommuContext.Provider>
+        </MyOListContext.Provider>
     );
 };
 
-export const useItem = () => useContext(MyCommuContext);
+export const useItem = () => useContext(MyOListContext);

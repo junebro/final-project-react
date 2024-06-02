@@ -82,7 +82,7 @@ export const NutriProvider = ({ children }) => {
 
   const [responseData, setResponseData] = useState(null); // fetch로 받아온 response data 저장용
 
-  const [userName, setUserName] = useState("null"); // fetch로 받아온 response data 저장용
+  const [userName, setUserName] = useState("게스트"); // fetch로 받아온 response data 저장용
 
   return (
     <NutriContext.Provider

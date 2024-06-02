@@ -50,36 +50,55 @@ const navigate = useNavigate();
 };
 
 
-// 이메일 중복 검사
-const [email, setEmail] = React.useState('');
-const [emailError, setEmailError] = React.useState('');
-const [emailAvailable, setEmailAvailable] = React.useState(true);
+// // 이메일 중복 검사
+// const [email, setEmail] = React.useState('');
+// const [emailError, setEmailError] = React.useState('');
+// const [emailAvailable, setEmailAvailable] = React.useState(true);
 
-const handleEmailChange = (event) => {
-    const newEmail = event.target.value;
-    setEmail(newEmail);
+// const handleEmailChange = (event) => {
+//     const newEmail = event.target.value;
+//     setEmail(newEmail);
 
-    // 이메일 유효성 검사
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(newEmail)) {
-        setEmailError('올바른 이메일 주소를 입력하세요.');
-        setEmailAvailable('red');
-        return;
-    } else {
-        // setEmailError('사용 가능한 이메일입니다');
-        // setEmailAvailable('green');
-    }
+//     // 이메일 유효성 검사
+//     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//     if (!emailPattern.test(newEmail)) {
+//         setEmailError('올바른 이메일 주소를 입력하세요.');
+//         setEmailAvailable('red');
+//         return;
+//     } else {
+//         // setEmailError('사용 가능한 이메일입니다');
+//         // setEmailAvailable('green');
+//     }
 
-    // 서버로 이메일 중복 확인 요청 보내기
-    checkEmailAvailability(newEmail);
-}
+//     // 서버로 이메일 중복 확인 요청 보내기
+//     checkEmailAvailability(newEmail);
+// }
 
+<<<<<<< HEAD
+// const checkEmailAvailability = (newEmail) => {
+//     const encodedEmail = encodeURIComponent(newEmail);
+//     fetch(`/join/check/email?newEmail=${encodedEmail}`)
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data);
+//         if (data) {
+//             setEmailAvailable(true);
+//             setEmailError('존재하지 않는 이메일입니다.');
+//             setEmailAvailable('red');
+//         } else {
+//             setEmailAvailable(false);
+//             setEmailError('존재하는 이메일입니다.');
+//             setEmailAvailable('green');
+//         }
+//     })
+//     .catch(error => console.error('Error:', error));
+// }
+=======
 const checkEmailAvailability = (newEmail) => {
     const encodedEmail = encodeURIComponent(newEmail);
     fetch(`/join/check/email?newEmail=${encodedEmail}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data) {
             setEmailAvailable(true);
             setEmailError('존재하지 않는 이메일입니다.');
@@ -92,6 +111,7 @@ const checkEmailAvailability = (newEmail) => {
     })
     .catch(error => console.error('Error:', error));
 }
+>>>>>>> c2c2e2932823cd22238a6440274c7c9b1bdfe87e
     return (
         <div>
             <Navi />
@@ -103,12 +123,12 @@ const checkEmailAvailability = (newEmail) => {
                     <hr />
 
                     <span className="sub-title">이메일</span>
-                    <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span>
+                    {/* <span className="email-message" style={{ color: emailAvailable }}>{emailError}</span> */}
                     <input
                         type="email"
                         id="memberEmail"
-                        value={email}
-                        onChange={handleEmailChange}
+                        // value={email}
+                        // onChange={handleEmailChange}
                         className="input-login"
                         name="memberEmail"
                         placeholder="이메일을 입력해주세요!"

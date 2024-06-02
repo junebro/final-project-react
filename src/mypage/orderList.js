@@ -1,12 +1,21 @@
 import './../App.css';
 import './orderList.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
+import { ItemProvider, useItem } from '../common/contexts/MyOListContext';
+import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
 
 function App() {
+    
+    const [items, setItems] = useState([]);
+    const { user } = useAuth();
+    const token = localStorage.getItem('authToken');
+
+    // const products = useItem().item; // 전체 제품 목록을 가져옵니다.
+    
     return (
         <div>
             <Navi />
