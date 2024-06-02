@@ -283,7 +283,7 @@ const verifyPhoneNumber = () => {
         // 응답 처리
         if (response.status === 200) {
             alert('회원가입이 완료되었습니다.');
-            window.location.href = '/member/join'; // 성공 후 페이지 리디렉션
+            window.location.href = '/member/login'; // 성공 후 페이지 리디렉션
         } else {
             alert('회원가입 실패');
         }

@@ -10,9 +10,7 @@ export const ItemProvider = ({ children }) => {
     const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
 
     useEffect(() => {
-
         const token = localStorage.getItem('authToken');
-
         fetch(`http://localhost:8989/products/products/${user}?protp=1`, {
             method: 'GET', // HTTP 메소드 지정
             headers: {

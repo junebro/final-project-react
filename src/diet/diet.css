@@ -175,3 +175,15 @@
     display: block ;
   }
 }
+
+
+
+.file-choose {
+  margin: 20px 20px;
+  font-size: 14px;
+  color: rgb(91, 176, 255);
+  font-weight: bold;
+  background-color: rgb(215, 229, 255);
+  padding: 10px;
+  border-radius: 15px; /* 원형으로 만들기 */
+}

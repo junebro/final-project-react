@@ -12,7 +12,7 @@ export const ItemProvider = ({ children }) => {
     useEffect(() => {
 
         const token = localStorage.getItem('authToken');
-
+        console.log(user);
         console.log('작성글 조회 로그인멤버 : ' + user);
         fetch(`http://localhost:8989/mypage/writeList/${user}`, {
             

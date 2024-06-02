@@ -139,7 +139,7 @@ li {
 }
 
 .sticker-item-box input[type="radio"]:checked + label {
-    background-color: black;
+    border:2px solid #005A4E;
 }
 
 .sticker-title {

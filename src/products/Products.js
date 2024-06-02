@@ -25,16 +25,14 @@ const ItemDisplay = ({ selectedMenu }) => {
 
   const token = localStorage.getItem('authToken');
   const targetTp = selectedMenu || tp;
+
+  const [checkSelect, getCheckSelect] = useState(tp);
   /* 상품 구분 */
   useEffect(() => {
-
+    getCheckSelect(targetTp);
     // 서버에서 상품 정보 가져오기
     fetch(`http://localhost:8989/products/products/${user}?protp=${targetTp}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
+      method: 'GET'
     })
     .then(response => {
       if (!response.ok) {
@@ -46,7 +44,7 @@ const ItemDisplay = ({ selectedMenu }) => {
       setFilteredProducts(data); // 필터링된 제품 목록을 상태에 설정
     });
 
-  }, [selectedMenu, tp, products]); // 의존성 배열에 selectedMenu, tp, products를 포함시켜 상태 변화를 감지합니다.
+  }, [selectedMenu, products]); // 의존성 배열에 selectedMenu, products를 포함시켜 상태 변화를 감지합니다.
 
   /* 모달 */
   // selectedProduct 상태는 현재 선택된 제품 객체를 저장하며, 모달에 표시될 데이터를 관리합니다. 
@@ -68,6 +66,10 @@ const ItemDisplay = ({ selectedMenu }) => {
   const imageRefs = useRef({});
 
   const cartClick = (procd) => {
+    if (!user) {
+      alert("로그인이 필요한 서비스입니다.");
+      return;
+    }
     const imgRef = imageRefs.current[procd];
     if (imgRef) {
       imgRef.src = imgRef.src === cartImg ? cartClickImg : cartImg;
@@ -122,7 +124,7 @@ const ItemDisplay = ({ selectedMenu }) => {
 
   return (
     <>
-      <h3 className='low-carb-diet'>{selectedMenu ? tpTexts[selectedMenu] : "저당 식단"}</h3>
+      <h3 className='low-carb-diet'>{checkSelect ? tpTexts[checkSelect] : "저당 식단"}</h3>
       <div className="products-container">
         {filteredProducts.map(product => (
           <div key={product.procd} className="product">

@@ -1,12 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
 import './diet.css';
+import parseCSV from '../ai/nutritionData';
 
 import Navi from './../common/navigation';
 import Menu from './../common/menu';
 import Footer from './../common/footer';
+import axios from 'axios';
 
 const Slider = () => {
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState('');
+  const [result, setResult] = useState('');
+  const [nutritionInfo, setNutritionInfo] = useState([]);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    setImageUrl(URL.createObjectURL(file));
+  };
+
+  const handleImageUpload = async () => {
+    const formData = new FormData();
+    formData.append('file', image);
+  
+    try {
+      const response = await axios.post('http://localhost:5000/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      const resultData = response.data;
+  
+      // 상위 5개의 항목 추출
+      const topFiveItems = resultData.slice(0, 5);
+  
+      setResult(topFiveItems);
+      console.log(topFiveItems);
+    } catch (error) {
+      console.error('Error uploading the image:', error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchNutritionData = async () => {
+      const data = await parseCSV();
+      setNutritionInfo(data);
+    };
+    fetchNutritionData();
+  }, []);
+
+  const getNutritionInfo = (category) => {
+    return nutritionInfo.find(item => item.name === category);
+  };
+
 
   const [currentSlide, setCurrentSlide] = useState(0);  // 현재 화면
   
@@ -158,6 +205,38 @@ const Slider = () => {
             </div>
           </div>
           <div className='diet-buy-button'>구매하러 가기</div>
+          <div style={{marginTop:'50px'}}>
+            <h1 style={{textAlign:'center', margin:'20px 0'}}>음식 이미지 분석</h1>
+            <div style={{textAlign:'center'}}>
+              <input type="file" onChange={handleImageChange} className='file-choose'/>
+              {imageUrl && <img src={imageUrl} alt="Uploaded" style={{ width: '300px', marginBottom:'20px' }} />}
+            </div>
+            <div onClick={handleImageUpload} className='diet-buy-button'>내가 먹은 음식은?</div>
+            {result && (
+              <div style={{textAlign:'center'}}>
+                <h2 className='diet-kcal-text'>결과</h2>
+                <div style={{marginBottom:'20px'}}>
+                  {result.slice(0, 5).map((item, index) => (
+                    <div key={index}>
+                      <p className='diet-product-data'>음식명 : {item.category}, 확률 : {(item.probability * 100).toFixed(2)}%</p>
+                    </div>
+                  ))}
+                </div>
+                {result.length > 0 && (
+                  <div style={{textAlign:'center'}}>
+                    <h3 className='diet-kcal-text'>영양 성분</h3>
+                    <p className='diet-product-data'>음식명 : {getNutritionInfo(result[0].category).name}</p>
+                    <p className='diet-product-data'>제공량 : {getNutritionInfo(result[0].category).serving}</p>
+                    <p className='diet-product-data'>칼로리 : {getNutritionInfo(result[0].category).calorie} kcal</p>
+                    <p className='diet-product-data'>탄수화물 : {getNutritionInfo(result[0].category).carbohydrate} g</p>
+                    <p className='diet-product-data'>당류 : {getNutritionInfo(result[0].category).sugar} g</p>
+                    <p className='diet-product-data'>단백질 : {getNutritionInfo(result[0].category).protein} g</p>
+                    <p className='diet-product-data'>지방 : {getNutritionInfo(result[0].category).fat} g</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       <Footer />
     </>
