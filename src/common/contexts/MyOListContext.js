@@ -13,8 +13,8 @@ export const ItemProvider = ({ children }) => {
 
         const token = localStorage.getItem('authToken');
 
-        console.log('주문내역 조회 로그인멤버 : ' + user);
-        console.log(item);
+        // console.log('주문내역 조회 로그인멤버 : ' + user);
+        // console.log(item);
         fetch(`http://localhost:8989/mypage/myOrderList/${user}`, {
             
             method: 'GET', // HTTP 메소드 지정
