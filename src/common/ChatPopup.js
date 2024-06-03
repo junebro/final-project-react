@@ -12,22 +12,34 @@ const ChatPopup = ({ isOpen, onClose }) => {
       console.log("Attempting to connect to WebSocket...");
       connect((msg) => {
         console.log("Message received:", msg);
-        setMessages(prevMessages => [...prevMessages, msg.messageText]);
+        setMessages(prevMessages => {
+          const exists = prevMessages.some(m => m.uid === msg.uid);
+          if (!exists) {
+            return [...prevMessages, { ...msg, isSender: msg.senderId === senderId }];
+          }
+          return prevMessages;
+        });
       });
-      // 예를 들어 로컬 스토리지에서 사용자 ID를 가져옵니다.
+
       const storedSenderId = localStorage.getItem('senderId');
       setSenderId(storedSenderId);
-    }
-    return () => {
+    } else {
       console.log("Disconnecting from WebSocket...");
+      disconnect();
+    }
+
+    return () => {
+      console.log("Cleanup on component unmount...");
       disconnect();
     };
   }, [isOpen]);
 
   const handleSendMessage = () => {
     if (messageText && getIsConnected()) {
-      // 메시지 전송 시 senderId도 함께 전송
-      sendMessage(messageText, senderId);
+      const uid = generateUID(); // 고유 식별자 생성
+      const messageToSend = { messageText, senderId, uid, isSender: true };
+      sendMessage(messageToSend); // 메시지 전송
+      setMessages(prevMessages => [...prevMessages, messageToSend]);
       setMessageText('');
     } else {
       console.error("메세지를 보낼 수 없습니다. Socket이 연결되지 않았습니다.");
@@ -44,7 +56,9 @@ const ChatPopup = ({ isOpen, onClose }) => {
       </div>
       <ul className="messages-list">
         {messages.map((msg, index) => (
-          <li key={index}>{msg}</li>
+          <li key={index} className={msg.isSender ? "message-sent" : "message-received"}>
+            {msg.messageText}
+          </li>
         ))}
       </ul>
       <div className="message-input">
@@ -61,3 +75,13 @@ const ChatPopup = ({ isOpen, onClose }) => {
 };
 
 export default ChatPopup;
+
+function generateUID() {
+    let timeStamp = new Date().getTime();
+    let uid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        let r = (timeStamp + Math.random() * 16) % 16 | 0;
+        timeStamp = Math.floor(timeStamp / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uid;
+}
