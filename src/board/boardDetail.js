@@ -41,41 +41,46 @@ function App() {
             const decodedToken = jwtDecode(token);
             setCurrentUserNo(decodedToken.sub);
         }
-
+    
         // 카카오 SDK 초기화
         if (window.Kakao && !window.Kakao.isInitialized()) {
             window.Kakao.init('5aac0576068e0888bf39059ab53bcb23');
         }
-
-        axios.get(`http://localhost:8989/board/boardDetail/${bono}`) // API 호출
-            .then(response => {
-                console.log("Data fetched:", response.data);  // 콘솔 로그 추가
-                console.log("Local Storage memNo:", localStorage.getItem('memNo'));
-                console.log("Post memNo:", response.data.memNo);
-
-                setPost({
-                    ...response.data,
-                    liked: false // 초기 좋아요 상태를 false로 설정
-                }); // 상태 업데이트
-
-                // 이미지 배열을 생성하고 상태에 설정
-                const postImages = [];
-                if (response.data.boimage01) postImages.push({ src: `${imagesBaseURL}${response.data.boimage01}`, alt: 'image1' });
-                if (response.data.boimage02) postImages.push({ src: `${imagesBaseURL}${response.data.boimage02}`, alt: 'image2' });
-                if (response.data.boimage03) postImages.push({ src: `${imagesBaseURL}${response.data.boimage03}`, alt: 'image3' });
-                setImages(postImages);
-                setExpandedImage(postImages[0] || null); // 첫 번째 이미지를 기본 확대로 설정
-
-                // 댓글 데이터 불러오기
-                return axios.get(`http://localhost:8989/board/comments/${bono}`);
-            })
-            .then(response => {
-                console.log("Comments fetched:", response.data);
-                setComments(response.data); // 댓글 상태 업데이트
-            })
-            .catch(error => {
-                console.error('Error fetching post', error); // 오류 처리
+    
+        axios.get(`http://localhost:8989/board/boardDetail/${bono}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('authToken')}`
+            }
+        })
+        .then(response => {
+            console.log("Data fetched:", response.data);
+            setPost({
+                ...response.data,
+                liked: false
             });
+    
+            const postImages = [];
+            if (response.data.boimage01) postImages.push({ src: `${imagesBaseURL}${response.data.boimage01}`, alt: 'image1' });
+            if (response.data.boimage02) postImages.push({ src: `${imagesBaseURL}${response.data.boimage02}`, alt: 'image2' });
+            if (response.data.boimage03) postImages.push({ src: `${imagesBaseURL}${response.data.boimage03}`, alt: 'image3' });
+            setImages(postImages);
+            setExpandedImage(postImages[0] || null);
+    
+            return axios.get(`http://localhost:8989/board/comments/${bono}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('authToken')}`
+                }
+            });
+        })
+        .then(response => {
+            console.log("Comments fetched:", response.data);
+            setComments(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching post', error);
+        });
+
+        fetchLikeStatus(); // 좋아요 상태 확인
     }, [bono]);
 
 
@@ -106,39 +111,57 @@ function App() {
         setExpandedImage(img); // 확대된 이미지를 설정
     };
 
-    // 좋아요 상태를 관리하는 상태 변수
-    const [liked, setLiked] = useState(false);
+    const likeButton = document.getElementById('likeButton'); // 좋아요 버튼의 ID
 
-    // 좋아요 버튼 클릭 이벤트 핸들러
-    const handleLikeClick = async () => {
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-            alert('로그인이 필요합니다.');
-            navigate('/login');
-            return;
+   // 좋아요 상태 확인 API 호출
+   const fetchLikeStatus = () => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        return;
+    }
+    axios.get(`/board/likes/${bono}/status`, {
+        headers: {
+            Authorization: `Bearer ${token}`
         }
+    })
+    .then(response => {
+        const liked = response.data;
+        setPost(prevPost => ({ ...prevPost, liked }));
+    })
+    .catch(error => {
+        console.error('Error fetching like status:', error);
+    });
+};
 
-        try {
-            const response = await axios.post(
-                `http://localhost:8989/board/likes/${bono}`,
-                {},
-                { headers: { Authorization: `Bearer ${token}` } }
-            );
 
-            if (response.status === 200) {
-                setPost(prev => ({
-                    ...prev,
-                    liked: !prev.liked,
-                    likeCount: prev.likeCount + (prev.liked ? -1 : 1)
-                }));
-            } else {
-                throw new Error('Failed to update like status.');
-            }
-        } catch (error) {
-            console.error('Error updating like', error);
-            alert('좋아요 업데이트 중 오류가 발생했습니다.');
-        }
-    };
+const handleLikeClick = async () => {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+        alert('로그인이 필요합니다.');
+        navigate('/login');
+        return;
+    }
+
+    try {
+        const response = await axios.post(
+            `http://localhost:8989/board/likes/${bono}`,
+            {},
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        setPost(prev => {
+            const isLiked = response.data === 'Like added successfully';
+            return {
+                ...prev,
+                liked: isLiked,
+                likeCount: isLiked ? prev.likeCount + 1 : prev.likeCount - 1
+            };
+        });
+    } catch (error) {
+        console.error('Error updating like', error);
+        alert('좋아요 업데이트 중 오류가 발생했습니다.');
+    }
+};
 
     // 댓글 작성 모드인지 여부를 나타내는 상태
     const [isCommenting, setIsCommenting] = useState(
@@ -267,7 +290,7 @@ function App() {
                 content: {
                     title: post.botitle, // 게시글 제목
                     description: post.bocontent || '설명이 제공되지 않음', // 게시글 설명
-                    imageUrl:imagesBaseURL + post.boimage01, // 첫 번째 이미지를 공유 이미지로 사용
+                    imageUrl: imagesBaseURL + post.boimage01, // 첫 번째 이미지를 공유 이미지로 사용
                     link: {
                         mobileWebUrl: shareUrl,
                         webUrl: shareUrl
