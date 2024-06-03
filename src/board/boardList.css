@@ -4,6 +4,7 @@ body {
 
 .search-container{
     display: flex;
+    align-items: center;
 }
 
 /* 게시판 전체 */
@@ -117,23 +118,30 @@ body {
 
 /* 검색(돋보기) 버튼 */
 .search-btn {
+    position: relative;
     margin-right: 31px;
     background-color: transparent;
     border: none;
     cursor: pointer;
+}
 
-    position: relative;
+.search-btn-default,
+.search-btn-on {
+    position: absolute; /* 부모 요소를 기준으로 절대 위치를 설정 */
+    top: 0;
+    left: 0;
 }
 
 .search-btn-on {
-    position: absolute;
-    top: 1px;
-    left: 6px;
-    display: none;
+    display: none; /* 기본적으로 숨김 */
 }
 
 .search-btn:hover .search-btn-on {
-    display: block;
+    display: block; /* hover 시 표시 */
+}
+
+.search-btn:hover .search-btn-default {
+    display: none; /* hover 시 기본 이미지는 숨김 */
 }
 
 
