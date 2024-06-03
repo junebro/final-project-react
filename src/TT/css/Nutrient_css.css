@@ -91,7 +91,7 @@ li {
 
 .bar_container {
   height: 70px;
-  width: 500px;
+  width: 60%;
   border: 1px solid black;
   border-radius: 30px;
   display: flex;
@@ -148,7 +148,7 @@ li {
 .nutri_guide {
   margin-left: 20%;
   margin-top: 50px;
-  width: 60%;
+  width: 50%;
 }
 
 .nutri_guide_1 {

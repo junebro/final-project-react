@@ -28,6 +28,7 @@ function App() {
  
   function ItemDisplay() {
     const memInfo = useItem().item; 
+
     const [items, setItems] = useState([]);
     const { user } = useAuth();
     const token = localStorage.getItem('authToken');
@@ -37,16 +38,42 @@ function App() {
     let [imageName, setImageName] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);  // 파일 자체를 상태로 저장
+    const [aa, setAa] = useState(null);
+
+    useEffect(() => {
+        if (aa) { 
+            return;
+        }
+        if (memInfo?.memImage||'') {
+          setSelectedImage(require(`./../images/profileImage/${memInfo.memImage}`));
+        }
+      }, [memInfo, aa]); // memInfo가 변경될 때마다 이 효과 실행
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader();
+		
+		    const reader = new FileReader();
             reader.onloadend = () => {
                 setSelectedImage(reader.result); // 미리보기를 위해 이미지 데이터를 상태로 저장
             };
             reader.readAsDataURL(file); // 데이터 URL로 이미지 읽기
             setImageFile(file); // 파일 자체를 저장
+           
+            /* 파일 저장 */
+            const formData = new FormData();
+            formData.append('profileImage', file);  // 서버의 파라미터 이름과 일치해야 합니다.
+
+            axios.post(`http://localhost:8989/join/upload-profile-image/${user}`, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}` // JWT 토큰을 Bearer 토큰으로 포함
+            }
+            }).then(response => {
+                console.log('File uploaded successfully', response.data);
+                setAa(response.data);
+            }).catch(error => {
+                console.error('Error uploading file', error);
+            });
         }
     };
 
@@ -157,7 +184,6 @@ function App() {
         })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
           alert("수정이 완료되었습니다");
         })
         .catch(error => {

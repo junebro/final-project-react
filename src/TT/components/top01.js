@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./../css/top_css.css";
+import logo from "./../../images/logo.svg"; // 이미지 파일을 import
 
 function App() {
   const [progress, setProgress] = useState(40); // 초기 진행도 설정
@@ -10,59 +11,66 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // URL이 변경될 때 실행되는 부분
     const currentURL = location.pathname;
 
-    if (currentURL.includes("/content14")) {
+    if (currentURL.includes("/content15")) {
       setProgress(100);
+      setPageNumber(15);
+    } else if (currentURL.includes("/content14")) {
+      setProgress(93.3);
       setPageNumber(14);
     } else if (currentURL.includes("/content13")) {
-      setProgress(92.8);
+      setProgress(86.6);
       setPageNumber(13);
     } else if (currentURL.includes("/content12")) {
-      setProgress(85.6);
+      setProgress(80);
       setPageNumber(12);
     } else if (currentURL.includes("/content11")) {
-      setProgress(79);
+      setProgress(73.3);
       setPageNumber(11);
     } else if (currentURL.includes("/content10")) {
-      setProgress(71);
+      setProgress(66.6);
       setPageNumber(10);
     } else if (currentURL.includes("/content09")) {
-      setProgress(64);
+      setProgress(60);
       setPageNumber(9);
     } else if (currentURL.includes("/content08")) {
-      setProgress(57);
+      setProgress(53.3);
       setPageNumber(8);
     } else if (currentURL.includes("/content07")) {
-      setProgress(50);
+      setProgress(46.6);
       setPageNumber(7);
     } else if (currentURL.includes("/content06")) {
-      setProgress(43);
+      setProgress(40);
       setPageNumber(6);
     } else if (currentURL.includes("/content05")) {
-      setProgress(36);
+      setProgress(33.3);
       setPageNumber(5);
     } else if (currentURL.includes("/content04")) {
-      setProgress(29);
+      setProgress(26.6);
       setPageNumber(4);
     } else if (currentURL.includes("/content03")) {
-      setProgress(21);
+      setProgress(20);
       setPageNumber(3);
     } else if (currentURL.includes("/content02")) {
-      setProgress(14);
+      setProgress(13.3);
       setPageNumber(2);
     } else {
-      setProgress(7);
+      setProgress(6.6);
       setPageNumber(1);
     }
   }, [location.pathname]); // location.pathname의 변화에 따라 실행
 
   return (
     <div className="top_css">
-      <div className="top_ment">영양 진단 서비스</div>
+      <div className="top_ment">
+        <Link to="/">
+          <img className="img_logo_1" src={logo} alt="로고"></img>
+        </Link>
+        영양 진단 서비스
+      </div>
       <ProgressBar variant="success" now={progress} />
-      <p>{pageNumber}/14</p>
+      <p>{pageNumber}/15</p>
     </div>
   );
 }

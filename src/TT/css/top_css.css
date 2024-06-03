@@ -13,3 +13,11 @@
   font-weight: bolder;
   margin-bottom: 10px;
 }
+
+.img_logo_1 {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 45px; /* 원하는 크기로 조정 */
+  height: auto;
+}

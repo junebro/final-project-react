@@ -9,15 +9,14 @@
     background-color: white;
     position: sticky;
     z-index: 1000;
-    top: 64px;
-    border-bottom: 1px solid #ccc; /* 맨 아래에 1픽셀 높이의 실선 경계선 추가 */
+    top: -1px;
   }
 
   .top-bar-link {
     font-weight: bold;
     text-decoration: none;
     color: black;
-    padding: 8px 12px;
+
 
     background-color: rgba(255, 255, 255, 0.1);
     transition: background-color 0.3s ease;

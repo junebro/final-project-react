@@ -38,7 +38,7 @@ function App() {
           />
           <label htmlFor="checkbox1">
             <span className="checkbox_span">
-              국물요리 처먹을 때 건더기도 처먹니?
+              국물요리를 먹을 때 건더기 위주로 먹습니다
             </span>
           </label>
 
@@ -51,7 +51,7 @@ function App() {
             onChange={() => CheckOnlyOne(2)}
           />
           <label htmlFor="checkbox2">
-            <span className="checkbox_span">안처먹니?</span>
+            <span className="checkbox_span">국물도 같이 먹습니다</span>
           </label>
         </div>
       </div>
