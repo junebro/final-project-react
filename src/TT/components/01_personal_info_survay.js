@@ -7,7 +7,7 @@ import { useAuth } from "../../common/contexts/AuthContext";
 
 function App() {
   const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
-  console.log("로그인한새끼" + user);
+  console.log("로그인 번호 : " + user);
   // Context
   const {
     nutriGenderState,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './css/ChatPopup.css';
-import { connect, disconnect, sendMessage, isConnected } from '../common/ChatService';
+import { connect, disconnect, sendMessage, getIsConnected } from '../common/ChatService';
 
 const ChatPopup = ({ isOpen, onClose }) => {
   const [messageText, setMessageText] = useState('');
@@ -8,13 +8,17 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      connect((msg) => {
-        const receivedMsg = JSON.parse(msg.body);
-        setMessages(prevMessages => [...prevMessages, receivedMsg.messageText]);
-      }, (error) => {
-        console.error('Connection failed: ', error);
-        alert('서버와의 연결에 실패했습니다. 다시 시도해 주세요.');
-      });
+      const token = localStorage.getItem('authToken');
+      console.log("Token loaded in ChatPopup:", token);
+      
+      if (token) {
+        connect((msg) => {
+          const receivedMsg = JSON.parse(msg.body);
+          setMessages(prevMessages => [...prevMessages, receivedMsg.messageText]);
+        });
+      } else {
+        console.error('No token found, cannot connect to WebSocket');
+      }
     }
     return () => {
       disconnect();
@@ -22,7 +26,7 @@ const ChatPopup = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const handleSendMessage = () => {
-    if (messageText  && isConnected) {
+    if (messageText && getIsConnected()) {
       sendMessage(messageText);
       setMessageText('');
     } else {
