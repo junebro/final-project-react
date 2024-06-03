@@ -18,6 +18,12 @@ function App() {
     alcoholRate,
     responseData,
     userName,
+    setDrag1Items,
+    setDrag2Items,
+    setDrag3Items,
+    setDrag4Items,
+    setDrag5Items,
+    setDrag6Items,
   } = useContext(NutriContext);
 
   let disease = "";
