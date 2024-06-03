@@ -92,7 +92,6 @@ function App() {
   //     })
   //     .catch(error => console.error('Error:', error));
   // }
-
   return (
     <div>
       <Navi />

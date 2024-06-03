@@ -4,6 +4,7 @@ import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
 import { Link } from "react-router-dom";
+import { useAuth } from '../common/contexts/AuthContext';
 
 import './boardInsert.css';
 
@@ -25,11 +26,15 @@ function App() {
             type: 'application/json'
         }));
 
+         // 토큰을 로컬 스토리지에서 가져오기
+         const token = localStorage.getItem('authToken');
+
         try {
             // 백엔드로 POST 요청 전송
-            const response = await axios.post('http://localhost:3000/board/boardInsert', formData, {
+            const response = await axios.post('http://localhost:8989/board/boardInsert', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // 요청 헤더에 콘텐츠 타입을 multipart/form-data로 설정 // 'application/json' 를 수정함
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token}`  // 인증 토큰 추가
                 }
             });
 
