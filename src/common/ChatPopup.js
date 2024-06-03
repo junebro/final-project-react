@@ -8,19 +8,14 @@ const ChatPopup = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      const token = localStorage.getItem('authToken');
-      console.log("Token loaded in ChatPopup:", token);
-      
-      if (token) {
-        connect((msg) => {
-          const receivedMsg = JSON.parse(msg.body);
-          setMessages(prevMessages => [...prevMessages, receivedMsg.messageText]);
-        });
-      } else {
-        console.error('No token found, cannot connect to WebSocket');
-      }
+      console.log("Attempting to connect to WebSocket...");
+      connect((msg) => {
+        console.log("Message received:", msg);
+        setMessages(prevMessages => [...prevMessages, msg.messageText]);
+      });
     }
     return () => {
+      console.log("Disconnecting from WebSocket...");
       disconnect();
     };
   }, [isOpen]);

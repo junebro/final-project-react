@@ -23,7 +23,7 @@ import deleteButton from './../images/board/delete-button.png';
 import commentupdateButton from './../images/board/comment-update-button.png';
 import commentdeleteButton from './../images/board/comment-delete-button.png';
 
-function App() { 
+function App() {
     const { bono } = useParams(); // URL에서 bono 파라미터를 가져옴
     const [post, setPost] = useState(null);
     const [images, setImages] = useState([]);
@@ -42,12 +42,17 @@ function App() {
             setCurrentUserNo(decodedToken.sub);
         }
 
+        // 카카오 SDK 초기화
+        if (window.Kakao && !window.Kakao.isInitialized()) {
+            window.Kakao.init('5aac0576068e0888bf39059ab53bcb23');
+        }
+
         axios.get(`http://localhost:8989/board/boardDetail/${bono}`) // API 호출
             .then(response => {
                 console.log("Data fetched:", response.data);  // 콘솔 로그 추가
                 console.log("Local Storage memNo:", localStorage.getItem('memNo'));
                 console.log("Post memNo:", response.data.memNo);
-                
+
                 setPost({
                     ...response.data,
                     liked: false // 초기 좋아요 상태를 false로 설정
@@ -169,7 +174,7 @@ function App() {
         if (commentText.trim() !== '') {
             axios.post('http://localhost:8989/board/comments', {
                 bono: bono,
-                memNo: memNo, 
+                memNo: memNo,
                 memberNick: memberNick,
                 comContent: commentText
             }, {
@@ -237,7 +242,7 @@ function App() {
     const [showModal, setShowModal] = useState(false);
     const [activeComment, setActiveComment] = useState(null);
     const [activeModalType, setActiveModalType] = useState(null);
-    
+
 
     // 모달 위치 상태
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
@@ -253,6 +258,36 @@ function App() {
         setShowModal(true); // 모달 표시
     };
 
+    // 카카오톡 공유 버튼 클릭 이벤트 핸들러
+    const handleShare = () => {
+        if (window.Kakao && post) {
+            const shareUrl = `http://localhost:3000/board/boardDetail/${bono}`;
+            window.Kakao.Link.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: post.botitle, // 게시글 제목
+                    description: post.bocontent || '설명이 제공되지 않음', // 게시글 설명
+                    imageUrl:imagesBaseURL + post.boimage01, // 첫 번째 이미지를 공유 이미지로 사용
+                    link: {
+                        mobileWebUrl: shareUrl,
+                        webUrl: shareUrl
+                    },
+                },
+                buttons: [
+                    {
+                        title: '웹으로 보기',
+                        link: {
+                            mobileWebUrl: shareUrl,
+                            webUrl: shareUrl
+                        },
+                    },
+                ],
+            });
+        } else {
+            console.log('Kakao SDK not loaded or post data is not available');
+        }
+    };
+
     return (
         <>
             <Navi />
@@ -264,21 +299,21 @@ function App() {
                             <div className='board-detail-top'>
                                 <div className='write-title' name='writeTitle'>
                                     {post.botitle}</div>
-                                 {/* 현재 사용자가 게시글 작성자인 경우에만 수정 및 삭제 버튼 표시 */}
-                                 {currentUserNo === post.memNo && (
-                                <>
+                                {/* 현재 사용자가 게시글 작성자인 경우에만 수정 및 삭제 버튼 표시 */}
+                                {currentUserNo === post.memNo && (
+                                    <>
 
-                                    <button className='update-btn' onClick={handleEdit}>
-                                        <img src={updateButton} alt="Update Button" className="update-btn-img" />
-                                        수정하기
-                                    </button>
+                                        <button className='update-btn' onClick={handleEdit}>
+                                            <img src={updateButton} alt="Update Button" className="update-btn-img" />
+                                            수정하기
+                                        </button>
 
-                                    <button className='delete-btn' onClick={handleDelete}>
-                                        <img src={deleteButton} alt="Delete Button" className="delete-btn-img" />
-                                        삭제하기
-                                    </button>
-                                </>
-                                 )}
+                                        <button className='delete-btn' onClick={handleDelete}>
+                                            <img src={deleteButton} alt="Delete Button" className="delete-btn-img" />
+                                            삭제하기
+                                        </button>
+                                    </>
+                                )}
                             </div>
                             <div className='board_line_d'></div>
 
@@ -286,7 +321,7 @@ function App() {
                                 <div className='box-left'>
                                     <div className='tap-gallery'>
                                         {expandedImage && (
-                                            <div className="container">
+                                            <div className="container-b">
 
                                                 <img
                                                     id="expandedImg"
@@ -351,7 +386,7 @@ function App() {
                                                     <img src={commentButtonOn} className='btn-on' />
                                                 </button>
                                                 {/* 공유하기 버튼 */}
-                                                <button className="share-btn">
+                                                <button className="share-btn" onClick={handleShare}>
                                                     <img src={shareButtonDefault} className='btn-default' />
                                                     <img src={shareButtonOn} className='btn-on' />
                                                 </button>
@@ -367,21 +402,21 @@ function App() {
                                                     </span>
                                                     <div>
                                                         <div className='comment-nickname' onClick={(e) => handleNicknameClick(e, comment)}>
-                                                        {comment.memberNick}
+                                                            {comment.memberNick}
                                                         </div>
 
                                                         <div className='comment-description'>{comment.comContent}</div>
                                                     </div>
                                                     {currentUserNo === comment.memNo && (
-                                                    <span className='mycomment-btn'>
-                                                        <button className="comment-btn" onClick={() => handleUpdateComment(comment)}>
-                                                            <img src={commentupdateButton} className='btn-default' alt='수정하기' />
-                                                        </button>
-                                                        <button className="comment-btn" onClick={() => handleDeleteComment(comment.comno)}>
-                                                            <img src={commentdeleteButton} className='btn-default' alt='삭제하기' />
-                                                        </button>
-                                                    </span>
-                                                     )}
+                                                        <span className='mycomment-btn'>
+                                                            <button className="comment-btn" onClick={() => handleUpdateComment(comment)}>
+                                                                <img src={commentupdateButton} className='btn-default' alt='수정하기' />
+                                                            </button>
+                                                            <button className="comment-btn" onClick={() => handleDeleteComment(comment.comno)}>
+                                                                <img src={commentdeleteButton} className='btn-default' alt='삭제하기' />
+                                                            </button>
+                                                        </span>
+                                                    )}
                                                 </div>
                                             ))}
 
@@ -422,7 +457,7 @@ function App() {
                             {/* {showModal && activeModalType === 'comment' && (
                                 <UserNicknameModal
                                     comment={activeComment}
-                                    isCurrentUser={currentUser === activeComment.author}
+                                    isCurrentUser={currentUserNo === activeComment.memNo}
                                     position={modalPosition}
                                     onClose={() => setShowModal(false)}
                                 />
