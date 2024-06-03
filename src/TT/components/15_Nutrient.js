@@ -46,7 +46,6 @@ function App() {
       carbohydrateRate: responseData.carbohydrateRate,
       proteinRate: responseData.proteinRate,
       fatRate: responseData.fatRate,
-
       memno: user,
     };
     console.log(sendData);
@@ -64,12 +63,14 @@ function App() {
         }
         return response.json();
       })
-      .then((data) => {})
+      .then((data) => {
+        // 새로고침 후 '/' 페이지로 이동
+        window.location.href = "/"; // 페이지 이동
+      })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
-
   switch (selectedDisease) {
     case 1:
       disease = "해당없음";
@@ -531,9 +532,7 @@ function App() {
           <Link to="/">홈페이지로 가기</Link>
         </div>
         <div className="Links">
-          <Link to="/" onClick={sendData02}>
-            저장하기
-          </Link>
+          <Link onClick={sendData02}>저장하기</Link>
         </div>
       </div>
     </div>
