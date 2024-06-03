@@ -130,6 +130,15 @@ const BoardDisplay = () => {
         setPage(1); // 페이지 상태 업데이트
     };
 
+    // 내용을 일정 길이로 자르고 "..."을 붙이는 함수
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.slice(0, maxLength) + ' ...더보기';
+    };
+
+
     return (
         <>
             <Navi />
@@ -201,7 +210,7 @@ const BoardDisplay = () => {
                                             <br />
                                             <Link to={`/board/boardDetail/${post.bono}`}>
                                                 <div className='board_bottom_section'>
-                                                    <div className='description'>{post.bocontent}</div>
+                                                    <div className='description'>{truncateText(post.bocontent, 30)}</div>
                                                     <br />
                                                     <div className='thumbnail'>
                                                         {post.thumb_boimage01 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage01}`} alt='Thumbnail 1' />}
@@ -215,8 +224,8 @@ const BoardDisplay = () => {
                                         <div className='board_right'>
                                             <div className='board_info'>
                                                 <div className='board_member_nickname'>닉네임&nbsp; <span className="board_member_nickname2" >{post.memberNick}
-                                                   
-                                                    </span></div>
+
+                                                </span></div>
                                                 <div className='board_member_views'>
                                                     조회수  &nbsp;
                                                     <span>{post.viewCount}</span>
@@ -229,11 +238,11 @@ const BoardDisplay = () => {
                                         </div>
                                     </div>
                                     <div className='board_line'></div>
-                                    </React.Fragment>
-                                    ))
+                                </React.Fragment>
+                            ))
                         )}
-                                   
-                                
+
+
                     </div>
                 </div>
 
