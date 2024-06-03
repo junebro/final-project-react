@@ -29,11 +29,12 @@ function App() {
 function Order() {
 
     const memberItem = useItem().item; // 전체 카트 목록을 가져옵니다.
+    console.log(memberItem);
     const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
     const location = useLocation();
     const { cartItems } = location.state || {}; // state가 undefined일 경우를 대비한 기본값 설정
     // propr 값 합계 계산
-    const totalPropr = cartItems ? cartItems.reduce((total, item) => total + item.propr, 0) : 0;
+    const totalPropr = cartItems ? cartItems.reduce((total, item) => total + item.propr * item.crtqt, 0) : 0;
     // 총 금액에 3000원 추가
     const finalAmount = totalPropr + 3000;
     let [data, setData] = useState('');
@@ -50,7 +51,6 @@ function Order() {
     };
 
     useEffect(() => {
-        console.log(addressData);
         if (data == '111' && data1 == '222') {
             setData(addressData);
         } else if (data1 == '444') {
@@ -64,6 +64,9 @@ function Order() {
 
     // 팝업창 열기
     const openByerPostCode = () => {
+        infoBuyer.current.addressPost.value = "";
+        infoBuyer.current.address.value = "";
+        infoBuyer.current.addressDetail.value = "";
         handleClic1k();
         setBuyerIsPopupOpen(true);
     }
@@ -112,8 +115,9 @@ function Order() {
     useEffect(() => {
         
         if (infoBuyer.current) {
-          infoBuyer.current.address.value = memberItem?.memAddress || "";
-          infoBuyer.current.addressDetail.value = memberItem?.detailAddress || "";
+            infoBuyer.current.addressPost.value = memberItem?.zonecode || "";
+            infoBuyer.current.address.value = memberItem?.memAddress || "";
+            infoBuyer.current.addressDetail.value = memberItem?.detailAddress || "";
         }
       }, [memberItem]); // memberItem.memAddress가 변경될 때마다 실행
 
@@ -204,8 +208,6 @@ function Order() {
                 localStorage.setItem('orderDetails', JSON.stringify(order)); 
                 localStorage.setItem('cartDetails', JSON.stringify(cartDetails)); 
 
-
-                
                 // localStorage.setItem('cartDetails', JSON.stringify(cartDetails));
                 // localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
                 // 주문 생성이 완료되면 결제 시도
@@ -232,7 +234,7 @@ function Order() {
                 <div className="form-group">
                     <label className='order-customer-label'>주 소:</label>
                     <div>
-                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoBuyer.current.addressPost = el} value={data?.zonecode ?? memberItem?.zonecode ?? null} />
+                        <input className="order-test-text-test" placeholder="우편번호" ref={(el) => infoBuyer.current.addressPost = el}value={data.zonecode} />
                         <button type="button" id="post-btn" className="post-btn"
                             onClick={openByerPostCode}>우편번호 찾기</button>
                         {/* // 팝업 생성 기준 div */}
@@ -249,7 +251,7 @@ function Order() {
                 <div className="order-adress">
                     <label className='order-adress-label'></label>
                     <div className='order-address-box'>
-                        <div style={{marginBottom:'10px'}}>
+                        <div style={{marginBottom:'10px', marginRight:'10px'}}>
                             <input id="road-name" className="order-adress-text" ref={(el) => infoBuyer.current.address = el} placeholder="도로명주소" value={data.address} />
                         </div>
                         <div style={{marginBottom:'10px'}}>
@@ -278,7 +280,7 @@ function Order() {
 
                 <div className='order-customer-radio'>
                     <input type="checkbox" id="customer-select" name="customer-select" ref={checkboxRef} onChange={handleCopyInfo} />
-                    <label className='order-customer-label' for="customer-select" >주문자 정보와 동일</label>
+                    <label className='order-customer-ck' for="customer-select" >주문자 정보와 동일</label>
                 </div>
 
                 <div className="form-group">
@@ -308,7 +310,7 @@ function Order() {
                 <div className="order-adress">
                     <label className='order-adress-label'></label>
                     <div className='order-address-box'>
-                        <div style={{marginBottom:'10px'}}>
+                        <div style={{marginBottom:'10px', marginRight:'10px'}}>
                             <input id="road-name" className="order-adress-text" ref={(el) => infoReceiver.current.address = el}  placeholder="도로명주소" value={data1.address} />
                         </div>
                         <div style={{marginBottom:'10px'}}>

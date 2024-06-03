@@ -30,6 +30,11 @@
     align-items: center; /* 세로 중앙 정렬 */
     margin-bottom: 10px; /* 아래쪽 마진으로 각 그룹 사이 간격 조절 */
 }
+.order-customer-ck {
+    margin-right: 10px; /* 레이블과 입력 필드 사이의 간격 */
+    text-align: left; /* 텍스트를 오른쪽으로 정렬 */
+    white-space: nowrap; /* 레이블 텍스트가 줄바꿈 되지 않도록 */
+}
 
 .order-customer-label {
     width: 250px; /* 레이블의 고정 너비 설정 */
@@ -88,7 +93,7 @@ select {
 }
 
 .order-customer-radio {
-    margin-left: 180px;
+    margin-left: 280px;
     margin-bottom: 30px;
 }
 
