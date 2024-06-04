@@ -4,6 +4,9 @@ import Chart from "./../TT/components/chart";
 import { Link } from "react-router-dom";
 import { useAuth } from "./../common/contexts/AuthContext";
 import { NutriContext, NutriProvider } from "./../TT/Nutri_Context";
+import Navi from "../common/navigation";
+import Menu from "../common/menu";
+import Footer from "../common/footer";
 
 function Display() {
   const {
@@ -271,288 +274,287 @@ function Display() {
   };
 
   return (
-    <div className="center_container_1">
-      <br />
-      <br />
-      <br />
-      <div style={{ fontSize: "30px" }}>{userName}님 의 영양소 비율</div>
-      <div className="chart_div">
-        <Chart />
-      </div>
-      <div style={{ fontSize: `12px`, opacity: `0.8` }}>
-        추천 섭취 비율 : 탄수화물 55~65% , 단백질 7~20% , 지방 20~30%
-      </div>
-      <br />
-      <div className="nutri_guide_1">
-        <span className="span_enlarge">{userName}</span> 님의 섭취 비율은
-        탄수화물 <span className="span_enlarge">{carbohydrateRate}%</span> ,
-        단백질 <span className="span_enlarge">{proteinRate}%</span>, 지방{" "}
-        <span className="span_enlarge">{fatRate}% </span>입니다.
+    <div>
+      <Navi />
+      <Menu />
+      <div className="center_container_1">
         <br />
         <br />
-        올바른 영양 섭취는 건강한 생활의 핵심입니다. 균형 잡힌 식단을 위해
-        탄수화물, 단백질, 지방의 적절한 비율을 유지하는 것이 중요합니다.
-        탄수화물은 에너지의 주요 원천으로, 식사 중 &nbsp;
-        <span className="span_enlarge">55~65%</span>의 섭취가 권장됩니다.
-        단백질은 근육 유지와 성장에 중요하며, 식사 중
-        <span className="span_enlarge">7~20%</span>% 정도를 섭취해야 합니다.
-        지방은 에너지와 영양소 흡수에 필요하지만, 과도한 섭취는 건강에 해를 끼칠
-        수 있으므로 <span className="span_enlarge">20~30%</span>
-        %로 제한하는 것이 좋습니다. 이 비율을 유지하면서 식단을 다양하게
-        구성하여 영양소를 균형 있게 섭취하는 것이 좋습니다. 건강한 식습관을
-        유지하고 몸과 마음을 케어하세요.
-      </div>
-      <br />
-      <br />
-      <div style={{ fontSize: "30px" }}>{userName}님의 영양 섭취 상태</div>
-      <div style={{ marginLeft: "10%" }}>
-        <ul>
-          <li>
-            <div className="wrapper">
-              <div className="left">칼로리 {calcorie_message().html}</div>
-              <div className="right">
-                <div className="bar_info">
-                  <div style={{ height: "100%", width: "15%" }}></div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "20%",
-                      textAlign: "right",
-                    }}
-                  >
-                    {Math.floor(responseData.requiredCalories)}kcal
-                  </div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      textAlign: "left",
-                    }}
-                  ></div>
-                </div>
-                <div className="bar_container">
-                  <div className="bar yellow cholesterol">적정</div>
-                  <div className="bar red">과다</div>
-                  <div
-                    className="bar_indicator"
-                    style={{
-                      left: `${calcorie_calc()}%`,
-                    }}
-                  ></div>
-                  <div className="bar_text">칼로리 적정 섭취량</div>
-                </div>
-              </div>
-            </div>
-            <div className="nutri_guide">
-              {userName}님의 칼로리 섭취량은 일일 권장량의&nbsp;
-              {Math.floor(
-                (responseData.calories / responseData.requiredCalories) * 100
-              )}
-              % 입니다.
-              <br />
-              {calcorie_message().message}
-            </div>
-          </li>
-          <li>
-            <div className="wrapper-1">
-              <div className="left">나트륨 {Sodium_message().html} </div>
-              <div className="right">
-                <div className="bar_info">
-                  <div style={{ height: "100%", width: "15%" }}></div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "20%",
-                      textAlign: "left",
-                    }}
-                  >
-                    1500mg
-                  </div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      textAlign: "left",
-                    }}
-                  >
-                    2500mg
-                  </div>
-                </div>
-                <div className="bar_container">
-                  <div className="bar yellow">부족</div>
-                  <div className="bar green">적정</div>
-                  <div className="bar red">과다</div>
-                  <div
-                    className="bar_indicator"
-                    style={{
-                      left: `${Sodium_calc()}%`,
-                    }}
-                  ></div>
-                  <div className="bar_text">나트륨 적정 섭취량</div>
-                </div>
-              </div>
-            </div>
-            <div className="nutri_guide">
-              {userName}님의 나트륨 섭취량은{" "}
-              {Math.floor(responseData.sodium * 1000)}mg, 일일 최대 섭취
-              권장량의 {sodium_indicator}% 입니다.
-              <br />
-              {Sodium_message().message}
-            </div>
-          </li>
-          <li>
-            <div className="wrapper">
-              <div className="left">식이섬유 {dietaryFiber_message().html}</div>
-              <div className="right">
-                <div className="bar_info">
-                  <div style={{ height: "100%", width: "15%" }}></div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "20%",
-                      textAlign: "left",
-                    }}
-                  >
-                    20g
-                  </div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      textAlign: "left",
-                    }}
-                  >
-                    50g
-                  </div>
-                </div>
-                <div className="bar_container">
-                  <div className="bar yellow">부족</div>
-                  <div className="bar green">적정</div>
-                  <div className="bar red">과다</div>
-                  <div
-                    className="bar_indicator"
-                    style={{
-                      left: `${dietaryFiber_calc()}%`,
-                    }}
-                  ></div>
-                  <div className="bar_text">식이섬유 적정 섭취량</div>
-                </div>
-              </div>
-            </div>
-            <div className="nutri_guide">{dietaryFiber_message().message}</div>
-          </li>
-          <li>
-            <div className="wrapper">
-              <div className="left">
-                콜레스테롤 {cholesterol_message().html}
-              </div>
-              <div className="right">
-                <div className="bar_info">
-                  <div style={{ height: "100%", width: "15%" }}></div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "20%",
-                      textAlign: "right",
-                    }}
-                  >
-                    300mg
-                  </div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      textAlign: "left",
-                    }}
-                  ></div>
-                </div>
-                <div className="bar_container">
-                  <div className="bar yellow cholesterol">적정</div>
-                  <div className="bar red">과다</div>
-                  <div
-                    className="bar_indicator"
-                    style={{
-                      left: `${cholesterol_indicator}%`,
-                    }}
-                  ></div>
-                  <div className="bar_text">콜레스테롤 적정 섭취량</div>
-                </div>
-              </div>
-            </div>
-            <div className="nutri_guide">
-              {userName}님의 콜레스테롤 섭취량은 일일 권장량의{" "}
-              {Math.floor((responseData.cholesterol / 0.6) * 100)}% 입니다.
-              <br />
-              {cholesterol_message().message}
-            </div>
-          </li>
-          <li>
-            <div className="wrapper-1">
-              <div className="left">단백질 {Protein_message().html}</div>
-              <div className="right">
-                <div className="bar_info">
-                  <div style={{ height: "100%", width: "15%" }}></div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "20%",
-                      textAlign: "left",
-                    }}
-                  >
-                    {responseData.minProtein}g
-                  </div>
-                  <div
-                    style={{
-                      height: "100%",
-                      width: "65%",
-                      textAlign: "left",
-                    }}
-                  >
-                    {responseData.requiredProtein}g
-                  </div>
-                </div>
-                <div className="bar_container">
-                  <div className="bar yellow">부족</div>
-                  <div className="bar green">적정</div>
-                  <div className="bar red">과다</div>
-                  <div
-                    className="bar_indicator"
-                    style={{
-                      left: `${Protein_indicator}%`,
-                    }}
-                  ></div>
-                  <div className="bar_text">단백질 적정 섭취량</div>
-                </div>
-              </div>
-            </div>
-            <div className="nutri_guide">
-              {userName}님의 적정 단백질 섭취량은 일일 권장량{" "}
-              {responseData.requiredProtein}g의 {Protein_info}% 입니다.
-              <br />
-              단백질은 근육 형성과 유지, 면역 기능 강화, 상처 치유에 중요한
-              역할을 합니다. 또한, 효소와 호르몬 생산을 돕고 체내 세포와 조직의
-              재생을 지원합니다. 식사 후 포만감을 높여 체중 관리에 유리하며,
-              신체 에너지를 제공하고 근육 손실을 예방하는 데 도움이 됩니다.
-              특히, 운동 후 단백질 섭취는 근육 회복과 성장에 필수적입니다.
-              다양한 식단에서 균형 잡힌 단백질 섭취는 전반적인 건강과 활력을
-              증진합니다.
-              <br></br>
-              {Protein_message().message}
-            </div>
-          </li>
-        </ul>
-      </div>
-      <br />
-      <br />
-      <br />
-      <div className="link_div">
-        <div className="Links">
-          <Link to="/">홈페이지로 가기</Link>
+        <br />
+        <div style={{ fontSize: "30px" }}>{userName}님 의 영양소 비율</div>
+        <div className="chart_div">
+          <Chart />
         </div>
-        <div className="Links">
-          <Link>저장하기</Link>
+        <div style={{ fontSize: `12px`, opacity: `0.8` }}>
+          추천 섭취 비율 : 탄수화물 55~65% , 단백질 7~20% , 지방 20~30%
+        </div>
+        <br />
+        <div className="nutri_guide_1">
+          <span className="span_enlarge">{userName}</span> 님의 섭취 비율은
+          탄수화물 <span className="span_enlarge">{carbohydrateRate}%</span> ,
+          단백질 <span className="span_enlarge">{proteinRate}%</span>, 지방{" "}
+          <span className="span_enlarge">{fatRate}% </span>입니다.
+          <br />
+          <br />
+          올바른 영양 섭취는 건강한 생활의 핵심입니다. 균형 잡힌 식단을 위해
+          탄수화물, 단백질, 지방의 적절한 비율을 유지하는 것이 중요합니다.
+          탄수화물은 에너지의 주요 원천으로, 식사 중 &nbsp;
+          <span className="span_enlarge">55~65%</span>의 섭취가 권장됩니다.
+          단백질은 근육 유지와 성장에 중요하며, 식사 중
+          <span className="span_enlarge">7~20%</span>% 정도를 섭취해야 합니다.
+          지방은 에너지와 영양소 흡수에 필요하지만, 과도한 섭취는 건강에 해를
+          끼칠 수 있으므로 <span className="span_enlarge">20~30%</span>
+          %로 제한하는 것이 좋습니다. 이 비율을 유지하면서 식단을 다양하게
+          구성하여 영양소를 균형 있게 섭취하는 것이 좋습니다. 건강한 식습관을
+          유지하고 몸과 마음을 케어하세요.
+        </div>
+        <br />
+        <br />
+        <div style={{ fontSize: "30px" }}>{userName}님의 영양 섭취 상태</div>
+        <div style={{ marginLeft: "10%" }}>
+          <ul>
+            <li>
+              <div className="wrapper">
+                <div className="left">칼로리 {calcorie_message().html}</div>
+                <div className="right">
+                  <div className="bar_info">
+                    <div style={{ height: "100%", width: "15%" }}></div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "20%",
+                        textAlign: "right",
+                      }}
+                    >
+                      {Math.floor(responseData.requiredCalories)}kcal
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "65%",
+                        textAlign: "left",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="bar_container">
+                    <div className="bar yellow cholesterol">적정</div>
+                    <div className="bar red">과다</div>
+                    <div
+                      className="bar_indicator"
+                      style={{
+                        left: `${calcorie_calc()}%`,
+                      }}
+                    ></div>
+                    <div className="bar_text">칼로리 적정 섭취량</div>
+                  </div>
+                </div>
+              </div>
+              <div className="nutri_guide">
+                {userName}님의 칼로리 섭취량은 일일 권장량의&nbsp;
+                {Math.floor(
+                  (responseData.calories / responseData.requiredCalories) * 100
+                )}
+                % 입니다.
+                <br />
+                {calcorie_message().message}
+              </div>
+            </li>
+            <li>
+              <div className="wrapper-1">
+                <div className="left">나트륨 {Sodium_message().html} </div>
+                <div className="right">
+                  <div className="bar_info">
+                    <div style={{ height: "100%", width: "15%" }}></div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "20%",
+                        textAlign: "left",
+                      }}
+                    >
+                      1500mg
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "65%",
+                        textAlign: "left",
+                      }}
+                    >
+                      2500mg
+                    </div>
+                  </div>
+                  <div className="bar_container">
+                    <div className="bar yellow">부족</div>
+                    <div className="bar green">적정</div>
+                    <div className="bar red">과다</div>
+                    <div
+                      className="bar_indicator"
+                      style={{
+                        left: `${Sodium_calc()}%`,
+                      }}
+                    ></div>
+                    <div className="bar_text">나트륨 적정 섭취량</div>
+                  </div>
+                </div>
+              </div>
+              <div className="nutri_guide">
+                {userName}님의 나트륨 섭취량은{" "}
+                {Math.floor(responseData.sodium * 1000)}mg, 일일 최대 섭취
+                권장량의 {sodium_indicator}% 입니다.
+                <br />
+                {Sodium_message().message}
+              </div>
+            </li>
+            <li>
+              <div className="wrapper">
+                <div className="left">
+                  식이섬유 {dietaryFiber_message().html}
+                </div>
+                <div className="right">
+                  <div className="bar_info">
+                    <div style={{ height: "100%", width: "15%" }}></div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "20%",
+                        textAlign: "left",
+                      }}
+                    >
+                      20g
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "65%",
+                        textAlign: "left",
+                      }}
+                    >
+                      50g
+                    </div>
+                  </div>
+                  <div className="bar_container">
+                    <div className="bar yellow">부족</div>
+                    <div className="bar green">적정</div>
+                    <div className="bar red">과다</div>
+                    <div
+                      className="bar_indicator"
+                      style={{
+                        left: `${dietaryFiber_calc()}%`,
+                      }}
+                    ></div>
+                    <div className="bar_text">식이섬유 적정 섭취량</div>
+                  </div>
+                </div>
+              </div>
+              <div className="nutri_guide">
+                {dietaryFiber_message().message}
+              </div>
+            </li>
+            <li>
+              <div className="wrapper">
+                <div className="left">
+                  콜레스테롤 {cholesterol_message().html}
+                </div>
+                <div className="right">
+                  <div className="bar_info">
+                    <div style={{ height: "100%", width: "15%" }}></div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "20%",
+                        textAlign: "right",
+                      }}
+                    >
+                      300mg
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "65%",
+                        textAlign: "left",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="bar_container">
+                    <div className="bar yellow cholesterol">적정</div>
+                    <div className="bar red">과다</div>
+                    <div
+                      className="bar_indicator"
+                      style={{
+                        left: `${cholesterol_indicator}%`,
+                      }}
+                    ></div>
+                    <div className="bar_text">콜레스테롤 적정 섭취량</div>
+                  </div>
+                </div>
+              </div>
+              <div className="nutri_guide">
+                {userName}님의 콜레스테롤 섭취량은 일일 권장량의{" "}
+                {Math.floor((responseData.cholesterol / 0.6) * 100)}% 입니다.
+                <br />
+                {cholesterol_message().message}
+              </div>
+            </li>
+            <li>
+              <div className="wrapper-1">
+                <div className="left">단백질 {Protein_message().html}</div>
+                <div className="right">
+                  <div className="bar_info">
+                    <div style={{ height: "100%", width: "15%" }}></div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "20%",
+                        textAlign: "left",
+                      }}
+                    >
+                      {responseData.minProtein}g
+                    </div>
+                    <div
+                      style={{
+                        height: "100%",
+                        width: "65%",
+                        textAlign: "left",
+                      }}
+                    >
+                      {responseData.requiredProtein}g
+                    </div>
+                  </div>
+                  <div className="bar_container">
+                    <div className="bar yellow">부족</div>
+                    <div className="bar green">적정</div>
+                    <div className="bar red">과다</div>
+                    <div
+                      className="bar_indicator"
+                      style={{
+                        left: `${Protein_indicator}%`,
+                      }}
+                    ></div>
+                    <div className="bar_text">단백질 적정 섭취량</div>
+                  </div>
+                </div>
+              </div>
+              <div className="nutri_guide">
+                {userName}님의 적정 단백질 섭취량은 일일 권장량{" "}
+                {responseData.requiredProtein}g의 {Protein_info}% 입니다.
+                <br />
+                단백질은 근육 형성과 유지, 면역 기능 강화, 상처 치유에 중요한
+                역할을 합니다. 또한, 효소와 호르몬 생산을 돕고 체내 세포와
+                조직의 재생을 지원합니다. 식사 후 포만감을 높여 체중 관리에
+                유리하며, 신체 에너지를 제공하고 근육 손실을 예방하는 데 도움이
+                됩니다. 특히, 운동 후 단백질 섭취는 근육 회복과 성장에
+                필수적입니다. 다양한 식단에서 균형 잡힌 단백질 섭취는 전반적인
+                건강과 활력을 증진합니다.
+                <br></br>
+                {Protein_message().message}
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
