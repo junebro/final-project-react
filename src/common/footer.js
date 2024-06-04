@@ -3,7 +3,7 @@ import './css/footer.css'
 function App(){
 
     return(
-        <div className="nav_container">
+        <div className="">
             <footer className="footer-container">
             <div className="footer-links">
                 <a href="#">이용약관</a>

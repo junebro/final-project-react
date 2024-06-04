@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+
+
     "@nivo/bar": "^0.87.0",
     "@nivo/core": "^0.87.0",
+
     "@nivo/pie": "^0.87.0",
     "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -15,6 +18,7 @@
     "bootstrap": "^5.3.3",
     "http-proxy-middleware": "^3.0.0",
     "i": "^0.3.7",
+    "jwt-decode": "^4.0.0",
     "mobx": "^6.12.3",
     "mobx-react": "^9.1.1",
     "papaparse": "^5.4.1",

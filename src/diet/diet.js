@@ -10,6 +10,8 @@ import Footer from './../common/footer';
 import axios from 'axios';
 import { useAuth } from '../common/contexts/AuthContext'; // 로그인 
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import Modal from '../products/Modal'; 
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
 }
 
 const ItemDisplay = () => {
+
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
   const [result, setResult] = useState('');
@@ -28,8 +31,10 @@ const ItemDisplay = () => {
   const { user } = useAuth(); // useAuth 훅에서 user ID 가져오기
   const [userInfo, setUserInfo] = useState('');
   const token = localStorage.getItem('authToken');
+  const navigate = useNavigate();
 
   useEffect(() => {
+
     fetch(`http://localhost:8989/diet/dailyUser/${user}`, {
         method: 'GET', // HTTP 메소드 지정
         headers: {
@@ -44,8 +49,11 @@ const ItemDisplay = () => {
       return response.json();
     })
     .then(data => {
+      if (data.message == 'null'){
+        alert("진단한 데이터가 없습니다. 영양진단 페이지로 이동합니다.");
+        navigate('/nutri/nutri');
+      }
       setUserInfo(data);
-      console.log(data);
     });
   }, []);
 
@@ -111,14 +119,35 @@ const ItemDisplay = () => {
   /* 구매하기 버튼 클릭 이벤트 */
   const foodBuyClick = () => {
       
-  // cartData 배열을 생성
-  const cartData = dietData.flat().map(item => ({
-    mbrno: user,
-    crtcd: item.procd,
-    crtqt: 1
-  }));
-
-  console.log(cartData);
+    // cartData 배열을 생성
+    const cartData = dietData.flat().map(item => ({
+      mbrno: user,
+      crtcd: item.procd,
+      crtqt: 1
+    }));
+ 
+    fetch(`/diet/foodcartinsert`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(cartData)
+    })
+    .then(response => {
+      if (response.ok) { // 상태 코드가 200-299 범위인지 확인
+        return response.text(); // 변경할 수 있는 부분
+      } else {
+        throw new Error('Something went wrong on api server!');
+      }
+    })
+    .then(data => {
+      navigate('/cart/cart');
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // 에러 메시지를 사용자에게 보여줄 수 있는 UI 처리 추가
+    });
   }
 
   /* 카테고리 */
@@ -165,6 +194,20 @@ const ItemDisplay = () => {
   //     </div>
   //   ));
   // };
+
+    /* 모달 */
+  // selectedProduct 상태는 현재 선택된 제품 객체를 저장하며, 모달에 표시될 데이터를 관리합니다. 
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // openModal 함수는 클릭된 제품 객체를 인자로 받아 selectedProduct 상태를 업데이트하여 모달에 표시합니다.
+  const openModal = (slide) => {
+    setSelectedProduct(slide);
+  };
+
+  // closeModal 함수는 모달을 닫을 때 사용되며, selectedProduct 상태를 null로 설정하여 모달을 숨깁니다.
+  const closeModal = () => {
+    setSelectedProduct(null);
+  };
   
 
   return (
@@ -198,7 +241,7 @@ const ItemDisplay = () => {
               <div key={index} className="slide-group">
                 {slideGroup.map((slide, subIndex) => (
                    <div className='diet-first-food'>
-                      <img className='diet-product-image' src={require(`../images/products/${slide.proimg}.jpg`)} alt={slide.title} />
+                      <img className='diet-product-image' src={require(`../images/products/${slide.proimg}.jpg`)} alt={slide.title} onClick={() => openModal(slide)}/>
                       <div style={{width:'100%'}}>
                         <p className='diet-product-name'>{slide.pronm}</p>
                         <div style={{paddingTop:'15px', paddingBottom:'10px'}}>
@@ -217,8 +260,9 @@ const ItemDisplay = () => {
                 ))}
               </div>
             ))||[]}
-          </animated.div>
             
+          </animated.div>
+          {selectedProduct && <Modal product={selectedProduct} onClose={closeModal} />}
           <div className='diet-category'>
             {/* <h2>카테고리</h2>
             <div className="image-grid">

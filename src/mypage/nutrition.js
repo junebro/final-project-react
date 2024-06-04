@@ -5,10 +5,20 @@ import { Link } from "react-router-dom";
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
-
+import { ItemProvider, useItem } from '../common/contexts/DietContext';
 
 function App() {
-   
+    return (
+        <ItemProvider>
+            <ItemDisplay/>
+        </ItemProvider>
+    );
+  }
+  
+
+function ItemDisplay() {
+    const data = useItem().item; // 전체 제품 목록을 가져옵니다.
+    console.log(data);
      return (
         <div>
         <Navi />

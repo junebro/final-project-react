@@ -5,9 +5,11 @@
     background-color: white; /* 변경하고 싶은 색상으로 대체 */
     padding-top: 10px;
     padding-bottom: 13px;
+    padding-left: 113px;
     display: flex; /* 내부 요소를 가로 방향으로 정렬 */
     justify-content: center; /* 내부 요소를 가운데 정렬 */
     font-weight: 550;
+    transform: translateX(-32px);
 }
 
 .div_menu ul {

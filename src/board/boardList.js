@@ -28,7 +28,7 @@ const BoardDisplay = () => {
     // 게시글 데이터를 불러오는 함수
     const fetchPosts = async (page, orderBy = 'recent') => {
         const pageSize = 3; // 페이지당 게시물 수를 3으로 설정
-        const url =  `/board/boardList/paged?page=${page}&size=${pageSize}&orderBy=${orderBy}`;
+        const url = `/board/boardList/paged?page=${page}&size=${pageSize}&orderBy=${orderBy}`;
         console.log(`Fetching posts for page: ${page}, size: ${pageSize}`);
         // 현재 페이지 확인 로그
 
@@ -130,6 +130,15 @@ const BoardDisplay = () => {
         setPage(1); // 페이지 상태 업데이트
     };
 
+    // 내용을 일정 길이로 자르고 "..."을 붙이는 함수
+    const truncateText = (text, maxLength) => {
+        if (text.length <= maxLength) {
+            return text;
+        }
+        return text.slice(0, maxLength) + ' ...더보기';
+    };
+
+
     return (
         <>
             <Navi />
@@ -179,64 +188,61 @@ const BoardDisplay = () => {
                             <div className="no-posts">게시글이 없습니다.</div>
                         ) : (
                             posts.map(post => (
-                                <div className='board_post' key={post.bono}>
-                                    <div className='board_left'>
-                                        <div className='board_top_section'>
-                                            <Link to={`/board/boardDetail/${post.bono}`} >
-                                                <div className='subject'>{post.botitle}</div>
+                                <React.Fragment key={post.bono}>
+                                    <div className='board_post' key={post.bono}>
+                                        <div className='board_left'>
+                                            <div className='board_top_section'>
+                                                <Link to={`/board/boardDetail/${post.bono}`} >
+                                                    <div className='subject'>{post.botitle}</div>
+                                                </Link>
+                                                {/* 동적으로 댓글 수 표시 */}
+                                                <div className='comment-count'>[{post.commentCount}]</div>
+                                                {/* 게시판 이틀동안 NEW */}
+                                                {isNew(post.bo_CREATE_AT) && (
+                                                    <div className='new'>
+                                                        <span >NEW</span>
+                                                    </div>
+                                                )}
+                                                <div className='board_date'>
+                                                    {post.bo_CREATE_AT}
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <Link to={`/board/boardDetail/${post.bono}`}>
+                                                <div className='board_bottom_section'>
+                                                    <div className='description'>{truncateText(post.bocontent, 30)}</div>
+                                                    <br />
+                                                    <div className='thumbnail'>
+                                                        {post.thumb_boimage01 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage01}`} alt='Thumbnail 1' />}
+                                                        {post.thumb_boimage02 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage02}`} alt='Thumbnail 2' />}
+                                                        {post.thumb_boimage03 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage03}`} alt='Thumbnail 3' />}
+                                                    </div>
+                                                </div>
                                             </Link>
-                                            {/* 동적으로 댓글 수 표시 */}
-                                            <div className='comment-count'>[{post.commentCount}]</div>
-                                            {/* 게시판 이틀동안 NEW */}
-                                            {isNew(post.bo_CREATE_AT) && (
-                                                <div className='new'>
-                                                    <span >NEW</span>
-                                                </div>
-                                            )}
-                                            <div className='board_date'>
-                                                {post.bo_CREATE_AT}
-                                            </div>
                                         </div>
-                                        <br />
-                                        <Link to={`/board/boardDetail/${post.bono}`}>
-                                            <div className='board_bottom_section'>
-                                                <div className='description'>{post.bocontent}</div>
-                                                <br />
-                                                <div className='thumbnail'>
-                                                    {post.thumb_boimage01 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage01}`} alt='Thumbnail 1' />}
-                                                    {post.thumb_boimage02 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage02}`} alt='Thumbnail 2' />}
-                                                    {post.thumb_boimage03 && <img src={`http://localhost:8989/uploads/${post.thumb_boimage03}`} alt='Thumbnail 3' />}
+                                        <div className='view_center'></div>
+                                        <div className='board_right'>
+                                            <div className='board_info'>
+                                                <div className='board_member_nickname'>닉네임&nbsp; <span className="board_member_nickname2" >{post.memberNick}
+
+                                                </span></div>
+                                                <div className='board_member_views'>
+                                                    조회수  &nbsp;
+                                                    <span>{post.viewCount}</span>
                                                 </div>
-                                            </div>
-                                        </Link>
-                                    </div>
-                                    <div className='view_center'></div>
-                                    <div className='board_right'>
-                                        <div className='board_info'>
-                                            <div className='board_member_nickname'>닉네임&nbsp; <span className="board_member_nickname2" onClick={openPopup}>{post.memberNick}
-                                                {/* 닉네임 클릭시 리스트 팝업 */}
-                                                <div className='popup-list' data-role="popup" id="memberPopup">
-                                                    <ul data-role="listview" data-inset="true">
-                                                        <li><a href="#">게시글 보기</a></li>
-                                                        <li><a href="#">1:1 채팅</a></li>
-                                                        <li><a href="#">친구 추가</a></li>
-                                                        <li><a href="#">신고하기</a></li>
-                                                    </ul>
-                                                </div></span></div>
-                                            <div className='board_member_views'>
-                                                조회수  &nbsp;
-                                                <span>{post.viewCount}</span>
-                                            </div>
-                                            <div className='board_member_likes'>
-                                                좋아요  &nbsp;
-                                                <span>{post.likeCount}</span>
+                                                <div className='board_member_likes'>
+                                                    좋아요  &nbsp;
+                                                    <span>{post.likeCount}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <div className='board_line'></div>
+                                </React.Fragment>
                             ))
                         )}
-                        <div className='board_line'></div>
+
+
                     </div>
                 </div>
 
