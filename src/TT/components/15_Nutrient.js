@@ -291,7 +291,7 @@ function App() {
         </div>
         <div>
           <p className="pt_1">고객 정보</p>
-          <p>해당없는색</p>
+          <p>-</p>
         </div>
       </div>
       <br />
