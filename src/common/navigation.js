@@ -35,7 +35,7 @@ function App(){
                 ) : (
                     <>
                         <li className='logo_left'><Link className='link' to="/member/login">로그인</Link></li>
-                        <li className='logo_left'><Link className='link' to="/member/join">회원 가입</Link></li>
+                        <li className='logo_left'><Link className='link' to="/member/terms">회원 가입</Link></li>
                     </>
                 )}
                 </ul>

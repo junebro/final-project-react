@@ -58,7 +58,7 @@ function App() {
                         
 
                     <div>
-                        {Object.entries(groupedOrders).map(([ordno, group], index) => (	
+                        {Object.entries(groupedOrders).map(([ordno, group], index) => (   
                             <div className="order-box" key={ordno}>
                                 <div className="delivery-info">
                                     <p className="order-date">{new Date(group[0].orddt).toISOString().slice(0, 10)}</p>
