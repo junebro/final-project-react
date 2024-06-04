@@ -3,20 +3,22 @@ import './diaryDetail.css';
 import './diary.css';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
-import React, { useState, useRef, useEffect, createRef  } from 'react';
+import React, { useState, useRef, useEffect, createRef } from 'react';
 import Navi from '../common/navigation';
 import Menu from '../common/menu';
 import Footer from '../common/footer';
 import { useAuth } from '../common/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 
-    const { user, logout } = useAuth(); 
+    const { user, logout } = useAuth();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const date = searchParams.get('date');
     const [selectedValue, setSelectedValue] = useState('');
-    
+    const navigate = useNavigate();
+
     const originalDate = new Date(date);
 
     const year = originalDate.getFullYear();
@@ -31,8 +33,28 @@ function App() {
     const nourl = searchParams2.get('diaryno');
     // String으로 넘어와서 형변환 해줌
     const diaryno = parseInt(nourl, 10); // 10진수로 파싱
-
     
+    /* 프로필 사진 */
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [userMemberNick, setUserMemberNick] = useState(null);
+    useEffect(() => {
+        const token = localStorage.getItem('authToken');
+
+        fetch(`/join/memInfo/${user}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json', // 콘텐츠 타입 지정
+                'Authorization': `Bearer ${token}` // JWT 토큰을 Bearer 토큰으로 포함
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            setSelectedImage(require(`./../images/profileImage/${data.memImage}`));
+            setUserMemberNick(data.memberNick);
+        })
+        .catch(error => console.error('Error:', error));
+    }, []); 
+
     const diaryDetailRef = useRef(null);
     const moodCodeRef = useRef(null);
 
@@ -40,7 +62,7 @@ function App() {
 
     /* 동적 라디오 버튼 */
     const radioButtons = [
-        { id: 1, label: '살빠짐', imgSrc: require("./../images/member/status/weightloss.png"), value: "weightloss"},
+        { id: 1, label: '살빠짐', imgSrc: require("./../images/member/status/weightloss.png"), value: "weightloss" },
         { id: 2, label: '유지어터', imgSrc: require("./../images/member/status/flexitarian.png"), value: "weight_gain" },
         { id: 3, label: '살쪘어', imgSrc: require("./../images/member/status/weight_gain.png"), value: "flexitarian" },
         { id: 4, label: '오운완', imgSrc: require("./../images/member/status/exercise.png"), value: "exercise" },
@@ -62,155 +84,183 @@ function App() {
                     ref.current.checked = false; // 선택되지 않은 라디오 버튼을 언체크
                 }
             });
-        
+
             diaryDetailRef.current.innerText = updateItems.detailRef;
             //moodCodeRef.current.value = updateItems.moodRef;
         }
     }, [updateItems]); // updateItems가 변경될 때만 실행됨
 
-// 폼 제출 핸들러
-const fn_submit = async (event) => {
-   
-};
+    // 폼 제출 핸들러
+    const fn_submit = async (event) => {
 
-const handleChange = (event) => {
-    setSelectedValue(event.target.id);
-    console.log(event.target.id);
-};
+    };
 
-const updateItem = async (event) => {
+    const handleChange = (event) => {
+        setSelectedValue(event.target.id);
+        console.log(event.target.id);
+    };
 
-    if (!selectedValue){
-        alert("스티커를 선택해주세요");
-        return;
-    } 
-    
+    const updateItem = async (event) => {
 
-    event.preventDefault(); // 기본 제출 이벤트 방지
-
-    const diarydetail = diaryDetailRef.current.value; // ref를 사용하여 입력값 가져오기
-    
-    if (updateItems) {
-
-        let moodcode = "";
-        
-        if (selectedValue === "") {
-            moodcode = updateItems.moodRef;
-        } else {
-            moodcode = selectedValue;
+        if (!selectedValue) {
+            alert("스티커를 선택해주세요");
+            return;
         }
 
-        try {
-            const postData = {
-                diaryno: updateItems.diaryno,
-                diarydetail: diarydetail,
-                moodcode: moodcode
-            };
 
-            console.log(postData)
+        event.preventDefault(); // 기본 제출 이벤트 방지
 
-            const response = await axios.post('http://localhost:8989/diary/diaryUpdate', postData);
-            window.location.href = '/mypage/healthDiary'; // 업데이트 후 페이지 이동
-        } catch (error) {
-            console.error('Update error:', error);
-            alert('업데이트 중 오류 발생');
-        }
+        const diarydetail = diaryDetailRef.current.value; // ref를 사용하여 입력값 가져오기
 
-    } else {
+        if (updateItems) {
 
-        const postData = {
-            memno : user,
-            diarydetail: diarydetail,
-            moodcode: selectedValue,
-            diarydate: formattedDate
-        };
-        console.log(postData);
-        try {
-            // 백엔드로 POST 요청 전송
-            const response = await axios.post('http://localhost:3000/diary/diaryInsert', postData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-    
-            // 응답 처리
-            if (response.status === 200) {
-                alert('게시글이 정상적으로 등록되었습니다.');
-                window.location.href = '/mypage/healthDiary'; // 성공 후 페이지 리디렉션
+            let moodcode = "";
+
+            if (selectedValue === "") {
+                moodcode = updateItems.moodRef;
             } else {
-                alert('등록 실패');
+                moodcode = selectedValue;
             }
+
+            try {
+                const postData = {
+                    diaryno: updateItems.diaryno,
+                    diarydetail: diarydetail,
+                    moodcode: moodcode
+                };
+
+                console.log(postData)
+
+                const response = await axios.post('http://localhost:8989/diary/diaryUpdate', postData);
+                window.location.href = '/mypage/healthDiary'; // 업데이트 후 페이지 이동
+            } catch (error) {
+                console.error('Update error:', error);
+                alert('업데이트 중 오류 발생');
+            }
+
+        } else {
+
+            const postData = {
+                memno: user,
+                diarydetail: diarydetail,
+                moodcode: selectedValue,
+                diarydate: formattedDate
+            };
+            console.log(postData);
+            try {
+                // 백엔드로 POST 요청 전송
+                const response = await axios.post('http://localhost:3000/diary/diaryInsert', postData, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                // 응답 처리
+                if (response.status === 200) {
+                    alert('게시글이 정상적으로 등록되었습니다.');
+                    window.location.href = '/mypage/healthDiary'; // 성공 후 페이지 리디렉션
+                } else {
+                    alert('등록 실패');
+                }
+            } catch (error) {
+                console.error('등록 에러', error);
+                alert('등록 중 오류 발생');
+            }
+        }
+    };
+
+    /* 회원 탈퇴 */
+    const deleteUser = async () => {
+        const token = localStorage.getItem('authToken');
+        try {
+            const response = await fetch(`http://localhost:8989/mypage/deletemem/${user}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json', // 콘텐츠 타입 지정
+                    'Authorization': `Bearer ${token}` // JWT 토큰을 Bearer 토큰으로 포함
+                }
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+        
+            const message = await response.text(); // 문자열 응답 처리
+            alert(message);
+            navigate('/');
+            logout(); // 로그아웃 함수 호출
         } catch (error) {
-            console.error('등록 에러', error);
-            alert('등록 중 오류 발생');
+            console.error('Error:', error);
         }
     }
-};
 
     return (
         <div>
             <Navi />
             <Menu />
             <div className="section-p">
-            <div className="diaryDetail-section">
-      <nav className="mypage-nav">
-        <div className="nav-profile-img"></div>
-        <p className="nav-nickName">닉네임</p>
-        <hr className="h1" />
-        <ul className="mypage-ul">
-        <li><Link to="/mypage/EditProfile">내 정보 수정</Link></li>
-          <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
-          <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
-          <li><Link to="/mypage/HealthDiary"  className='mypage-menu-active'>건강 일기</Link></li>
-          <li><Link to="/mypage/OrderList">주문 내역</Link></li>
-          <li><a href="#">회원 탈퇴</a></li>
-        </ul>
-      </nav>
+                <div className="diaryDetail-section">
+                    <nav className="mypage-nav">
+                        <img className="nav-profile-img"
+                            id="profile-img"
+                            src={selectedImage || require("./../images/member/profileImg.jpg")}
+                            alt="프로필 사진"
+                        />
+                        <p className="nav-nickName">{userMemberNick}</p>
+                        <hr className="h1" />
+                        <ul className="mypage-ul">
+                            <li><Link to="/mypage/EditProfile">내 정보 수정</Link></li>
+                            <li><Link to="/mypage/Nutrition">영양 진단 결과</Link></li>
+                            <li><Link to="/mypage/MyCommunity">커뮤니티 활동</Link></li>
+                            <li><Link to="/mypage/HealthDiary" className='mypage-menu-active'>건강 일기</Link></li>
+                            <li><Link to="/mypage/OrderList">주문 내역</Link></li>
+                            <li onClick={deleteUser}>회원 탈퇴</li>
+                        </ul>
+                    </nav>
 
-      <div className="diaryDetail-contents">
-            <h1 className="mypage-title">건강일기</h1>
-            <hr className="title-line" />
-            <div className='title-margin'>
-            <p className="sticker-title">다양한 스티커로</p>
-            <p className="sticker-title">하루를 표현해 보세요!</p>
-            </div>
-            {/* 상태 스티커 박스 */}
-            <form onSubmit={fn_submit} method='post' className="diary-form">
-                <div className="status-box scrollbar">
-                    
-                        {/* 동적으로 생성된 라디오 버튼 */}
-                        {radioButtons.map((button, index) => (
-                            <div key={button.id} className="sticker-item-box">
-                                <input
-                                    type="radio"
-                                    id={button.id}
-                                    className="sticker-item"
-                                    name="moodcode"
-                                    ref={moodCodeRefs.current[index]} // ref 설정 
-                                    checked={selectedValue == button.id}
-                                    value={button.value}
-                                    onChange={handleChange}
-                                />
-                                <label htmlFor={button.id}><img src={button.imgSrc} alt={`sticker${button.id}`} /></label>
-                                <p>{button.label}</p>
+                    <div className="diaryDetail-contents">
+                        <h1 className="mypage-title">건강일기</h1>
+                        <hr className="title-line" />
+                        <div className='title-margin'>
+                            <p className="sticker-title">다양한 스티커로</p>
+                            <p className="sticker-title">하루를 표현해 보세요!</p>
+                        </div>
+                        {/* 상태 스티커 박스 */}
+                        <form onSubmit={fn_submit} method='post' className="diary-form">
+                            <div className="status-box scrollbar">
+
+                                {/* 동적으로 생성된 라디오 버튼 */}
+                                {radioButtons.map((button, index) => (
+                                    <div key={button.id} className="sticker-item-box">
+                                        <input
+                                            type="radio"
+                                            id={button.id}
+                                            className="sticker-item"
+                                            name="moodcode"
+                                            ref={moodCodeRefs.current[index]} // ref 설정 
+                                            checked={selectedValue == button.id}
+                                            value={button.value}
+                                            onChange={handleChange}
+                                        />
+                                        <label htmlFor={button.id}><img src={button.imgSrc} alt={`sticker${button.id}`} /></label>
+                                        <p>{button.label}</p>
+                                    </div>
+                                ))}
+
                             </div>
-                        ))}
-                    
-                </div>
 
-                <p className="sticker-title">조금 더 자세히 기록해 볼까요?</p>
-                <textarea className="diary-detail" placeholder="내용 입력(최대 1000자)" name='diarydetail' ref={diaryDetailRef}/>
+                            <p className="sticker-title">조금 더 자세히 기록해 볼까요?</p>
+                            <textarea className="diary-detail" placeholder="내용 입력(최대 1000자)" name='diarydetail' ref={diaryDetailRef} />
 
-                <div className="diaryBtn-box">
-                <Link to="/HealthDiary"><button type="button" className="date-select">날짜 다시 선택</button></Link>
-                    <button type="button" className="diary-submit"  onClick={updateItem}>작성완료</button>
+                            <div className="diaryBtn-box">
+                                <Link to="/HealthDiary"><button type="button" className="date-select">날짜 다시 선택</button></Link>
+                                <button type="button" className="diary-submit" onClick={updateItem}>작성완료</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
+            <Footer />
         </div>
-    </div>
-    </div>
-        <Footer />
-    </div>
-    );    
+    );
 }
 export default App;

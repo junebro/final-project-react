@@ -27,7 +27,6 @@ const handleCheckboxChange01 = (e) => {
   } else {
     setSelectAllChecked(false);
   }
-
 };
 
 // 두번째 체크박스
@@ -55,7 +54,6 @@ const handleSelectAllChange = (e) => {
         setIsChecked1(false);
         setIsChecked2(false);
     };
-
 };
 
 
@@ -88,7 +86,7 @@ const handleSelectAllChange = (e) => {
               onChange={handleSelectAllChange}
               
             />
-             ??? 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
+             그린라이프 이용약관, 개인정보 수집 및 이용에 모두 동의합니다.
           </label>
           <hr />
           {/* 첫번째 체크박스 및 약관 */}
@@ -101,12 +99,12 @@ const handleSelectAllChange = (e) => {
                 checked={isChecked1}
                 onChange={handleCheckboxChange01}
               />
-              ??? 이용약관 동의(필수)
+              그린라이프 이용약관 동의(필수)
             </label>
             <div>
               <textarea 
             placeholder="제1조(목적)
-            본 약관은 ???(이하 '갑'이라 한다)가 운영하는 인터넷 관련 서비스(이하 '서비스')라 한다)를 이용함에 있어 관리자와 이용자(이하 '회원'이라 한다)의 권리, 의무 책임사항을 규정함을 목적으로 한다.
+            본 약관은 그린라이프(이하 '갑'이라 한다)가 운영하는 인터넷 관련 서비스(이하 '서비스')라 한다)를 이용함에 있어 관리자와 이용자(이하 '회원'이라 한다)의 권리, 의무 책임사항을 규정함을 목적으로 한다.
             
             제 2조('갑'의 의무)
             1. '갑'은 계속적, 안정적으로 서비스를 제공할 수 있도록 최선의 노력을 다하여야합니다.

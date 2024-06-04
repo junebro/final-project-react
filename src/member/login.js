@@ -34,8 +34,9 @@ function App() {
         }
       );
 
+     
       // 응답 처리
-      if (response.status === 200) {
+      if (response) {
         alert("로그인이 완료되었습니다.");
         const { accessToken } = response.data; // accessToken 추출
         localStorage.setItem("authToken", accessToken); // 로컬 스토리지에 accessToken 저장

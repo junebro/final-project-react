@@ -8,6 +8,7 @@ import MyCommunity from "../mypage/myCommunity";
 import HealthDiary from "../mypage/healthDiary";
 import DiaryDetail from "../mypage/diaryDetail";
 import OrderList from "../mypage/orderList";
+import Nutrient from "../mypage/nutritionNutrient";
 
 const MainRoutes = () => {
   return (
@@ -17,6 +18,7 @@ const MainRoutes = () => {
         <Route path="/HealthDiary" element={<HealthDiary />} /> 
         <Route path="/DiaryDetail" element={<DiaryDetail />} /> 
         <Route path="/OrderList" element={<OrderList />} /> 
+        <Route path="/Nutrient" element={<Nutrient />} /> 
 
         <Route path="/EditProfile" element={<EditProfile />} /> 
         <Route path="/ChangePw" element={<ChangePw />} />

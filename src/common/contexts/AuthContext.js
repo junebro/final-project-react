@@ -11,7 +11,6 @@ export function useAuth() {
 // 토큰 디코딩 함수
 function parseJwt(token) {
   if (!token || token.split('.').length !== 3) {
-    alert("Invalid or empty token provided."); // 알림 메시지 표시
     console.error("Invalid or empty token provided.");
     return null;
   }

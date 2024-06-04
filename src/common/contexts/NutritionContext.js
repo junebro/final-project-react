@@ -12,7 +12,7 @@ export const ItemProvider = ({ children }) => {
     useEffect(() => {
 
         const token = localStorage.getItem('authToken');
-        fetch(`http://localhost:8989/diet/daily/${user}`, {
+        fetch(`http://localhost:8989/nutrition/nutritionselect/${user}`, {
             method: 'GET', // HTTP 메소드 지정
             headers: {
                 'Content-Type': 'application/json', // 콘텐츠 타입 지정
