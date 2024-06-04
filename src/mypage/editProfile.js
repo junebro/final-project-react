@@ -167,25 +167,35 @@ function ItemDisplay() {
             gender = "m";
         }
 
-
-        const formData = new FormData();
-        formData.append('memImage', imageName); // 파일 객체 추가
-        formData.append('memberNick', MemberName.current.value);
-        formData.append('gender', gender);
-        formData.append('memage', MemberAge.current.value);
-        formData.append('memheight', MemberHeight.current.value);
-        formData.append('memweight', MemberWeight.current.value);
-        formData.append('zonecode', MemberZone.current.value);
-        formData.append('memAddress', MemberAddress.current.value);
-        formData.append('detailAddress', MemberDetailAddr.current.value);
-        formData.append('memNo', memInfo.memNo);
-
-        fetch(`/join/editProfile/`, {
+        const memberData = {
+            // memImage: imageName, // 이 부분은 파일 업로드가 아닌 경우 문자열로 전달
+            memberNick: MemberName.current.value,
+            gender: gender,
+            memage: MemberAge.current.value,
+            memheight: MemberHeight.current.value,
+            memweight: MemberWeight.current.value,
+            zonecode: MemberZone.current.value,
+            memAddress: MemberAddress.current.value,
+            detailAddress: MemberDetailAddr.current.value,
+            memNo: memInfo.memNo
+        };
+        
+        fetch(`/join/editProfile`, {
             method: 'POST',
-            body: formData // JSON 대신 formData 사용
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(memberData) // JSON 형식으로 데이터 전송
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.text(); // 응답이 텍스트인 경우
+            } else {
+                throw new Error('Error processing your request');
+            }
+        })
         .then(data => {
+            console.log('Update successful:', data);
             alert("수정이 완료되었습니다");
         })
         .catch(error => {
@@ -286,7 +296,7 @@ function ItemDisplay() {
                                 </div>
                                 <div>
                                     <p className="sub-title">나이</p>
-                                    만<input className="input-age" name="age" placeholder="20" ref={MemberAge} />살
+                                    만<input className="input-age" name="age" placeholder="" ref={MemberAge} />살
                                 </div>
                             </div>
 
@@ -294,11 +304,11 @@ function ItemDisplay() {
                             <div className="height-weight">
                                 <div>
                                     <p className="sub-title">키</p>
-                                    <input className="input-height" name="memberHeight" placeholder="170" ref={MemberHeight} />cm
+                                    <input className="input-height" name="memberHeight" placeholder="" ref={MemberHeight} />cm
                                 </div>
                                 <div>
                                     <p className="sub-title">몸무게</p>
-                                    <input className="input-weight" name="memberWeight" placeholder="60" ref={MemberWeight} />kg
+                                    <input className="input-weight" name="memberWeight" placeholder="" ref={MemberWeight} />kg
                                 </div>
                             </div>
                         </div>

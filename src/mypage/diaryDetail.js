@@ -132,7 +132,7 @@ function App() {
                 console.log(postData)
 
                 const response = await axios.post('http://localhost:8989/diary/diaryUpdate', postData);
-                window.location.href = '/mypage/healthDiary'; // 업데이트 후 페이지 이동
+                navigate('/mypage/healthDiary');
             } catch (error) {
                 console.error('Update error:', error);
                 alert('업데이트 중 오류 발생');
@@ -158,7 +158,7 @@ function App() {
                 // 응답 처리
                 if (response.status === 200) {
                     alert('게시글이 정상적으로 등록되었습니다.');
-                    window.location.href = '/mypage/healthDiary'; // 성공 후 페이지 리디렉션
+                    navigate('/mypage/healthDiary');
                 } else {
                     alert('등록 실패');
                 }

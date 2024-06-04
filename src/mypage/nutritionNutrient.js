@@ -545,14 +545,14 @@ function Display() {
       <br />
       <br />
       <br />
-      <div className="link_div">
+      {/* <div className="link_div">
         <div className="Links">
           <Link to="/">홈페이지로 가기</Link>
         </div>
         <div className="Links">
           <Link>저장하기</Link>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

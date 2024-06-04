@@ -28,7 +28,27 @@ function App() {
             return acc;
         }, {})||[];
 
-        console.log(data);
+         /* 프로필 사진 */
+        const [selectedImage, setSelectedImage] = useState(null);
+        const [userMemberNick, setUserMemberNick] = useState(null);
+        useEffect(() => {
+            const token = localStorage.getItem('authToken');
+
+            fetch(`/join/memInfo/${user}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json', // 콘텐츠 타입 지정
+                    'Authorization': `Bearer ${token}` // JWT 토큰을 Bearer 토큰으로 포함
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                setSelectedImage(require(`./../images/profileImage/${data.memImage}`));
+                setUserMemberNick(data.memberNick);
+            })
+            .catch(error => console.error('Error:', error));
+        }, []); 
+
     return (
         <div>
             <Navi />
@@ -38,7 +58,11 @@ function App() {
             <div className="section-p">
                 <div className='order-section'>
                     <nav className="mypage-nav">
-                        <div className="nav-profile-img"></div>
+                    <img className="nav-profile-img"
+                            id="profile-img"
+                            src={selectedImage || require("./../images/member/profileImg.jpg")}
+                            alt="프로필 사진"
+                        />
                         <p className="nav-nickName">닉네임</p>
                         <hr className="h1" />
                         <ul className="mypage-ul">
@@ -54,9 +78,6 @@ function App() {
                     <div className="contents">
                         <h1 className="mypage-title">주문 내역</h1>
                         <hr className="title-line" />
-
-                        
-
                     <div>
                         {Object.entries(groupedOrders).map(([ordno, group], index) => (   
                             <div className="order-box" key={ordno}>
@@ -78,7 +99,7 @@ function App() {
                                     ))}
                                 <div className="order-result">
                                     <span className="payment">총 결제금액 : {group[0].ordpr.toLocaleString('ko-KR')}원</span>
-                                    <button type="button" className="delivery-btn">주문 취소</button>
+                                    {/* <button type="button" className="delivery-btn">주문 취소</button> */}
                                 </div>
                             </div>
                         ))}

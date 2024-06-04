@@ -82,6 +82,10 @@ function ItemDisplay() {
         }
     }
 
+    const NutriClick = () => {
+        navigate('/');
+    }
+
     return (
         <div>
             <Navi />
@@ -114,7 +118,7 @@ function ItemDisplay() {
                             <div className="left-box">
                                 <p>영양소 섭취량으로 파악하는 나의 식습관</p>
                                 <p>Happy Green Life 영양 진단 서비스</p>
-                                <p className="nutrition-a"><a href="#">나의 식이습관 파헤치기 →</a></p>
+                                <Link to={"/nutri/nutri"}><p className="nutrition-a"> <a>나의 식이습관 파헤치기 →</a></p></Link>
                             </div>
                             <div className="right-box">
                                 <img src={require("./../images/member/survey-people.png")} alt="survey-people" />

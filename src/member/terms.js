@@ -5,12 +5,14 @@ import Navi from '../common/navigation';
 import Footer from '../common/footer';
 // import React, { useState } from 'react';
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
 // 체크박스 및 전체 동의 상태 관리
 const [selectAllChecked, setSelectAllChecked] = useState(false);
 const [isChecked1, setIsChecked1] = useState(false);
 const [isChecked2, setIsChecked2] = useState(false);
+const navigate = useNavigate();
 
 // Ref 생성
 const checkboxesRef = useRef([]);
@@ -60,7 +62,7 @@ const handleSelectAllChange = (e) => {
   // 완료 버튼 클릭 핸들러
   const signUp = () => {
     if (selectAllChecked) {
-      // 완료 버튼 클릭 시 처리할 내용
+      navigate('/member/join/');
     } else {
       alert('모두 동의해주세요');
     }

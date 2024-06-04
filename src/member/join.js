@@ -198,20 +198,20 @@ const [phoneNumber, setPhoneNumber] = React.useState('');
 const [certifiedNumber, setCertifiedNumber] = React.useState('');
 
 const sendSMS = () => {
-  // 서버로 전화번호를 보내는 AJAX 요청
-  fetch('/check/sendSMS', {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ phoneNumber: phoneNumber })
-  })
-      .then(response => response.text())
-      .then(data => {
-          setCertifiedNumber(data);
-          Swal.fire('인증번호 발송 완료!');
-      })
-      .catch(error => console.error('Error:', error));
+    // 서버로 전화번호를 보내는 AJAX 요청
+    fetch('/check/sendsms', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userInput: phoneNumber })
+    })
+    .then(response => response.text())
+    .then(data => {
+        setCertifiedNumber(data);
+        Swal.fire('인증번호 발송 완료!');
+    })
+    .catch(error => console.error('Error:', error));
 };
 
 const verifyPhoneNumber = () => {
@@ -237,7 +237,7 @@ const verifyPhoneNumber = () => {
       })
           .then(response => {
               if (response.ok) {
-                  document.location.href = "/home";
+                //   document.location.href = "/home";
               } else {
                   throw new Error('Network response was not ok.');
               }
@@ -417,15 +417,15 @@ const verifyPhoneNumber = () => {
                         </div>
                         <div className='age'>
                             <span className="sub-title">나이</span>
-                            <input id="memage" className="join-age" placeholder='20'></input> 세
+                            <input id="memage" className="join-age" placeholder=''></input> 세
                         </div>
                         <div className='height'>
                             <span className="sub-title">키</span>
-                            <input id='memheight' className="join-height" name="memberHeight" placeholder="170.0" /> cm
+                            <input id='memheight' className="join-height" name="memberHeight" placeholder="" /> cm
                         </div>
                         <div className='weight'>
                             <span className="sub-title">몸무게</span>
-                            <input id='memweight' className="join-weight" name="memberWeight" placeholder="65.0" /> kg
+                            <input id='memweight' className="join-weight" name="memberWeight" placeholder="" /> kg
                         </div>
                         </div>
                             
