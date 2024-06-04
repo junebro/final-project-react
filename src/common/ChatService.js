@@ -7,30 +7,31 @@ let stompClient = null;
 export const getIsConnected = () => isConnected;
 
 const connect = (onMessageReceived) => {
-  const token = localStorage.getItem('authToken');  // 로컬 스토리지에서 토큰 가져오기
-  if (!token) {
-    console.error("No token found, cannot connect to WebSocket");
-    return;
-  }
+  // 로컬 스토리지에서 토큰 가져오기
+  const token = localStorage.getItem('authToken');
+  // WebSocket URL에 토큰을 쿼리 파라미터로 추가
+  const serverUrl = `http://localhost:8989/userchat?token=${token}`;
 
-  const serverUrl = `http://localhost:8989/userchat`;  // WebSocket URL
+  console.log("Connecting to WebSocket at", serverUrl);
 
   stompClient = new Client({
     webSocketFactory: () => new SockJS(serverUrl),
-    connectHeaders: {
-      Authorization: `Bearer ${token}`
-    },
     debug: (str) => {
       console.log(str);
     },
-    reconnectDelay: 5000  // 자동 재연결 간격
+    reconnectDelay: 5000,  // 자동 재연결 간격
   });
 
   stompClient.onConnect = (frame) => {
     isConnected = true;
     console.log("Connected:", frame);
     stompClient.subscribe('/topic/messages', (message) => {
-      onMessageReceived(JSON.parse(message.body));
+      try {
+        console.log("Received message body:", message.body); // 로그 추가
+        onMessageReceived(JSON.parse(message.body));
+      } catch (error) {
+        console.error('Failed to parse message:', error);
+      }
     });
   };
 

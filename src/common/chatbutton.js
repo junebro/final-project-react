@@ -4,7 +4,7 @@ import './css/chatbutton.css';
 const ChatButton = ({ onClick }) => {
   return (
     <button className="chat-button" onClick={onClick}>
-      채팅 시작
+      채팅 상담
     </button>
   );
 };
